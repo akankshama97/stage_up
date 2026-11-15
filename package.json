@@ -1,0 +1,16 @@
+{
+  "name": "stageup-monorepo",
+  "version": "1.0.0",
+  "description": "StageUp - Proof-of-work talent hiring app for Indian creators (MERN stack)",
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "start": "node backend/server.js",
+    "server": "cd backend && npm start",
+    "client": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "seed": "node backend/server.js"
+  },
+  "keywords": ["talent", "reels", "indian-creators", "mern", "vite", "tailwind"],
+  "author": "StageUp Team",
+  "license": "ISC"
+}

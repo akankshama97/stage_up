@@ -1,0 +1,320 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <defs>
+    <!-- Dark DaVinci Resolve UI Gradients -->
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#181A1D" />
+      <stop offset="100%" stop-color="#101113" />
+    </linearGradient>
+    <linearGradient id="monitorGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#24272C" />
+      <stop offset="100%" stop-color="#15171A" />
+    </linearGradient>
+    <linearGradient id="trackV1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00838F" />
+      <stop offset="100%" stop-color="#0097A7" />
+    </linearGradient>
+    <linearGradient id="trackV2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1565C0" />
+      <stop offset="100%" stop-color="#1976D2" />
+    </linearGradient>
+    <linearGradient id="trackV3" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#D84315" />
+      <stop offset="100%" stop-color="#E64A19" />
+    </linearGradient>
+    <linearGradient id="trackA1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2E7D32" />
+      <stop offset="100%" stop-color="#388E3C" />
+    </linearGradient>
+    <linearGradient id="trackA2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6A1B9A" />
+      <stop offset="100%" stop-color="#7B1FA2" />
+    </linearGradient>
+    <linearGradient id="waveformGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#81C784" />
+      <stop offset="100%" stop-color="#388E3C" />
+    </linearGradient>
+    <linearGradient id="creatorSkin" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#D49B74" />
+      <stop offset="100%" stop-color="#B2734C" />
+    </linearGradient>
+    <linearGradient id="wheelColor" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF5252" />
+      <stop offset="50%" stop-color="#69F0AE" />
+      <stop offset="100%" stop-color="#448AFF" />
+    </linearGradient>
+  </defs>
+
+  <!-- 1. MAIN BACKGROUND -->
+  <rect width="1280" height="720" fill="url(#bgGrad)" />
+
+  <!-- 2. TOP MENU / HEADER BAR -->
+  <rect x="0" y="0" width="1280" height="32" fill="#141518" />
+  <line x1="0" y1="32" x2="1280" y2="32" stroke="#26292E" stroke-width="1" />
+  <text x="16" y="20" fill="#E0E0E0" font-family="-apple-system, sans-serif" font-size="12" font-weight="700">DaVinci Resolve Studio</text>
+  <text x="175" y="20" fill="#888C94" font-family="-apple-system, sans-serif" font-size="11">Delhi_Cafe_Launch_Reel_ColorGrade.drp • 1080x1920 (9:16 Vertical) • 60.00 fps</text>
+
+  <!-- Menu items -->
+  <g fill="#A0A5B0" font-family="-apple-system, sans-serif" font-size="11">
+    <text x="750" y="20">Media</text>
+    <text x="800" y="20">Cut</text>
+    <text x="835" y="20" fill="#FF4D2E" font-weight="700">Edit</text>
+    <text x="875" y="20">Fusion</text>
+    <text x="925" y="20">Color</text>
+    <text x="970" y="20">Fairlight</text>
+    <text x="1030" y="20">Deliver</text>
+  </g>
+  <circle cx="1245" cy="16" r="5" fill="#1E7A4C" />
+  <text x="1205" y="20" fill="#1E7A4C" font-family="-apple-system, sans-serif" font-size="10" font-weight="600">60 FPS</text>
+
+  <!-- 3. UPPER WORKSPACE (Media Pool & Program Monitors) -->
+  <!-- Left Panel: Media Pool (width: 320, height: 350) -->
+  <rect x="0" y="32" width="300" height="348" fill="#181A1D" />
+  <line x1="300" y1="32" x2="300" y2="380" stroke="#26292E" stroke-width="1" />
+  
+  <rect x="12" y="44" width="276" height="26" rx="4" fill="#202328" />
+  <text x="24" y="61" fill="#FF4D2E" font-family="monospace" font-size="11" font-weight="700">📁 Master_Footage_BRAW</text>
+
+  <!-- Media Clips in Bin -->
+  <g transform="translate(14, 82)">
+    <!-- Item 1 -->
+    <rect x="0" y="0" width="128" height="74" rx="4" fill="#22262C" stroke="#2F343D" stroke-width="1" />
+    <rect x="0" y="54" width="128" height="20" rx="0" fill="#181A1D" />
+    <text x="8" y="68" fill="#B0B5C0" font-family="-apple-system, sans-serif" font-size="10">Priya_Hook_01.braw</text>
+    <circle cx="20" cy="28" r="14" fill="#D49B74" opacity="0.6" />
+    <path d="M10 44 Q 20 32 30 44" fill="#E65100" />
+    <!-- Item 2 -->
+    <rect x="140" y="0" width="128" height="74" rx="4" fill="#22262C" stroke="#2F343D" stroke-width="1" />
+    <rect x="140" y="54" width="128" height="20" rx="0" fill="#181A1D" />
+    <text x="148" y="68" fill="#B0B5C0" font-family="-apple-system, sans-serif" font-size="10">Broll_Coffee_Pour.mov</text>
+    <rect x="156" y="16" width="30" height="25" rx="3" fill="#6D4C41" />
+    <!-- Item 3 -->
+    <rect x="0" y="86" width="128" height="74" rx="4" fill="#22262C" stroke="#2F343D" stroke-width="1" />
+    <rect x="0" y="140" width="128" height="20" rx="0" fill="#181A1D" />
+    <text x="8" y="154" fill="#B0B5C0" font-family="-apple-system, sans-serif" font-size="10">LUT_FilmicWarm.cube</text>
+    <circle cx="20" cy="115" r="12" fill="url(#wheelColor)" />
+    <!-- Item 4 -->
+    <rect x="140" y="86" width="128" height="74" rx="4" fill="#22262C" stroke="#2F343D" stroke-width="1" />
+    <rect x="140" y="140" width="128" height="20" rx="0" fill="#181A1D" />
+    <text x="148" y="154" fill="#B0B5C0" font-family="-apple-system, sans-serif" font-size="10">Beat_128BPM_Master.wav</text>
+    <path d="M150 115 L 160 105 L 170 125 L 180 110 L 190 120" stroke="#81C784" stroke-width="2" fill="none" />
+  </g>
+
+  <!-- Center-Right: Vertical Reel Program Viewer (9:16 mobile format display) -->
+  <rect x="300" y="32" width="700" height="348" fill="#141517" />
+  
+  <!-- 9:16 Vertical Video Frame (200x340) centered -->
+  <g transform="translate(550, 40)">
+    <!-- Video Monitor Outer Border -->
+    <rect x="0" y="0" width="195" height="332" rx="6" fill="#0A0B0C" stroke="#333740" stroke-width="2" />
+    
+    <!-- Video Content (Indian Creator Talking Head) -->
+    <rect x="4" y="4" width="187" height="324" rx="4" fill="#1C1814" />
+    
+    <!-- Studio Ambient Background lighting (Warm bokeh) -->
+    <circle cx="30" cy="80" r="45" fill="#E65100" opacity="0.35" />
+    <circle cx="160" cy="120" r="50" fill="#1565C0" opacity="0.3" />
+    
+    <!-- Indian Female Creator Avatar/Figure on timeline -->
+    <!-- Hair -->
+    <ellipse cx="98" cy="120" rx="38" ry="46" fill="#1B1614" />
+    <!-- Face -->
+    <ellipse cx="98" cy="126" rx="28" ry="34" fill="url(#creatorSkin)" />
+    <!-- Eyes & Smile -->
+    <ellipse cx="88" cy="122" rx="3.5" ry="2" fill="#2E1C12" />
+    <ellipse cx="108" cy="122" rx="3.5" ry="2" fill="#2E1C12" />
+    <circle cx="98" cy="115" r="1.5" fill="#D84315" /> <!-- Bindi -->
+    <path d="M 90 138 Q 98 146 106 138" stroke="#B71C1C" stroke-width="2.5" fill="none" stroke-linecap="round" />
+    <!-- Shoulders / Indian Kurta -->
+    <path d="M 52 195 C 60 160, 136 160, 144 195 L 144 260 L 52 260 Z" fill="#C2185B" />
+    <!-- Studio Shure SM7B Mic on arm -->
+    <rect x="30" y="145" width="38" height="18" rx="5" fill="#2A2D34" stroke="#454A54" stroke-width="1.5" />
+    <line x1="12" y1="180" x2="35" y2="155" stroke="#3E434D" stroke-width="4" />
+    
+    <!-- Kinetic Captions Overlay (Bold Yellow & White Text) -->
+    <rect x="18" y="210" width="158" height="28" rx="4" fill="#000000" opacity="0.85" />
+    <text x="97" y="228" fill="#FFEB3B" font-family="-apple-system, Impact, sans-serif" font-size="12" font-weight="900" text-anchor="middle" letter-spacing="0.5">STOP SCROLLING 🔥</text>
+
+    <rect x="22" y="244" width="150" height="24" rx="4" fill="#000000" opacity="0.85" />
+    <text x="97" y="260" fill="#FFFFFF" font-family="-apple-system, Impact, sans-serif" font-size="11" font-weight="900" text-anchor="middle">DELHI CAFE SECRETS</text>
+
+    <!-- 100% Escrow / StageUp Watermark in player -->
+    <rect x="12" y="12" width="68" height="16" rx="3" fill="#FF4D2E" opacity="0.9" />
+    <text x="46" y="23" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">STAGEUP EDIT</text>
+
+    <!-- Timecode HUD in monitor -->
+    <rect x="100" y="12" width="82" height="16" rx="3" fill="#000000" opacity="0.8" />
+    <text x="141" y="23" fill="#00E676" font-family="monospace" font-size="9" font-weight="700" text-anchor="middle">00:00:14:18</text>
+  </g>
+
+  <!-- Right Panel: Audio Meters & Scopes (width: 280) -->
+  <rect x="1000" y="32" width="280" height="348" fill="#181A1D" />
+  <line x1="1000" y1="32" x2="1000" y2="380" stroke="#26292E" stroke-width="1" />
+  <text x="1016" y="54" fill="#B0B5C0" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">Audio Master Peak • dBFS</text>
+
+  <!-- Audio VU Stereo Bars -->
+  <g transform="translate(1020, 70)">
+    <rect x="0" y="0" width="16" height="180" rx="2" fill="#1F2329" />
+    <rect x="0" y="40" width="16" height="140" rx="2" fill="#00E676" />
+    <rect x="0" y="20" width="16" height="20" rx="0" fill="#FFD600" />
+    <rect x="0" y="8" width="16" height="12" rx="0" fill="#FF1744" />
+
+    <rect x="22" y="0" width="16" height="180" rx="2" fill="#1F2329" />
+    <rect x="22" y="45" width="16" height="135" rx="2" fill="#00E676" />
+    <rect x="22" y="25" width="16" height="20" rx="0" fill="#FFD600" />
+    <rect x="22" y="10" width="16" height="15" rx="0" fill="#FF1744" />
+    
+    <text x="46" y="15" fill="#FF1744" font-family="monospace" font-size="9">0 dB</text>
+    <text x="46" y="45" fill="#FFD600" font-family="monospace" font-size="9">-6 dB</text>
+    <text x="46" y="90" fill="#00E676" font-family="monospace" font-size="9">-12 dB</text>
+    <text x="46" y="140" fill="#00E676" font-family="monospace" font-size="9">-24 dB</text>
+  </g>
+
+  <!-- Waveform Vectorscope / Parade preview in top right -->
+  <g transform="translate(1100, 70)">
+    <rect x="0" y="0" width="160" height="110" rx="4" fill="#0F1012" stroke="#2B2F38" stroke-width="1" />
+    <text x="8" y="16" fill="#888E99" font-family="monospace" font-size="9">COLOR PARADE</text>
+    <!-- RGB Parade Bars -->
+    <path d="M 20 80 Q 30 40 40 75 T 60 50" stroke="#FF5252" stroke-width="1.5" fill="none" opacity="0.8" />
+    <path d="M 70 85 Q 80 45 90 80 T 110 55" stroke="#69F0AE" stroke-width="1.5" fill="none" opacity="0.8" />
+    <path d="M 120 78 Q 130 38 140 70 T 155 48" stroke="#448AFF" stroke-width="1.5" fill="none" opacity="0.8" />
+  </g>
+
+  <!-- 4. TIMELINE WORKSPACE (Lower 340px) -->
+  <!-- Timeline Header / Ruler Toolbar -->
+  <rect x="0" y="380" width="1280" height="340" fill="#121316" />
+  <line x1="0" y1="380" x2="1280" y2="380" stroke="#2B2F38" stroke-width="1" />
+
+  <!-- Timeline Timecode display & Tools Bar -->
+  <rect x="0" y="380" width="1280" height="34" fill="#1A1C20" />
+  <line x1="0" y1="414" x2="1280" y2="414" stroke="#2B2F38" stroke-width="1" />
+
+  <text x="16" y="402" fill="#00E676" font-family="monospace" font-size="14" font-weight="700">00:00:14:18</text>
+  
+  <!-- Editing Tool Icons (Selection, Razor blade, Snapping, Magnet) -->
+  <g transform="translate(160, 388)" fill="#A0A5B0">
+    <rect x="0" y="0" width="24" height="20" rx="3" fill="#2B2F38" />
+    <text x="7" y="14" fill="#FF4D2E" font-family="sans-serif" font-size="12">↖</text> <!-- Arrow -->
+    <rect x="30" y="0" width="24" height="20" rx="3" fill="#22252B" />
+    <text x="36" y="14" fill="#E0E0E0" font-family="sans-serif" font-size="12">✂</text> <!-- Razor Blade -->
+    <rect x="60" y="0" width="24" height="20" rx="3" fill="#22252B" />
+    <text x="68" y="14" fill="#E0E0E0" font-family="sans-serif" font-size="11">🧲</text> <!-- Magnet snap -->
+    <rect x="90" y="0" width="24" height="20" rx="3" fill="#22252B" />
+    <text x="96" y="14" fill="#E0E0E0" font-family="sans-serif" font-size="11">⚐</text> <!-- Marker -->
+  </g>
+
+  <!-- Timeline Time Ruler (00s to 30s) -->
+  <g transform="translate(160, 414)" fill="#686E7B" font-family="monospace" font-size="9">
+    <line x1="0" y1="0" x2="1120" y2="0" stroke="#2B2F38" stroke-width="1" />
+    <!-- Ticks -->
+    <text x="0" y="14">00:00</text><line x1="0" y1="0" x2="0" y2="18" stroke="#3F4450" />
+    <text x="180" y="14">00:05</text><line x1="180" y1="0" x2="180" y2="18" stroke="#3F4450" />
+    <text x="360" y="14">00:10</text><line x1="360" y1="0" x2="360" y2="18" stroke="#3F4450" />
+    <text x="540" y="14">00:15</text><line x1="540" y1="0" x2="540" y2="18" stroke="#3F4450" />
+    <text x="720" y="14">00:20</text><line x1="720" y1="0" x2="720" y2="18" stroke="#3F4450" />
+    <text x="900" y="14">00:25</text><line x1="900" y1="0" x2="900" y2="18" stroke="#3F4450" />
+    <text x="1080" y="14">00:30</text><line x1="1080" y1="0" x2="1080" y2="18" stroke="#3F4450" />
+  </g>
+
+  <!-- Track Headers (Left sidebar: width: 160) -->
+  <g transform="translate(0, 434)">
+    <!-- Video Track Headers -->
+    <rect x="0" y="0" width="160" height="42" fill="#191B1F" stroke="#262A32" stroke-width="0.5" />
+    <text x="16" y="24" fill="#D84315" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">V4 • Titles & Hooks</text>
+    <text x="128" y="24" fill="#6E7480" font-family="monospace" font-size="9">🔒 👁</text>
+
+    <rect x="0" y="44" width="160" height="42" fill="#191B1F" stroke="#262A32" stroke-width="0.5" />
+    <text x="16" y="68" fill="#AB47BC" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">V3 • Color Grade</text>
+    <text x="128" y="68" fill="#6E7480" font-family="monospace" font-size="9">🔒 👁</text>
+
+    <rect x="0" y="88" width="160" height="42" fill="#191B1F" stroke="#262A32" stroke-width="0.5" />
+    <text x="16" y="112" fill="#1976D2" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">V2 • Macro B-Roll</text>
+    <text x="128" y="112" fill="#6E7480" font-family="monospace" font-size="9">🔒 👁</text>
+
+    <rect x="0" y="132" width="160" height="42" fill="#191B1F" stroke="#262A32" stroke-width="0.5" />
+    <text x="16" y="156" fill="#0097A7" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">V1 • Priya A-Roll</text>
+    <text x="128" y="156" fill="#6E7480" font-family="monospace" font-size="9">🔒 👁</text>
+
+    <!-- Audio Track Headers -->
+    <rect x="0" y="176" width="160" height="42" fill="#191B1F" stroke="#262A32" stroke-width="0.5" />
+    <text x="16" y="200" fill="#388E3C" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">A1 • Voice Dialogue</text>
+    <text x="128" y="200" fill="#6E7480" font-family="monospace" font-size="9">M S 🎚</text>
+
+    <rect x="0" y="220" width="160" height="42" fill="#191B1F" stroke="#262A32" stroke-width="0.5" />
+    <text x="16" y="244" fill="#7B1FA2" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">A2 • Beat / Music</text>
+    <text x="128" y="244" fill="#6E7480" font-family="monospace" font-size="9">M S 🎚</text>
+
+    <rect x="0" y="264" width="160" height="38" fill="#191B1F" stroke="#262A32" stroke-width="0.5" />
+    <text x="16" y="286" fill="#FFA000" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">A3 • Whoosh SFX</text>
+    <text x="128" y="286" fill="#6E7480" font-family="monospace" font-size="9">M S 🎚</text>
+  </g>
+
+  <!-- 5. TIMELINE CLIPS ON TRACKS -->
+  <g transform="translate(160, 434)">
+    <!-- Track V4 (Kinetic Subtitles) -->
+    <rect x="0" y="4" width="160" height="34" rx="4" fill="url(#trackV3)" stroke="#BF360C" stroke-width="1" />
+    <text x="10" y="25" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">Caption: STOP_SCROLL</text>
+
+    <rect x="170" y="4" width="190" height="34" rx="4" fill="url(#trackV3)" stroke="#BF360C" stroke-width="1" />
+    <text x="180" y="25" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">Caption: DELHI_CAFE_VIRAL</text>
+
+    <rect x="370" y="4" width="220" height="34" rx="4" fill="url(#trackV3)" stroke="#BF360C" stroke-width="1" />
+    <text x="380" y="25" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">Caption: SECRET_ROOFTOP</text>
+
+    <rect x="600" y="4" width="260" height="34" rx="4" fill="url(#trackV3)" stroke="#BF360C" stroke-width="1" />
+    <text x="610" y="25" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">Caption: FOLLOW_FOR_MORE</text>
+
+    <!-- Track V3 (Color Grade Adjustment Clip) -->
+    <rect x="0" y="48" width="1080" height="34" rx="4" fill="url(#trackA2)" stroke="#4A148C" stroke-width="1" />
+    <text x="12" y="69" fill="#F3E5F5" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">✨ DaVinci Color Grade • Teal &amp; Orange Film LUT • 100% Rec.709</text>
+
+    <!-- Track V2 (B-Roll Cutaways) -->
+    <rect x="110" y="92" width="130" height="34" rx="4" fill="url(#trackV2)" stroke="#0D47A1" stroke-width="1" />
+    <text x="120" y="113" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">Macro_Pour.mov</text>
+
+    <rect x="290" y="92" width="140" height="34" rx="4" fill="url(#trackV2)" stroke="#0D47A1" stroke-width="1" />
+    <text x="300" y="113" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">SpeedRamp_Cafe.mov</text>
+
+    <rect x="520" y="92" width="160" height="34" rx="4" fill="url(#trackV2)" stroke="#0D47A1" stroke-width="1" />
+    <text x="530" y="113" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">Food_360_Spin.mov</text>
+
+    <!-- Track V1 (Main A-Roll Priya Sharma Talking Head) -->
+    <rect x="0" y="136" width="310" height="34" rx="4" fill="url(#trackV1)" stroke="#006064" stroke-width="1" />
+    <text x="10" y="157" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">Priya_TalkingHead_Cut01</text>
+
+    <rect x="315" y="136" width="280" height="34" rx="4" fill="url(#trackV1)" stroke="#006064" stroke-width="1" />
+    <text x="325" y="157" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">Priya_TalkingHead_Cut02</text>
+
+    <rect x="600" y="136" width="380" height="34" rx="4" fill="url(#trackV1)" stroke="#006064" stroke-width="1" />
+    <text x="610" y="157" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">Priya_TalkingHead_CTA_Final</text>
+
+    <!-- Track A1 (Shure SM7B Voiceover Dialogue Waveform) -->
+    <rect x="0" y="180" width="980" height="34" rx="4" fill="url(#trackA1)" stroke="#1B5E20" stroke-width="1" />
+    <text x="10" y="196" fill="#E8F5E9" font-family="-apple-system, sans-serif" font-size="10" font-weight="700">Voice_DeEssed_BroadcastComp.wav</text>
+    <!-- Waveform line art -->
+    <path d="M 0 206 Q 10 188 20 206 T 40 206 T 60 185 T 80 206 T 100 188 T 120 206 T 140 185 T 160 206 T 180 188 T 200 206 T 220 185 T 240 206 T 260 188 T 280 206 T 300 185 T 320 206 T 340 188 T 360 206 T 380 185 T 400 206 T 420 188 T 440 206 T 460 185 T 480 206 T 500 188 T 520 206 T 540 185 T 560 206 T 580 188 T 600 206 T 620 185 T 640 206 T 660 188 T 680 206 T 700 185 T 720 206 T 740 188 T 760 206 T 780 185 T 800 206 T 820 188 T 840 206 T 860 185 T 880 206 T 900 188 T 920 206 T 940 185 T 960 206" stroke="#C8E6C9" stroke-width="1.8" fill="none" />
+
+    <!-- Track A2 (Beat Synced Lofi Background Music) -->
+    <rect x="0" y="224" width="1080" height="34" rx="4" fill="url(#trackA2)" stroke="#4A148C" stroke-width="1" />
+    <text x="10" y="240" fill="#EDE7F6" font-family="-apple-system, sans-serif" font-size="10" font-weight="700">128BPM_TrendingReelBeat_DuckingSidechain.wav</text>
+    <path d="M 0 248 Q 20 236 40 248 T 80 248 T 120 236 T 160 248 T 200 236 T 240 248 T 280 236 T 320 248 T 360 236 T 400 248 T 440 236 T 480 248 T 520 236 T 560 248 T 600 236 T 640 248 T 680 236 T 720 248 T 760 236 T 800 248 T 840 236 T 880 248 T 920 236 T 960 248 T 1000 236 T 1040 248" stroke="#E1BEE7" stroke-width="1.5" fill="none" />
+
+    <!-- Track A3 (SFX Whooshes & Popups) -->
+    <rect x="105" y="268" width="40" height="26" rx="3" fill="#FF8F00" />
+    <text x="110" y="285" fill="#FFFFFF" font-family="monospace" font-size="9" font-weight="700">Woosh</text>
+    
+    <rect x="285" y="268" width="40" height="26" rx="3" fill="#FF8F00" />
+    <text x="294" y="285" fill="#FFFFFF" font-family="monospace" font-size="9" font-weight="700">Pop</text>
+
+    <rect x="515" y="268" width="45" height="26" rx="3" fill="#FF8F00" />
+    <text x="522" y="285" fill="#FFFFFF" font-family="monospace" font-size="9" font-weight="700">Whoosh</text>
+
+    <!-- 6. RED TIMELINE PLAYHEAD CURSOR (at ~14.3s = x: 516) -->
+    <g transform="translate(516, -20)">
+      <!-- Head -->
+      <polygon points="0,0 12,0 12,12 6,18 0,12" fill="#FF3D00" />
+      <text x="6" y="9" fill="#FFFFFF" font-family="monospace" font-size="7" font-weight="700" text-anchor="middle">14s</text>
+      <!-- Vertical Laser Line across all tracks -->
+      <line x1="6" y1="18" x2="6" y2="330" stroke="#FF3D00" stroke-width="2" />
+    </g>
+  </g>
+</svg>
