@@ -7,7 +7,7 @@
     "start": "node backend/server.js",
     "server": "cd backend && npm start",
     "client": "cd frontend && npm run dev",
-    "build": "cd frontend && npm run build",
+    "build": "cd frontend && npm install && npm run build",
     "seed": "node backend/server.js"
   },
   "keywords": ["talent", "reels", "indian-creators", "mern", "vite", "tailwind"],
