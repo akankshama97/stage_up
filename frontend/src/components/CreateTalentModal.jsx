@@ -137,7 +137,8 @@ export default function CreateTalentModal({ onClose, onCreated }) {
     ];
 
     try {
-      const res = await fetch('/api/talents', {
+      const apiBase = import.meta.env.VITE_API_URL || '';
+      const res = await fetch(`${apiBase}/api/talents`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

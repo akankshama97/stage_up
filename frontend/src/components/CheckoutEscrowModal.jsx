@@ -76,7 +76,8 @@ export default function CheckoutEscrowModal({ talent, project, onClose, onOrderS
 
       let orderResult = null;
       try {
-        const res = await fetch('/api/orders', {
+        const apiBase = import.meta.env.VITE_API_URL || '';
+        const res = await fetch(`${apiBase}/api/orders`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
