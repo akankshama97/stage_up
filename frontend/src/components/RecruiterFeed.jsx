@@ -30,7 +30,9 @@ import {
   FileText,
   Mic,
   Award,
-  Timer
+  Timer,
+  User,
+  LogOut
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import AiMatchModal from './AiMatchModal';
@@ -39,6 +41,10 @@ import { rankTalents, calculateMatchScore } from '../utils/aiMatchLogic';
 
 export default function RecruiterFeed({
   talents = [],
+  currentUser = null,
+  userRole = null,
+  onOpenAuth,
+  onLogout,
   shortlistedIds = new Set(),
   ordersCount = 0,
   onToggleShortlist,
@@ -414,6 +420,37 @@ export default function RecruiterFeed({
                     <span>StageUp</span>
                     <span className="w-1.5 h-1.5 rounded-full bg-[#FF4D2E] inline-block"></span>
                   </button>
+
+                  {/* Auth User Status / Login Button */}
+                  {currentUser ? (
+                    <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-neutral-100 border border-neutral-200 text-[10px] shadow-xs">
+                      <span className={`w-1.5 h-1.5 rounded-full ${currentUser.role === 'recruiter' ? 'bg-[#FF4D2E]' : 'bg-emerald-500'}`}></span>
+                      <span className="font-bold text-[#1A1A1A] max-w-[70px] truncate">
+                        {currentUser.name.split(' ')[0]}
+                      </span>
+                      <span className="text-[9px] text-neutral-500 capitalize">
+                        ({currentUser.role === 'recruiter' ? 'Recruiter' : 'Creator'})
+                      </span>
+                      {onLogout && (
+                        <button
+                          onClick={onLogout}
+                          className="text-neutral-400 hover:text-neutral-700 ml-0.5"
+                          title="Log out"
+                        >
+                          <LogOut className="w-2.5 h-2.5" />
+                        </button>
+                      )}
+                    </div>
+                  ) : onOpenAuth ? (
+                    <button
+                      onClick={() => onOpenAuth('recruiter')}
+                      className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-white hover:bg-neutral-50 text-[#1A1A1A] text-[10px] font-bold border border-neutral-200 transition shadow-xs"
+                      title="Log in or create account"
+                    >
+                      <User className="w-2.5 h-2.5 text-[#FF4D2E]" />
+                      <span>Log In</span>
+                    </button>
+                  ) : null}
                 </div>
 
                 <div className="flex items-center gap-1.5">

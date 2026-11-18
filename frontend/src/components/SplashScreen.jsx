@@ -1,8 +1,8 @@
 import React from 'react';
-import { ArrowRight, MapPin, Zap, CheckCircle2, Flame, Play, ShieldCheck } from 'lucide-react';
+import { ArrowRight, MapPin, Zap, CheckCircle2, Flame, Play, ShieldCheck, User, LogOut, Lock } from 'lucide-react';
 import recruiterImg from '../assets/recruiter-profile.jpg';
 
-export default function SplashScreen({ onStart, onSelectRole }) {
+export default function SplashScreen({ onStart, onSelectRole, currentUser, onOpenAuth, onLogout }) {
   const servicePills = [
     { label: '🎬 Reel Editing', price: '₹500' },
     { label: '🎨 Thumbnails', price: '₹250' },
@@ -17,7 +17,7 @@ export default function SplashScreen({ onStart, onSelectRole }) {
       <div className="absolute -top-16 -left-16 w-64 h-64 bg-[#FF4D2E]/[0.09] rounded-full blur-3xl pointer-events-none -z-10" />
       <div className="absolute top-1/3 -right-20 w-72 h-72 bg-[#FF4D2E]/[0.05] rounded-full blur-3xl pointer-events-none -z-10" />
 
-      {/* Header: Logo on left, "Verified Creators IN" on right */}
+      {/* Header: Logo on left, Auth / Badge on right */}
       <header className="flex items-center justify-between gap-3 pt-1 pb-3">
         <div className="flex items-center gap-2.5">
           {/* SU Logo - Soft Black with zero blue */}
@@ -30,10 +30,39 @@ export default function SplashScreen({ onStart, onSelectRole }) {
           </span>
         </div>
 
-        {/* Verified Creators IN Badge (fully visible, no cutoff) */}
-        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1E7A4C]/10 border border-[#1E7A4C]/20 text-[#1E7A4C] text-[11px] font-semibold shrink-0">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#1E7A4C] animate-pulse"></span>
-          <span>Verified Creators 🇮🇳</span>
+        <div className="flex items-center gap-2">
+          {currentUser ? (
+            <div className="flex items-center gap-1.5 pl-2 pr-1 py-1 rounded-full bg-white border border-neutral-200 shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span className="text-[11px] font-bold text-[#1A1A1A] max-w-[90px] truncate">
+                {currentUser.name.split(' ')[0]}
+              </span>
+              <span className="text-[9px] bg-neutral-100 text-neutral-600 px-1 py-0.5 rounded font-semibold capitalize">
+                {currentUser.role}
+              </span>
+              <button
+                onClick={onLogout}
+                className="w-5 h-5 rounded-full hover:bg-neutral-100 flex items-center justify-center text-neutral-400 hover:text-neutral-700 transition"
+                title="Log out"
+              >
+                <LogOut className="w-3 h-3" />
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => onOpenAuth('recruiter')}
+              className="flex items-center gap-1 px-3 py-1 rounded-full bg-white hover:bg-neutral-50 border border-neutral-200 text-[#1A1A1A] text-[11px] font-bold transition shadow-xs"
+            >
+              <User className="w-3 h-3 text-[#FF4D2E]" />
+              <span>Log In / Sign Up</span>
+            </button>
+          )}
+
+          {/* Verified Creators IN Badge (fully visible) */}
+          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#1E7A4C]/10 border border-[#1E7A4C]/20 text-[#1E7A4C] text-[11px] font-semibold shrink-0">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#1E7A4C] animate-pulse"></span>
+            <span>Verified 🇮🇳</span>
+          </div>
         </div>
       </header>
 

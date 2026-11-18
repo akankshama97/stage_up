@@ -14,12 +14,35 @@ import UrgentGigsModal from './components/UrgentGigsModal';
 import RateCardInvoiceModal from './components/RateCardInvoiceModal';
 import VoiceStudioModal from './components/VoiceStudioModal';
 import LiveSkillTestModal from './components/LiveSkillTestModal';
+import AuthModal from './components/AuthModal';
 import { fallbackTalents } from './data/fallbackTalents';
 
 export default function App() {
   // Navigation screen: 'splash' | 'role-select' | 'feed' | 'profile'
   const [currentScreen, setCurrentScreen] = useState('splash');
-  const [userRole, setUserRole] = useState(null); // 'talent' | 'recruiter'
+  
+  // Current Authenticated User (Role-Based Access Control)
+  const [currentUser, setCurrentUser] = useState(() => {
+    try {
+      const saved = localStorage.getItem('stageup_auth_user');
+      return saved ? JSON.parse(saved) : null;
+    } catch (e) {
+      return null;
+    }
+  });
+
+  const [userRole, setUserRole] = useState(() => {
+    try {
+      const saved = localStorage.getItem('stageup_auth_user');
+      return saved ? JSON.parse(saved)?.role : null;
+    } catch (e) {
+      return null;
+    }
+  }); // 'talent' | 'recruiter'
+
+  // Auth modal state
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authModalInitialRole, setAuthModalInitialRole] = useState('recruiter');
 
   // Talent data
   const [talents, setTalents] = useState(fallbackTalents);
@@ -210,6 +233,29 @@ export default function App() {
     } catch (e) {}
   };
 
+  // Auth Handlers
+  const handleAuthSuccess = (user, token) => {
+    setCurrentUser(user);
+    setUserRole(user.role);
+    if (user.role === 'talent') {
+      setCurrentScreen('feed');
+    } else {
+      setCurrentScreen('feed');
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('stageup_auth_user');
+    localStorage.removeItem('stageup_auth_token');
+    setCurrentUser(null);
+    setUserRole(null);
+  };
+
+  const handleOpenAuth = (role = 'recruiter') => {
+    setAuthModalInitialRole(role);
+    setIsAuthModalOpen(true);
+  };
+
   // On Role Select
   const handleSelectRole = (role) => {
     setUserRole(role);
@@ -235,6 +281,9 @@ export default function App() {
       {/* SCREEN 1: SPLASH SCREEN */}
       {currentScreen === 'splash' && (
         <SplashScreen
+          currentUser={currentUser}
+          onOpenAuth={handleOpenAuth}
+          onLogout={handleLogout}
           onStart={() => setCurrentScreen('feed')}
           onSelectRole={(role) => {
             if (role) {
@@ -249,6 +298,8 @@ export default function App() {
       {/* SCREEN 2: ROLE SELECT */}
       {currentScreen === 'role-select' && (
         <RoleSelectScreen
+          currentUser={currentUser}
+          onOpenAuth={handleOpenAuth}
           onSelectRole={handleSelectRole}
           onBack={() => setCurrentScreen('splash')}
         />
@@ -258,6 +309,10 @@ export default function App() {
       {currentScreen === 'feed' && (
         <RecruiterFeed
           talents={talents}
+          currentUser={currentUser}
+          userRole={userRole}
+          onOpenAuth={handleOpenAuth}
+          onLogout={handleLogout}
           shortlistedIds={shortlistedIds}
           ordersCount={orders.filter(o => o.status !== 'completed').length}
           selectedCity={selectedCity}
@@ -421,6 +476,14 @@ export default function App() {
           isAlreadyPassed={testedTalentIds.has(skillTestTalent._id)}
         />
       )}
+
+      {/* MODAL 12: ROLE-BASED LOGIN & SIGNUP (RECRUITER VS CREATOR) */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        initialRole={authModalInitialRole}
+        onClose={() => setIsAuthModalOpen(false)}
+        onAuthSuccess={handleAuthSuccess}
+      />
     </div>
   );
 }

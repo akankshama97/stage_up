@@ -13,6 +13,20 @@ const userSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  email: {
+    type: String,
+    trim: true,
+    lowercase: true,
+    default: ''
+  },
+  passwordHash: {
+    type: String,
+    default: ''
+  },
+  salt: {
+    type: String,
+    default: ''
+  },
   phone: {
     type: String,
     trim: true,
@@ -23,10 +37,21 @@ const userSchema = new mongoose.Schema({
     enum: ['talent', 'recruiter'],
     default: 'talent'
   },
+  companyName: {
+    type: String,
+    trim: true,
+    default: ''
+  },
+  isPrivate: {
+    type: Boolean,
+    default: function() {
+      return this.role === 'recruiter';
+    }
+  },
   city: {
     type: String,
-    required: true,
-    trim: true
+    trim: true,
+    default: 'Delhi'
   },
   skills: {
     type: [String],
@@ -42,7 +67,6 @@ const userSchema = new mongoose.Schema({
   },
   price: {
     type: String,
-    required: true,
     default: 'Rs 500'
   },
   priceUnit: {
