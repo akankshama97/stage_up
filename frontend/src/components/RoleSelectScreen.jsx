@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowLeft, Check, Sparkles, ArrowRight } from 'lucide-react';
 import recruiterImg from '../assets/recruiter-profile.jpg';
 
-export default function RoleSelectScreen({ onSelectRole, onBack, currentUser, onOpenAuth }) {
+export default function RoleSelectScreen({ onSelectRole, onBack, currentUser, onOpenAuth, onNavigateToLogin, onNavigateToSignup }) {
   return (
     <div className="min-h-screen bg-cream text-ink flex flex-col justify-between p-5 max-w-md mx-auto">
       {/* Top Header */}
@@ -129,23 +129,23 @@ export default function RoleSelectScreen({ onSelectRole, onBack, currentUser, on
         </div>
 
         {/* Auth direct shortcut */}
-        {onOpenAuth && !currentUser && (
+        {!currentUser && (
           <div className="mt-4 p-3 bg-white rounded-human border border-cream-border text-center shadow-xs">
             <p className="text-xs text-ink-secondary mb-2">
               Already have an account, or want to create a private recruiter account?
             </p>
             <div className="flex items-center justify-center gap-2">
               <button
-                onClick={() => onOpenAuth('recruiter')}
+                onClick={() => onNavigateToLogin ? onNavigateToLogin('recruiter') : onOpenAuth && onOpenAuth('recruiter')}
                 className="px-3 py-1.5 rounded-human bg-cream hover:bg-cream-muted text-ink font-heading font-bold text-xs border border-cream-border transition"
               >
                 💼 Recruiter Login
               </button>
               <button
-                onClick={() => onOpenAuth('talent')}
+                onClick={() => onNavigateToSignup ? onNavigateToSignup('talent') : onOpenAuth && onOpenAuth('talent')}
                 className="px-3 py-1.5 rounded-human bg-coral-light hover:bg-coral-light/80 text-coral font-heading font-bold text-xs border border-coral/30 transition"
               >
-                🎬 Creator Login
+                🎬 Creator Sign Up
               </button>
             </div>
           </div>

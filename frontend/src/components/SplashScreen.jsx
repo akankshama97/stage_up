@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowRight, MapPin, Zap, CheckCircle2, Flame, Play, ShieldCheck, User, LogOut, Lock } from 'lucide-react';
 import recruiterImg from '../assets/recruiter-profile.jpg';
 
-export default function SplashScreen({ onStart, onSelectRole, currentUser, onOpenAuth, onLogout }) {
+export default function SplashScreen({ onStart, onSelectRole, currentUser, onOpenAuth, onLogout, onNavigateToLogin, onNavigateToSignup }) {
   const servicePills = [
     { label: '🎬 Reel Editing', price: '₹500' },
     { label: '🎨 Thumbnails', price: '₹250' },
@@ -49,13 +49,24 @@ export default function SplashScreen({ onStart, onSelectRole, currentUser, onOpe
               </button>
             </div>
           ) : (
-            <button
-              onClick={() => onOpenAuth('recruiter')}
-              className="flex items-center gap-1 px-3 py-1 rounded-full bg-white hover:bg-neutral-50 border border-neutral-200 text-[#1A1A1A] text-[11px] font-bold transition shadow-xs"
-            >
-              <User className="w-3 h-3 text-[#FF4D2E]" />
-              <span>Log In / Sign Up</span>
-            </button>
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={() => onNavigateToLogin ? onNavigateToLogin('recruiter') : onOpenAuth('recruiter')}
+                className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-white hover:bg-neutral-50 border border-neutral-200 text-[#1A1A1A] text-[11px] font-bold transition shadow-xs"
+                title="Log in to existing account"
+              >
+                <Lock className="w-3 h-3 text-neutral-600" />
+                <span>Log In</span>
+              </button>
+              <button
+                onClick={() => onNavigateToSignup ? onNavigateToSignup('recruiter') : onOpenAuth('recruiter')}
+                className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#1A1A1A] hover:bg-neutral-800 text-white text-[11px] font-bold transition shadow-xs"
+                title="Create a new account"
+              >
+                <User className="w-3 h-3 text-[#FF4D2E]" />
+                <span>Sign Up</span>
+              </button>
+            </div>
           )}
 
           {/* Verified Creators IN Badge (fully visible) */}

@@ -15,11 +15,23 @@ import RateCardInvoiceModal from './components/RateCardInvoiceModal';
 import VoiceStudioModal from './components/VoiceStudioModal';
 import LiveSkillTestModal from './components/LiveSkillTestModal';
 import AuthModal from './components/AuthModal';
+import LoginPage from './components/LoginPage';
+import SignupPage from './components/SignupPage';
 import { fallbackTalents } from './data/fallbackTalents';
 
 export default function App() {
-  // Navigation screen: 'splash' | 'role-select' | 'feed' | 'profile'
-  const [currentScreen, setCurrentScreen] = useState('splash');
+  // Navigation screen: 'splash' | 'role-select' | 'feed' | 'profile' | 'login' | 'signup'
+  const [currentScreen, setCurrentScreen] = useState(() => {
+    try {
+      const hash = window.location.hash.toLowerCase();
+      if (hash === '#login') return 'login';
+      if (hash === '#signup') return 'signup';
+      if (hash === '#feed') return 'feed';
+    } catch (e) {}
+    return 'splash';
+  });
+  const [previousScreen, setPreviousScreen] = useState('splash');
+  const [authPageRole, setAuthPageRole] = useState('recruiter');
   
   // Current Authenticated User (Role-Based Access Control)
   const [currentUser, setCurrentUser] = useState(() => {
@@ -233,15 +245,32 @@ export default function App() {
     } catch (e) {}
   };
 
+  // Sync URL hash with back/forward buttons
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.toLowerCase();
+      if (hash === '#login') {
+        setCurrentScreen('login');
+      } else if (hash === '#signup') {
+        setCurrentScreen('signup');
+      } else if (hash === '#feed') {
+        setCurrentScreen('feed');
+      } else if (hash === '#splash' || hash === '' || hash === '#') {
+        // Only switch to splash if currently in login or signup
+        setCurrentScreen(prev => (prev === 'login' || prev === 'signup' ? 'splash' : prev));
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
   // Auth Handlers
   const handleAuthSuccess = (user, token) => {
     setCurrentUser(user);
     setUserRole(user.role);
-    if (user.role === 'talent') {
-      setCurrentScreen('feed');
-    } else {
-      setCurrentScreen('feed');
-    }
+    window.location.hash = '#feed';
+    setCurrentScreen('feed');
   };
 
   const handleLogout = () => {
@@ -254,6 +283,21 @@ export default function App() {
   const handleOpenAuth = (role = 'recruiter') => {
     setAuthModalInitialRole(role);
     setIsAuthModalOpen(true);
+  };
+
+  // Dedicated Page Navigators
+  const handleNavigateToLogin = (role = 'recruiter') => {
+    setPreviousScreen(currentScreen === 'login' || currentScreen === 'signup' ? 'splash' : currentScreen);
+    setAuthPageRole(role);
+    window.location.hash = '#login';
+    setCurrentScreen('login');
+  };
+
+  const handleNavigateToSignup = (role = 'recruiter') => {
+    setPreviousScreen(currentScreen === 'login' || currentScreen === 'signup' ? 'splash' : currentScreen);
+    setAuthPageRole(role);
+    window.location.hash = '#signup';
+    setCurrentScreen('signup');
   };
 
   // On Role Select
@@ -283,6 +327,8 @@ export default function App() {
         <SplashScreen
           currentUser={currentUser}
           onOpenAuth={handleOpenAuth}
+          onNavigateToLogin={handleNavigateToLogin}
+          onNavigateToSignup={handleNavigateToSignup}
           onLogout={handleLogout}
           onStart={() => setCurrentScreen('feed')}
           onSelectRole={(role) => {
@@ -300,6 +346,8 @@ export default function App() {
         <RoleSelectScreen
           currentUser={currentUser}
           onOpenAuth={handleOpenAuth}
+          onNavigateToLogin={handleNavigateToLogin}
+          onNavigateToSignup={handleNavigateToSignup}
           onSelectRole={handleSelectRole}
           onBack={() => setCurrentScreen('splash')}
         />
@@ -312,6 +360,8 @@ export default function App() {
           currentUser={currentUser}
           userRole={userRole}
           onOpenAuth={handleOpenAuth}
+          onNavigateToLogin={handleNavigateToLogin}
+          onNavigateToSignup={handleNavigateToSignup}
           onLogout={handleLogout}
           shortlistedIds={shortlistedIds}
           ordersCount={orders.filter(o => o.status !== 'completed').length}
@@ -352,6 +402,34 @@ export default function App() {
           onOpenVoiceStudio={(t) => setVoiceStudioModalTalent(t)}
           isLiveTested={testedTalentIds.has(selectedTalent._id)}
           onOpenSkillTest={(t) => setSkillTestTalent(t)}
+        />
+      )}
+
+      {/* SCREEN 5: DEDICATED LOGIN PAGE */}
+      {currentScreen === 'login' && (
+        <LoginPage
+          onBack={() => {
+            const dest = previousScreen === 'feed' ? 'feed' : 'splash';
+            window.location.hash = dest === 'feed' ? '#feed' : '#splash';
+            setCurrentScreen(dest);
+          }}
+          onNavigateToSignup={() => handleNavigateToSignup(authPageRole)}
+          onAuthSuccess={handleAuthSuccess}
+          defaultRole={authPageRole}
+        />
+      )}
+
+      {/* SCREEN 6: DEDICATED SIGNUP PAGE */}
+      {currentScreen === 'signup' && (
+        <SignupPage
+          onBack={() => {
+            const dest = previousScreen === 'feed' ? 'feed' : 'splash';
+            window.location.hash = dest === 'feed' ? '#feed' : '#splash';
+            setCurrentScreen(dest);
+          }}
+          onNavigateToLogin={() => handleNavigateToLogin(authPageRole)}
+          onAuthSuccess={handleAuthSuccess}
+          defaultRole={authPageRole}
         />
       )}
 

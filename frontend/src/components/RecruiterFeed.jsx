@@ -45,6 +45,8 @@ export default function RecruiterFeed({
   userRole = null,
   onOpenAuth,
   onLogout,
+  onNavigateToLogin,
+  onNavigateToSignup,
   shortlistedIds = new Set(),
   ordersCount = 0,
   onToggleShortlist,
@@ -441,15 +443,24 @@ export default function RecruiterFeed({
                         </button>
                       )}
                     </div>
-                  ) : onOpenAuth ? (
-                    <button
-                      onClick={() => onOpenAuth('recruiter')}
-                      className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-white hover:bg-neutral-50 text-[#1A1A1A] text-[10px] font-bold border border-neutral-200 transition shadow-xs"
-                      title="Log in or create account"
-                    >
-                      <User className="w-2.5 h-2.5 text-[#FF4D2E]" />
-                      <span>Log In</span>
-                    </button>
+                  ) : (onNavigateToLogin || onOpenAuth) ? (
+                    <div className="flex items-center gap-1">
+                      <button
+                        onClick={() => onNavigateToLogin ? onNavigateToLogin('recruiter') : onOpenAuth('recruiter')}
+                        className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-white hover:bg-neutral-50 text-[#1A1A1A] text-[10px] font-bold border border-neutral-200 transition shadow-xs"
+                        title="Log in to account"
+                      >
+                        <User className="w-2.5 h-2.5 text-[#FF4D2E]" />
+                        <span>Log In</span>
+                      </button>
+                      <button
+                        onClick={() => onNavigateToSignup ? onNavigateToSignup('recruiter') : onOpenAuth('recruiter')}
+                        className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#1A1A1A] hover:bg-neutral-800 text-white text-[10px] font-bold transition shadow-xs"
+                        title="Create an account"
+                      >
+                        <span>Sign Up</span>
+                      </button>
+                    </div>
                   ) : null}
                 </div>
 
