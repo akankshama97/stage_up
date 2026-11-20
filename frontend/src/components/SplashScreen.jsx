@@ -1,371 +1,550 @@
 import React from 'react';
 import {
   ArrowRight,
-  MapPin,
-  Zap,
-  CheckCircle2,
-  Flame,
   Play,
-  ShieldCheck,
-  User,
-  LogOut,
-  Lock,
-  Sparkles,
+  Video,
+  Palette,
+  FileText,
+  Mic,
+  Camera,
+  Briefcase,
+  Search,
   Check,
-  BadgeCheck
+  LogOut
 } from 'lucide-react';
-import recruiterImg from '../assets/recruiter-profile.jpg';
+import { Button, Card, Badge, Container, Section } from './common';
 
 export default function SplashScreen({
+  currentUser,
+  talents = [],
   onStart,
   onSelectRole,
-  currentUser,
   onOpenAuth,
   onLogout,
   onNavigateToLogin,
-  onNavigateToSignup
+  onNavigateToSignup,
+  onViewTalent
 }) {
-  const servicePills = [
-    { label: '🎞️ Reel Editing', price: '₹500' },
-    { label: '🎨 Thumbnails', price: '₹250' },
-    { label: '✍️ 45s Script', price: '₹400' },
-    { label: '🎙️ Voiceovers', price: '₹600' },
-    { label: '📸 Product Shoots', price: '₹1500' }
+  // Use first real creator from database/state or fallback
+  const previewTalent = talents && talents.length > 0 ? talents[0] : {
+    name: 'Priya Sharma',
+    skills: ['Reel Editing', 'Color Grading'],
+    price: '₹500',
+    priceUnit: 'per reel',
+    posterUrl: '/davinci-timeline.svg'
+  };
+
+  const talentPrimarySkill = previewTalent.skills && previewTalent.skills[0]
+    ? previewTalent.skills[0].split('-')[0].trim()
+    : 'Video Editor';
+
+  const talentPriceDisplay = previewTalent.price
+    ? (previewTalent.price.startsWith('₹') ? previewTalent.price : previewTalent.price.replace(/Rs\s*/i, '₹'))
+    : '₹500';
+
+  const services = [
+    { name: 'Video Editing', price: 'from ₹500', icon: Video },
+    { name: 'Thumbnail Design', price: 'from ₹250', icon: Palette },
+    { name: 'Scriptwriting', price: 'from ₹400', icon: FileText },
+    { name: 'Voiceovers', price: 'from ₹600', icon: Mic },
+    { name: 'Product Shoots', price: 'from ₹1,500', icon: Camera }
   ];
 
+  const handleRoleWork = () => {
+    if (onSelectRole) {
+      onSelectRole('talent');
+    }
+  };
+
+  const handleRoleHire = () => {
+    if (onSelectRole) {
+      onSelectRole('recruiter');
+    } else if (onStart) {
+      onStart();
+    }
+  };
+
+  const handlePreviewClick = () => {
+    if (onViewTalent && previewTalent._id) {
+      onViewTalent(previewTalent);
+    } else if (onStart) {
+      onStart();
+    }
+  };
+
+  const scrollToHowItWorks = (e) => {
+    e.preventDefault();
+    const el = document.getElementById('how-it-works');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div
-      id="splash"
-      className="min-h-screen bg-slate-50 text-slate-900 flex flex-col selection:bg-rose-100 selection:text-coral relative overflow-x-hidden font-sans"
-    >
-      {/* Dynamic Ambient Background Glows */}
-      <div className="absolute -top-32 -left-20 w-[600px] h-[600px] bg-rose-500/[0.07] rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="absolute top-1/4 -right-32 w-[650px] h-[650px] bg-indigo-500/[0.06] rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="absolute -bottom-32 left-1/3 w-[500px] h-[500px] bg-amber-500/[0.04] rounded-full blur-3xl pointer-events-none -z-10" />
-
-      {/* 1. Modern Glassmorphic Navigation Bar */}
-      <header className="sticky top-0 z-50 w-full backdrop-blur-xl bg-white/80 border-b border-slate-200/80 transition-all">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-4">
-          
-          {/* Left: SU StageUp Brand Monogram & Name */}
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-slate-950 to-slate-800 text-white flex items-center justify-center font-heading font-black text-xs sm:text-sm tracking-tight shadow-md shadow-slate-900/15 shrink-0">
-              SU
-            </div>
-            <span className="font-heading font-extrabold text-xl sm:text-2xl tracking-tight text-slate-900 flex items-center gap-1.5">
-              StageUp
-              <span className="w-2.5 h-2.5 rounded-full bg-coral inline-block shadow-[0_0_8px_#FF385C]"></span>
-            </span>
-          </div>
-
-          {/* Right: Auth buttons / User Profile + Soft "Verified HR" Tag */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            {currentUser ? (
-              <div className="flex items-center gap-2 pl-3 pr-1.5 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span className="text-xs sm:text-sm font-bold text-slate-800 max-w-[110px] truncate">
-                  {currentUser.name.split(' ')[0]}
-                </span>
-                <span className="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-semibold capitalize">
-                  {currentUser.role}
-                </span>
-                <button
-                  onClick={onLogout}
-                  className="w-6 h-6 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-700 transition cursor-pointer"
-                  title="Log out"
-                >
-                  <LogOut className="w-3.5 h-3.5" />
-                </button>
+    <div className="min-h-screen bg-bg text-text font-sans flex flex-col selection:bg-surface-muted selection:text-accent">
+      {/* 1. NAVBAR */}
+      <header className="sticky top-0 z-50 bg-surface border-b border-border">
+        <Container>
+          <div className="h-16 flex items-center justify-between gap-4">
+            {/* Logo */}
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-btn bg-text text-surface flex items-center justify-center font-heading font-bold text-xs tracking-tight select-none">
+                SU
               </div>
-            ) : (
-              <div className="flex items-center gap-2 sm:gap-3">
-                <button
-                  onClick={() => onNavigateToLogin ? onNavigateToLogin('recruiter') : onOpenAuth('recruiter')}
-                  className="text-xs sm:text-sm font-semibold text-slate-700 hover:text-coral transition-colors px-3 py-1.5 cursor-pointer flex items-center gap-1.5"
-                  title="Log in to existing account"
-                >
-                  <Lock className="w-3.5 h-3.5 text-slate-400" />
-                  <span>Log In</span>
-                </button>
-                <button
-                  onClick={() => onNavigateToSignup ? onNavigateToSignup('recruiter') : onOpenAuth('recruiter')}
-                  className="flex items-center gap-1.5 px-4 sm:px-5 py-2 rounded-full bg-gradient-to-r from-coral to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white text-xs sm:text-sm font-bold shadow-md shadow-rose-500/25 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer"
-                  title="Create a new account"
-                >
-                  <User className="w-3.5 h-3.5 text-white" />
-                  <span>Sign Up</span>
-                </button>
-              </div>
-            )}
+              <span className="font-heading font-bold text-lg text-text tracking-tight">
+                StageUp
+              </span>
+            </div>
 
-            {/* Soft "Verified HR" Tag */}
-            <div className="hidden xs:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] sm:text-xs font-semibold shrink-0">
-              <BadgeCheck className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Verified HR</span>
+            {/* Navigation Links */}
+            <nav className="hidden md:flex items-center gap-8 text-sm text-text-muted">
+              <a
+                href="#how-it-works"
+                onClick={scrollToHowItWorks}
+                className="hover:text-text transition-colors duration-150"
+              >
+                How it works
+              </a>
+              <button
+                type="button"
+                onClick={handleRoleWork}
+                className="hover:text-text transition-colors duration-150 cursor-pointer"
+              >
+                For creators
+              </button>
+              <button
+                type="button"
+                onClick={handleRoleHire}
+                className="hover:text-text transition-colors duration-150 cursor-pointer"
+              >
+                For recruiters
+              </button>
+            </nav>
+
+            {/* Auth Actions */}
+            <div className="flex items-center gap-3">
+              {currentUser ? (
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 text-xs text-text font-medium">
+                    <span className="w-2 h-2 rounded-full bg-success"></span>
+                    <span className="max-w-[120px] truncate">{currentUser.name}</span>
+                    <span className="text-text-muted">({currentUser.role})</span>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={onLogout}
+                    title="Log out"
+                  >
+                    <LogOut className="w-4 h-4" />
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() =>
+                      onNavigateToLogin
+                        ? onNavigateToLogin('recruiter')
+                        : onOpenAuth && onOpenAuth('recruiter')
+                    }
+                  >
+                    Log in
+                  </Button>
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    onClick={() =>
+                      onNavigateToSignup
+                        ? onNavigateToSignup('recruiter')
+                        : onOpenAuth && onOpenAuth('recruiter')
+                    }
+                  >
+                    Sign up
+                  </Button>
+                </>
+              )}
             </div>
           </div>
-
-        </div>
+        </Container>
       </header>
 
-      {/* Main Split-Screen Hero Content */}
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-14 flex items-center">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 w-full items-start">
-          
-          {/* ======================================================== */}
-          {/* 2. LEFT HALF: Punchy Hero Content & Trust Factors         */}
-          {/* ======================================================== */}
-          <div className="lg:col-span-6 flex flex-col justify-center space-y-6 sm:space-y-7">
+      {/* 2. HERO SECTION */}
+      <Section className="pt-8 sm:pt-14 pb-12 sm:pb-16">
+        <Container>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             
-            {/* Eye-catching pill badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-coral text-xs font-bold w-fit shadow-xs">
-              <Flame className="w-3.5 h-3.5 text-coral fill-coral" />
-              <span>Skip the CV • Show Your Skill</span>
-            </div>
+            {/* Left Column (55%) */}
+            <div className="lg:col-span-7 flex flex-col items-start">
+              {/* Badge 1 of 2 max on hero */}
+              <Badge variant="muted" className="mb-4">
+                Proof-of-work hiring
+              </Badge>
 
-            {/* High-Contrast Headline with Gradient Accent */}
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-[54px] xl:text-[60px] font-extrabold tracking-tight text-slate-900 leading-[1.08]">
-              Hire Verified <br />
-              <span className="bg-gradient-to-r from-coral via-rose-500 to-indigo-600 bg-clip-text text-transparent">
-                Indian Creators.
-              </span>
-            </h1>
+              <h1 className="font-heading font-bold text-[36px] sm:text-[56px] text-text leading-[1.1] tracking-[-0.02em] mb-4">
+                Hire creators by their{' '}
+                <span className="underline decoration-accent decoration-[3px] underline-offset-4">
+                  work
+                </span>
+                , not their resume.
+              </h1>
 
-            {/* Breathable Subtitle Description */}
-            <p className="text-slate-600 text-sm sm:text-base lg:text-[17px] leading-relaxed max-w-xl">
-              Watch 30-second proof reels of top Indian video editors, thumbnail artists &amp; scriptwriters. Transparent prices, direct WhatsApp chat, zero agency commission.
-            </p>
+              <p className="text-text-muted text-base sm:text-lg leading-[1.6] max-w-xl mb-6">
+                Watch 30-second proof reels from video editors, thumbnail artists and scriptwriters across India. See the price upfront and message them directly on WhatsApp.
+              </p>
 
-            {/* Modern Service Pill Tags */}
-            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 pt-1">
-              {servicePills.map((pill, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 shadow-xs text-xs sm:text-[13px] text-slate-800 font-medium hover:border-coral/50 hover:shadow-md hover:-translate-y-0.5 transition-all shrink-0 cursor-default"
+              {/* CTAs */}
+              <div className="flex flex-wrap items-center gap-3 mb-10 w-full sm:w-auto">
+                <Button
+                  variant="primary"
+                  size="lg"
+                  onClick={onStart}
+                  className="w-full sm:w-auto"
                 >
-                  <span>{pill.label}</span>
-                  <span className="text-coral font-bold font-heading">{pill.price}</span>
+                  Find creators
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="lg"
+                  onClick={handleRoleWork}
+                  className="w-full sm:w-auto"
+                >
+                  Join as a creator
+                </Button>
+              </div>
+
+              {/* Plain text facts row with 1px dividers */}
+              <div className="w-full border-t border-b border-border py-3 grid grid-cols-3 divide-x divide-border text-center text-xs sm:text-sm text-text-muted">
+                <div className="px-2 font-medium text-text">
+                  Starting at ₹250
                 </div>
-              ))}
-            </div>
-
-            {/* Glassmorphic Highlights Box */}
-            <div className="w-full bg-white/80 backdrop-blur-xl rounded-2xl border border-slate-200 shadow-lg shadow-slate-200/50 p-5 sm:p-6 space-y-3.5">
-              <div className="flex items-center justify-between text-xs sm:text-sm">
-                <span className="text-slate-600 font-medium flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-coral" />
-                  <span>Transparent Starting Rate</span>
-                </span>
-                <span className="font-bold text-slate-900 font-heading text-xs sm:text-sm">
-                  ₹250 - ₹1500 / gig
-                </span>
-              </div>
-
-              <div className="h-px bg-slate-100" />
-
-              <div className="flex items-center justify-between text-xs sm:text-sm">
-                <span className="text-slate-600 font-medium flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-coral" />
-                  <span>Active Creators in</span>
-                </span>
-                <span className="font-semibold text-slate-800 text-xs sm:text-sm">
-                  Noida • Delhi • Mumbai • BLR
-                </span>
-              </div>
-
-              <div className="h-px bg-slate-100" />
-
-              <div className="flex items-center justify-between text-xs sm:text-sm">
-                <span className="text-slate-600 font-medium flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-forest" />
-                  <span>Average Turnaround</span>
-                </span>
-                <span className="font-bold text-forest font-heading text-xs sm:text-sm">
-                  Under 24 Hours
-                </span>
+                <div className="px-2">
+                  Reply on WhatsApp
+                </div>
+                <div className="px-2">
+                  No agency commission
+                </div>
               </div>
             </div>
 
-            {/* Animated Social Proof */}
-            <div className="flex items-center gap-3.5 pt-1">
-              <div className="flex -space-x-2.5 shrink-0">
-                <img
-                  src="https://images.unsplash.com/photo-1617922001439-4a2e6562f328?auto=format&fit=crop&w=120&q=80"
-                  alt="Priya Sharma"
-                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2 border-white object-cover shadow-xs hover:scale-110 transition-transform duration-200"
-                />
-                <img
-                  src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=120&q=80"
-                  alt="Arjun Mehta"
-                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2 border-white object-cover shadow-xs hover:scale-110 transition-transform duration-200"
-                />
-                <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
-                  alt="Sneha Patel"
-                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2 border-white object-cover shadow-xs hover:scale-110 transition-transform duration-200"
-                />
+            {/* Right Column (45%): Real Product Preview */}
+            <div className="lg:col-span-5 w-full">
+              <Card className="p-4 sm:p-5">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="text-xs font-medium text-text-muted">
+                    Featured creator proof
+                  </div>
+                  {/* Badge 2 of 2 max on hero */}
+                  <Badge variant="muted">
+                    30s reel
+                  </Badge>
+                </div>
+
+                {/* 16:9 Video Thumbnail */}
+                <div
+                  onClick={handlePreviewClick}
+                  className="relative aspect-video w-full rounded-btn overflow-hidden bg-surface-muted border border-border cursor-pointer group"
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1200&q=80"
+                    alt={`${previewTalent.name} video timeline proof`}
+                    className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-150"
+                  />
+                  <div className="absolute inset-0 bg-text/20 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-surface text-text flex items-center justify-center shadow-soft group-hover:bg-accent group-hover:text-surface transition-colors duration-150">
+                      <Play className="w-5 h-5 ml-0.5 fill-current" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Card Meta & Details */}
+                <div className="mt-4 pt-3 border-t border-border flex items-center justify-between">
+                  <div>
+                    <h3 className="font-heading font-bold text-base text-text">
+                      {previewTalent.name}
+                    </h3>
+                    <p className="text-xs text-text-muted">
+                      {talentPrimarySkill} • {talentPriceDisplay}
+                    </p>
+                  </div>
+                  <Button
+                    variant="link"
+                    size="sm"
+                    onClick={handlePreviewClick}
+                    className="flex items-center gap-1 font-medium text-xs text-accent"
+                  >
+                    <span>View reel</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Button>
+                </div>
+              </Card>
+            </div>
+
+          </div>
+        </Container>
+      </Section>
+
+      {/* 3. SERVICES ROW */}
+      <Section className="py-8 sm:py-12 border-t border-border">
+        <Container>
+          <div className="mb-6">
+            <h2 className="font-heading font-bold text-xl text-text">
+              Popular skills
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+            {services.map((service, index) => {
+              const Icon = service.icon;
+              return (
+                <Card
+                  key={index}
+                  interactive
+                  onClick={onStart}
+                  className="p-4 flex flex-col justify-between"
+                >
+                  <Icon className="w-5 h-5 text-text stroke-[1.5] mb-3" />
+                  <div>
+                    <div className="font-medium text-sm text-text">
+                      {service.name}
+                    </div>
+                    <div className="text-xs text-text-muted mt-0.5">
+                      {service.price}
+                    </div>
+                  </div>
+                </Card>
+              );
+            })}
+          </div>
+        </Container>
+      </Section>
+
+      {/* 4. CHOOSE YOUR ROLE */}
+      <Section className="py-12 sm:py-16 border-t border-border">
+        <Container>
+          <div className="mb-6">
+            <h2 className="font-heading font-bold text-xl sm:text-2xl text-text">
+              Choose your path
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            {/* Card 1: For Creators */}
+            <Card
+              interactive
+              onClick={handleRoleWork}
+              className="p-6 flex flex-col justify-between"
+            >
+              <div>
+                <Briefcase className="w-5 h-5 text-text stroke-[1.5] mb-4" />
+                <h3 className="font-heading font-bold text-lg text-text mb-2">
+                  I'm looking for work
+                </h3>
+                <p className="text-sm text-text-muted leading-relaxed mb-6">
+                  Post 30-second proof reels of your work and get hired directly by brands on WhatsApp.
+                </p>
               </div>
-              <p className="text-xs sm:text-[13px] text-slate-600 leading-snug">
-                <strong className="text-slate-900 font-bold">450+ creators</strong> uploaded proof reels this week
+              <div className="flex items-center gap-1.5 text-sm font-medium text-accent">
+                <span>Join as a creator</span>
+                <ArrowRight className="w-4 h-4" />
+              </div>
+            </Card>
+
+            {/* Card 2: For Recruiters */}
+            <Card
+              interactive
+              onClick={handleRoleHire}
+              className="p-6 flex flex-col justify-between"
+            >
+              <div>
+                <Search className="w-5 h-5 text-text stroke-[1.5] mb-4" />
+                <h3 className="font-heading font-bold text-lg text-text mb-2">
+                  I'm hiring talent
+                </h3>
+                <p className="text-sm text-text-muted leading-relaxed mb-6">
+                  Watch unedited proof reels, verify pricing upfront, and connect with creators in minutes.
+                </p>
+              </div>
+              <div className="flex items-center gap-1.5 text-sm font-medium text-accent">
+                <span>Find creators</span>
+                <ArrowRight className="w-4 h-4" />
+              </div>
+            </Card>
+          </div>
+        </Container>
+      </Section>
+
+      {/* 5. HOW IT WORKS */}
+      <Section id="how-it-works" className="py-12 sm:py-20 border-t border-border">
+        <Container>
+          <div className="mb-10 text-left">
+            <h2 className="font-heading font-bold text-2xl sm:text-3xl text-text mb-2">
+              How it works
+            </h2>
+            <p className="text-text-muted text-sm sm:text-base">
+              A transparent, proof-first hiring flow in three simple steps.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            {/* Step 1 */}
+            <div className="space-y-3">
+              <div className="w-7 h-7 rounded-full border border-border bg-surface text-text flex items-center justify-center font-heading font-bold text-xs select-none">
+                1
+              </div>
+              <h3 className="font-heading font-bold text-base text-text">
+                Browse proof reels
+              </h3>
+              <p className="text-sm text-text-muted leading-relaxed">
+                Watch 30-second raw timeline exports and before-and-after work samples.
               </p>
             </div>
 
-          </div>
+            {/* Step 2 */}
+            <div className="space-y-3">
+              <div className="w-7 h-7 rounded-full border border-border bg-surface text-text flex items-center justify-center font-heading font-bold text-xs select-none">
+                2
+              </div>
+              <h3 className="font-heading font-bold text-base text-text">
+                Check upfront pricing
+              </h3>
+              <p className="text-sm text-text-muted leading-relaxed">
+                See exact per-project rates and turnaround times before you start chatting.
+              </p>
+            </div>
 
-          {/* ======================================================== */}
-          {/* 3. RIGHT HALF: Creative Reels Callout & Interactive Cards */}
-          {/* ======================================================== */}
-          <div className="lg:col-span-6 flex flex-col space-y-6">
-            
-            {/* Call-to-Action Video Card: Cinematic Preview for "Watch Talent Reels" */}
-            <div
+            {/* Step 3 */}
+            <div className="space-y-3">
+              <div className="w-7 h-7 rounded-full border border-border bg-surface text-text flex items-center justify-center font-heading font-bold text-xs select-none">
+                3
+              </div>
+              <h3 className="font-heading font-bold text-base text-text">
+                Chat directly on WhatsApp
+              </h3>
+              <p className="text-sm text-text-muted leading-relaxed">
+                Message creators straight away with escrow protection on every order.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* 6. SOCIAL PROOF (Skipped per instruction: only real data, none verified yet) */}
+
+      {/* 7. FINAL CTA BAND */}
+      <Section surfaceMuted className="py-14 sm:py-20 border-t border-border">
+        <Container>
+          <div className="max-w-xl mx-auto text-center flex flex-col items-center">
+            <h2 className="font-heading font-bold text-2xl sm:text-4xl text-text leading-tight mb-4">
+              Hire your next creator by their work.
+            </h2>
+            <p className="text-text-muted text-sm sm:text-base leading-relaxed mb-6">
+              Skip traditional CVs. Review actual timeline cuts and message verified creators directly.
+            </p>
+            <Button
+              variant="primary"
+              size="lg"
               onClick={onStart}
-              className="group relative cursor-pointer overflow-hidden rounded-3xl border border-slate-800/80 shadow-[0_16px_40px_-6px_rgba(255,56,92,0.25)] hover:shadow-[0_24px_50px_-4px_rgba(255,56,92,0.35)] transition-all duration-300 hover:-translate-y-1 bg-slate-950"
             >
-              {/* Cinematic Background Image with rich dark gradient */}
-              <div className="relative h-56 sm:h-64 w-full overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1200&q=80"
-                  alt="Video editing timeline proof"
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 brightness-90"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-black/40" />
-                <div className="absolute -top-10 -right-10 w-48 h-48 bg-coral/25 rounded-full blur-2xl pointer-events-none" />
+              Find creators
+            </Button>
+          </div>
+        </Container>
+      </Section>
 
-                {/* Top Badges over video */}
-                <div className="absolute top-4 left-4 right-4 flex items-center justify-between pointer-events-none">
-                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white text-[11px] font-semibold">
-                    <span className="w-2 h-2 rounded-full bg-coral animate-ping" />
-                    <span>Live Creator Reels</span>
-                  </div>
-                  <div className="px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/25 text-white text-[11px] font-medium">
-                    30s Uncut Proof
-                  </div>
+      {/* 8. FOOTER */}
+      <footer className="bg-surface border-t border-border py-12 mt-auto">
+        <Container>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+            {/* Brand column */}
+            <div className="md:col-span-1">
+              <div className="flex items-center gap-2.5 mb-3">
+                <div className="w-7 h-7 rounded-btn bg-text text-surface flex items-center justify-center font-heading font-bold text-xs">
+                  SU
                 </div>
-
-                {/* Big Center Play Button in Radiant Coral */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-tr from-coral to-rose-600 group-hover:from-rose-600 group-hover:to-coral text-white flex items-center justify-center shadow-[0_0_35px_rgba(255,56,92,0.6)] group-hover:scale-110 transition-all duration-300">
-                    <Play className="w-7 h-7 sm:w-8 sm:h-8 text-white fill-white ml-1" />
-                  </div>
-                </div>
+                <span className="font-heading font-bold text-base text-text">
+                  StageUp
+                </span>
               </div>
-
-              {/* Bottom Card Content */}
-              <div className="p-5 sm:p-6 bg-slate-950 text-white border-t border-slate-800/80">
-                <div className="flex items-center justify-between mb-1.5">
-                  <h3 className="font-heading font-extrabold text-lg sm:text-xl text-white tracking-tight flex items-center gap-2 group-hover:text-rose-300 transition-colors">
-                    <span>Watch Talent Reels</span>
-                    <ArrowRight className="w-5 h-5 text-coral group-hover:translate-x-1.5 transition-transform" />
-                  </h3>
-                  <span className="text-xs font-semibold text-coral bg-coral/15 px-3 py-0.5 rounded-full border border-coral/30">
-                    Proof-First Feed
-                  </span>
-                </div>
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                  Explore unedited timeline exports, DaVinci color grades &amp; viral hook cuts. Zero CVs, direct WhatsApp contact with top creators.
-                </p>
-              </div>
+              <p className="text-xs text-text-muted leading-relaxed max-w-xs">
+                Proof-of-work hiring for video editors, thumbnail designers and creators across India.
+              </p>
             </div>
 
-            {/* Section Heading: "CHOOSE YOUR ROLE" */}
+            {/* Link Column 1 */}
             <div>
-              <div className="flex items-center justify-between mb-3 px-1">
-                <span className="font-heading font-bold text-xs uppercase tracking-wider text-slate-500">
-                  CHOOSE YOUR ROLE
-                </span>
-                <span className="text-xs text-coral font-semibold bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-200">
-                  Instant Setup
-                </span>
+              <div className="font-heading font-bold text-xs uppercase tracking-wider text-text mb-3">
+                Platform
               </div>
-
-              {/* Two Modern High-Contrast Interactive Cards Side-by-Side */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
-                
-                {/* Card A: Creator ("Mujhe Kaam Chahiye") */}
-                <div
-                  onClick={() => onSelectRole('talent')}
-                  className="group cursor-pointer bg-white rounded-2xl border border-slate-200 p-4 shadow-sm hover:border-coral hover:shadow-xl hover:shadow-rose-500/10 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
-                >
-                  <div>
-                    {/* Creator Image with Badges */}
-                    <div className="relative h-44 sm:h-48 w-full rounded-xl overflow-hidden bg-slate-100 border border-slate-100 mb-3">
-                      <img
-                        src="https://images.unsplash.com/photo-1617922001439-4a2e6562f328?auto=format&fit=crop&w=600&h=800&q=80"
-                        alt="Indian Creator editing at desk"
-                        className="w-full h-full object-cover object-[50%_15%] group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <span className="absolute bottom-2 left-2 bg-slate-900/85 backdrop-blur-xs text-white text-[10px] font-semibold py-0.5 px-2 rounded-md">
-                        Creator
-                      </span>
-                      <span className="absolute top-2 right-2 bg-forest text-white text-[9px] font-bold py-0.5 px-2 rounded-md shadow-xs">
-                        Open
-                      </span>
-                    </div>
-
-                    <h4 className="font-heading font-bold text-base text-slate-900 group-hover:text-coral transition-colors leading-snug">
-                      Mujhe Kaam Chahiye
-                    </h4>
-                    <p className="text-xs text-slate-500 mt-1">
-                      Post reels &amp; get direct client orders
-                    </p>
-                  </div>
-
-                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-heading font-semibold text-slate-700 group-hover:text-coral transition-colors">
-                    <span>Enter as Creator</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </div>
-
-                {/* Card B: Recruiter ("Mujhe Talent Chahiye") */}
-                <div
-                  onClick={() => onSelectRole('recruiter')}
-                  className="group cursor-pointer bg-white rounded-2xl border border-slate-200 p-4 shadow-sm hover:border-indigo-500 hover:shadow-xl hover:shadow-indigo-500/10 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
-                >
-                  <div>
-                    {/* Recruiter Image with Badges */}
-                    <div className="relative h-44 sm:h-48 w-full rounded-xl overflow-hidden bg-slate-100 border border-slate-100 mb-3">
-                      <img
-                        src={recruiterImg}
-                        alt="Founder hiring creative talent"
-                        className="w-full h-full object-cover object-[50%_0%] contrast-[1.04] brightness-[0.98] group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <span className="absolute bottom-2 left-2 bg-slate-900/85 backdrop-blur-xs text-white text-[10px] font-semibold py-0.5 px-2 rounded-md">
-                        Recruiter
-                      </span>
-                      <span className="absolute top-2 right-2 bg-indigo-600 text-white text-[9px] font-bold py-0.5 px-2 rounded-md shadow-xs">
-                        Hiring
-                      </span>
-                    </div>
-
-                    <h4 className="font-heading font-bold text-base text-slate-900 group-hover:text-indigo-600 transition-colors leading-snug">
-                      Mujhe Talent Chahiye
-                    </h4>
-                    <p className="text-xs text-slate-500 mt-1">
-                      Hire &amp; view proof reels
-                    </p>
-                  </div>
-
-                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-heading font-semibold text-slate-700 group-hover:text-indigo-600 transition-colors">
-                    <span>Hire Top Talent</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </div>
-
-              </div>
+              <ul className="space-y-2 text-xs text-text-muted">
+                <li>
+                  <a href="#how-it-works" onClick={scrollToHowItWorks} className="hover:text-text transition-colors duration-150">
+                    How it works
+                  </a>
+                </li>
+                <li>
+                  <button type="button" onClick={onStart} className="hover:text-text transition-colors duration-150 text-left">
+                    Find creators
+                  </button>
+                </li>
+                <li>
+                  <button type="button" onClick={handleRoleHire} className="hover:text-text transition-colors duration-150 text-left">
+                    For recruiters
+                  </button>
+                </li>
+              </ul>
             </div>
 
-            {/* Modern Footer Trust Bar */}
-            <div className="flex items-center justify-center gap-2 text-center pt-1 text-xs text-slate-500">
-              <ShieldCheck className="w-4 h-4 text-forest" />
-              <span>Free forever for early listing • 100% Escrow Protection</span>
+            {/* Link Column 2 */}
+            <div>
+              <div className="font-heading font-bold text-xs uppercase tracking-wider text-text mb-3">
+                Creators
+              </div>
+              <ul className="space-y-2 text-xs text-text-muted">
+                <li>
+                  <button type="button" onClick={handleRoleWork} className="hover:text-text transition-colors duration-150 text-left">
+                    Join as a creator
+                  </button>
+                </li>
+                <li>
+                  <button type="button" onClick={handleRoleWork} className="hover:text-text transition-colors duration-150 text-left">
+                    Proof guidelines
+                  </button>
+                </li>
+                <li>
+                  <button type="button" onClick={onStart} className="hover:text-text transition-colors duration-150 text-left">
+                    Explore reel feed
+                  </button>
+                </li>
+              </ul>
             </div>
 
+            {/* Link Column 3 */}
+            <div>
+              <div className="font-heading font-bold text-xs uppercase tracking-wider text-text mb-3">
+                Company
+              </div>
+              <ul className="space-y-2 text-xs text-text-muted">
+                <li>
+                  <span className="text-text-muted">Built for Indian Creators</span>
+                </li>
+                <li>
+                  <span className="text-text-muted">Escrow protection included</span>
+                </li>
+                <li>
+                  <span className="text-text-muted">No agency commission</span>
+                </li>
+              </ul>
+            </div>
           </div>
 
-        </div>
-      </main>
-
+          <div className="pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3 text-[13px] text-text-muted">
+            <p>© 2026 StageUp. All rights reserved.</p>
+            <p>Proof-of-work talent network.</p>
+          </div>
+        </Container>
+      </footer>
     </div>
   );
 }

@@ -1,0 +1,16 @@
+:root {
+  --bg: #FAF7F2;
+  --surface: #FFFFFF;
+  --surface-muted: #F3EEE6;
+  --border: #E7E0D3;
+  --text: #1A1A1A;
+  --text-muted: #5F5A50;
+  --accent: #E8472B;
+  --accent-hover: #C93A21;
+  --success: #1E7A4C;
+
+  --shadow-soft: 0 1px 3px rgba(26, 26, 26, 0.06);
+  --radius-btn: 8px;
+  --radius-card: 12px;
+  --radius-tag: 4px;
+}

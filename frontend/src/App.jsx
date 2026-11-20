@@ -321,11 +321,12 @@ export default function App() {
   const shortlistedTalentsList = talents.filter(t => shortlistedIds.has(t._id));
 
   return (
-    <div className="min-h-screen bg-cream text-ink font-sans selection:bg-coral-light selection:text-coral antialiased">
-      {/* SCREEN 1: SPLASH SCREEN */}
+    <div className="min-h-screen bg-bg text-text font-sans selection:bg-surface-muted selection:text-accent antialiased">
+      {/* SCREEN 1: SPLASH SCREEN / LANDING PAGE */}
       {currentScreen === 'splash' && (
         <SplashScreen
           currentUser={currentUser}
+          talents={talents}
           onOpenAuth={handleOpenAuth}
           onNavigateToLogin={handleNavigateToLogin}
           onNavigateToSignup={handleNavigateToSignup}
@@ -337,6 +338,10 @@ export default function App() {
             } else {
               setCurrentScreen('role-select');
             }
+          }}
+          onViewTalent={(t) => {
+            setSelectedTalent(t);
+            setCurrentScreen('profile');
           }}
         />
       )}

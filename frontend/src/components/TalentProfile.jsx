@@ -55,22 +55,22 @@ export default function TalentProfile({
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 pb-24 font-sans selection:bg-rose-100 selection:text-coral">
+    <div className="min-h-screen bg-bg text-text pb-24 font-sans selection:bg-surface-muted selection:text-accent">
       {/* Top Sticky Bar */}
-      <div className="sticky top-0 z-30 bg-white/90 border-b border-slate-200 backdrop-blur-xl px-4 py-3 max-w-lg mx-auto flex items-center justify-between shadow-xs">
+      <div className="sticky top-0 z-30 bg-surface/95 border-b border-border backdrop-blur-md px-4 py-3 max-w-lg mx-auto flex items-center justify-between shadow-soft">
         <button
           onClick={onBack}
-          className="w-9 h-9 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-700 hover:text-slate-900 hover:bg-slate-200 transition shadow-2xs"
+          className="w-9 h-9 rounded-btn bg-surface border border-border flex items-center justify-center text-text hover:bg-surface-muted transition-colors duration-150"
           aria-label="Back to feed"
         >
           <ArrowLeft className="w-4 h-4" />
         </button>
 
         <div className="text-center">
-          <span className="font-heading font-extrabold text-sm tracking-tight text-slate-900 block">
+          <span className="font-heading font-bold text-sm tracking-tight text-text block">
             {talent.name}
           </span>
-          <span className="text-[11px] text-slate-500 font-medium">Talent Profile</span>
+          <span className="text-[11px] text-text-muted">Talent Profile</span>
         </div>
 
         <div className="flex items-center gap-1.5">
@@ -82,23 +82,23 @@ export default function TalentProfile({
                   particleCount: 20,
                   spread: 50,
                   origin: { y: 0.1, x: 0.9 },
-                  colors: ['#FF385C', '#059669']
+                  colors: ['#E8472B', '#1E7A4C']
                 });
               }
             }}
-            className={`w-9 h-9 rounded-xl border flex items-center justify-center transition shadow-2xs ${
+            className={`w-9 h-9 rounded-btn border flex items-center justify-center transition-colors duration-150 ${
               isShortlisted
-                ? 'bg-coral border-coral text-white'
-                : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-100'
+                ? 'bg-accent border-accent text-surface'
+                : 'bg-surface border-border text-text hover:bg-surface-muted'
             }`}
             title="Shortlist talent"
           >
-            <Heart className={`w-4 h-4 ${isShortlisted ? 'fill-white' : ''}`} />
+            <Heart className={`w-4 h-4 ${isShortlisted ? 'fill-current' : ''}`} />
           </button>
 
           <button
             onClick={handleShare}
-            className="w-9 h-9 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition shadow-2xs"
+            className="w-9 h-9 rounded-btn bg-surface border border-border flex items-center justify-center text-text hover:bg-surface-muted transition-colors duration-150"
             title="Share profile"
           >
             <Share2 className="w-4 h-4" />
@@ -107,17 +107,17 @@ export default function TalentProfile({
       </div>
 
       {/* Main Container */}
-      <div className="max-w-lg mx-auto p-4 sm:p-5 space-y-5">
+      <div className="max-w-lg mx-auto p-4 sm:p-5 space-y-4">
         {/* Profile Card Header */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+        <div className="bg-surface rounded-card border border-border p-5 shadow-soft">
           <div className="flex items-start gap-4">
             <div className="relative">
               <img
                 src={talent.avatar}
                 alt={talent.name}
-                className="w-20 h-20 rounded-2xl object-cover border-2 border-slate-100 shadow-sm"
+                className="w-20 h-20 rounded-card object-cover border border-border shadow-soft"
               />
-              <span className="absolute -bottom-1 -right-1 bg-forest text-white text-[10px] font-semibold px-2 py-0.5 rounded-full border border-white flex items-center gap-0.5">
+              <span className="absolute -bottom-1 -right-1 bg-success text-surface text-[10px] font-medium px-2 py-0.5 rounded-tag border border-surface flex items-center gap-0.5">
                 <CheckCircle className="w-2.5 h-2.5" /> Verified
               </span>
             </div>
@@ -300,17 +300,17 @@ export default function TalentProfile({
                         onClick={() => {
                           if (onBookEscrow) onBookEscrow(talent, project);
                         }}
-                        className="flex-1 py-2 px-3 rounded-xl bg-gradient-to-r from-coral to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white font-heading font-bold text-xs transition flex items-center justify-center gap-1.5 shadow-md shadow-rose-500/20 active:scale-95"
+                        className="flex-1 py-2 px-3 rounded-btn bg-accent text-surface hover:bg-accent-hover font-medium text-xs transition-colors duration-150 flex items-center justify-center gap-1.5 shadow-soft"
                       >
-                        <Lock className="w-3.5 h-3.5 text-white" />
+                        <Lock className="w-3.5 h-3.5" />
                         <span>Book with Escrow</span>
                       </button>
 
                       <button
                         onClick={() => handleHireProject(project)}
-                        className="py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-heading font-semibold text-xs transition flex items-center gap-1"
+                        className="py-2 px-3 rounded-btn bg-surface border border-border hover:bg-surface-muted text-text font-medium text-xs transition-colors duration-150 flex items-center gap-1"
                       >
-                        <MessageCircle className="w-3.5 h-3.5 text-forest" />
+                        <MessageCircle className="w-3.5 h-3.5 text-success" />
                         <span>Chat</span>
                       </button>
                     </div>
@@ -319,29 +319,29 @@ export default function TalentProfile({
               </div>
             ))
           ) : (
-            <p className="text-xs text-slate-500 p-4 bg-white rounded-2xl border border-slate-200">
+            <p className="text-xs text-text-muted p-4 bg-surface rounded-card border border-border">
               Projects are being updated for this creator.
             </p>
           )}
         </div>
 
         {/* Trust Badges */}
-        <div className="bg-emerald-50 rounded-2xl p-4 border border-emerald-200 text-center space-y-1">
-          <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-forest">
-            <ShieldCheck className="w-4 h-4 text-forest" /> 100% Escrow Protection Guaranteed
+        <div className="bg-surface-muted rounded-card p-4 border border-border text-center space-y-1">
+          <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-success">
+            <ShieldCheck className="w-4 h-4 text-success" /> 100% Escrow Protection Guaranteed
           </div>
-          <p className="text-[11px] text-emerald-800">
+          <p className="text-[11px] text-text-muted">
             Funds held securely until delivery approval. Zero platform fees for early Indian creators &amp; founders.
           </p>
         </div>
       </div>
 
       {/* STICKY BOTTOM BAR: Direct WhatsApp & Escrow CTA */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-xl border-t border-slate-200 p-3 shadow-lg">
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-surface/95 backdrop-blur-md border-t border-border p-3 shadow-soft">
         <div className="max-w-lg mx-auto flex items-center gap-2 sm:gap-3">
           <div className="hidden xs:block flex-1 min-w-0">
-            <span className="text-[10px] text-slate-500 block uppercase font-bold">Starting Rate</span>
-            <span className="font-heading font-extrabold text-sm sm:text-base text-coral">
+            <span className="text-[10px] text-text-muted block uppercase font-medium">Starting Rate</span>
+            <span className="font-heading font-bold text-sm sm:text-base text-accent">
               {talent.price}
             </span>
           </div>
@@ -354,18 +354,18 @@ export default function TalentProfile({
               };
               if (onBookEscrow) onBookEscrow(talent, primaryProj);
             }}
-            className="flex-1 bg-gradient-to-r from-coral to-rose-600 hover:from-rose-600 hover:to-rose-700 active:scale-[0.99] text-white font-heading font-extrabold text-xs sm:text-sm py-3 px-3 rounded-xl transition shadow-md shadow-rose-500/25 flex items-center justify-center gap-1.5"
+            className="flex-1 bg-accent hover:bg-accent-hover text-surface font-medium text-xs sm:text-sm py-2.5 px-3 rounded-btn transition-colors duration-150 shadow-soft flex items-center justify-center gap-1.5"
           >
-            <Lock className="w-3.5 h-3.5 text-white" />
+            <Lock className="w-3.5 h-3.5 text-surface" />
             <span>Book with Escrow</span>
           </button>
 
           <button
             onClick={() => onOpenChat(talent)}
-            className="px-3 sm:px-4 py-3 rounded-xl bg-forest hover:bg-emerald-700 text-white font-heading font-bold text-xs sm:text-sm transition flex items-center justify-center gap-1.5 shadow-sm"
+            className="px-3 sm:px-4 py-2.5 rounded-btn bg-success hover:opacity-95 text-surface font-medium text-xs sm:text-sm transition-opacity duration-150 flex items-center justify-center gap-1.5 shadow-soft"
             title="Chat on WhatsApp"
           >
-            <MessageCircle className="w-4 h-4" />
+            <MessageCircle className="w-4 h-4 text-surface" />
             <span className="hidden sm:inline">WhatsApp</span>
           </button>
 
@@ -373,14 +373,14 @@ export default function TalentProfile({
             onClick={() => {
               onToggleShortlist(talent);
             }}
-            className={`p-3 rounded-xl border transition ${
+            className={`p-2.5 rounded-btn border transition-colors duration-150 ${
               isShortlisted
-                ? 'bg-rose-50 border-coral text-coral'
-                : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-100'
+                ? 'bg-surface-muted border-accent text-accent'
+                : 'bg-surface border-border text-text hover:bg-surface-muted'
             }`}
             title="Shortlist"
           >
-            <Heart className={`w-5 h-5 ${isShortlisted ? 'fill-coral text-coral' : ''}`} />
+            <Heart className={`w-4 h-4 ${isShortlisted ? 'fill-current text-accent' : ''}`} />
           </button>
         </div>
       </div>

@@ -8,16 +8,16 @@ import {
   EyeOff,
   ArrowRight,
   Briefcase,
-  Sparkles,
   ShieldCheck,
   AlertCircle,
   CheckCircle2,
   Phone,
-  Building2,
+  Video,
+  Building,
   MapPin,
-  Link as LinkIcon,
-  Check
+  Link as LinkIcon
 } from 'lucide-react';
+import { Button, Card, Badge, Container } from './common';
 
 export default function SignupPage({
   onBack,
@@ -50,7 +50,7 @@ export default function SignupPage({
     '45s Scriptwriting - ₹400',
     'Voiceover & Dubbing - ₹600',
     'Color Grading & DaVinci - ₹750',
-    'Motion Graphics & 3D - ₹1200'
+    'Product Shoots - ₹1500'
   ];
 
   // Hiring interest options for Recruiters
@@ -59,7 +59,7 @@ export default function SignupPage({
     'YouTube Thumbnails',
     'Scriptwriters',
     'Voiceover Artists',
-    'Full-Stack Creator'
+    'Product Shoot Creators'
   ];
 
   // Quick 1-Click Demo Auto-fills
@@ -70,7 +70,7 @@ export default function SignupPage({
       setName('Aarav Mehta');
       setEmailOrPhone('aarav.founder@startup.in');
       setPassword('stageup123');
-      setCompanyName('Zenith Media D2C');
+      setCompanyName('Zenith Media');
       setCity('Bengaluru');
       setHiringInterest('Reel Editors');
     } else {
@@ -134,7 +134,7 @@ export default function SignupPage({
           if (data.token) {
             localStorage.setItem('stageup_auth_token', data.token);
           }
-          setSuccessMsg(`Welcome to StageUp, ${data.user.name.split(' ')[0]}! Setting up your workspace...`);
+          setSuccessMsg(`Welcome to StageUp, ${data.user.name.split(' ')[0]}! Setting up your account...`);
           setTimeout(() => {
             onAuthSuccess(data.user, data.token);
             setIsLoading(false);
@@ -158,15 +158,13 @@ export default function SignupPage({
       _id: `user_registered_${Date.now()}`,
       name: name.trim(),
       email: emailOrPhone.includes('@') ? emailOrPhone.trim() : `${name.toLowerCase().replace(/\s+/g, '')}@stageup.in`,
-      phone: !emailOrPhone.includes('@') ? emailOrPhone.trim() : '+919811243210',
+      phone: !emailOrPhone.includes('@') ? emailOrPhone.trim() : '+91 98112 43210',
       role,
-      companyName: isRecruiter ? (companyName.trim() || 'Brand / Studio') : '',
+      companyName: isRecruiter ? (companyName.trim() || 'Brand Studio') : '',
       isPrivate: isRecruiter,
       city,
       skills: isRecruiter ? [hiringInterest] : [skill],
-      avatar: isRecruiter
-        ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'
-        : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=400&q=80'
+      avatar: isRecruiter ? '/recruiter-profile.jpg' : 'https://images.unsplash.com/photo-1617922001439-4a2e6562f328?auto=format&fit=crop&w=400&q=80'
     };
 
     localStorage.setItem('stageup_auth_user', JSON.stringify(fallbackUser));
@@ -180,408 +178,307 @@ export default function SignupPage({
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-between p-4 sm:p-6 max-w-lg mx-auto selection:bg-rose-100 selection:text-coral animate-fadeIn font-sans">
+    <div className="min-h-screen bg-bg text-text flex flex-col justify-between font-sans selection:bg-surface-muted selection:text-accent">
       {/* Top Header */}
-      <div>
-        <header className="flex items-center justify-between pt-2 pb-5 border-b border-slate-200">
-          <button
-            onClick={onBack}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition text-xs font-semibold shadow-2xs"
-            aria-label="Back"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Back</span>
-          </button>
+      <header className="bg-surface border-b border-border py-3">
+        <Container>
+          <div className="flex items-center justify-between">
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={onBack}
+              className="gap-1.5"
+              aria-label="Back"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Back</span>
+            </Button>
 
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-slate-900 text-white flex items-center justify-center font-heading font-extrabold text-xs">
-              SU
+            {/* SU Monogram + Logo */}
+            <div className="flex items-center gap-2.5">
+              <div className="w-7 h-7 rounded-btn bg-text text-surface flex items-center justify-center font-heading font-bold text-xs select-none">
+                SU
+              </div>
+              <span className="font-heading font-bold text-base tracking-tight text-text">
+                StageUp
+              </span>
             </div>
-            <span className="font-heading font-extrabold text-base tracking-tight text-slate-900">
-              StageUp
-              <span className="w-1.5 h-1.5 rounded-full bg-coral inline-block ml-0.5 shadow-[0_0_6px_#FF385C]"></span>
-            </span>
+
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onNavigateToLogin}
+            >
+              Log in
+            </Button>
           </div>
+        </Container>
+      </header>
 
-          <button
-            onClick={onNavigateToLogin}
-            className="text-xs font-heading font-bold text-coral hover:underline"
-          >
-            Log In
-          </button>
-        </header>
-
-        {/* Page Switcher Tabs: Log In vs Sign Up */}
-        <div className="flex p-1 bg-slate-200/70 rounded-full mt-5 mb-5 border border-slate-200">
-          <button
-            type="button"
-            onClick={onNavigateToLogin}
-            className="flex-1 py-2 text-xs font-heading font-bold rounded-full text-slate-600 hover:text-slate-900 flex items-center justify-center gap-1.5 transition"
-          >
-            <Lock className="w-3.5 h-3.5" />
-            <span>Log In</span>
-          </button>
-          <button
-            type="button"
-            className="flex-1 py-2 text-xs font-heading font-bold rounded-full bg-gradient-to-r from-coral to-rose-600 text-white shadow-xs flex items-center justify-center gap-1.5 transition"
-          >
-            <User className="w-3.5 h-3.5" />
-            <span>Sign Up</span>
-          </button>
-        </div>
-
-        {/* Hero Title */}
-        <div className="mb-5">
-          <h1 className="font-heading text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-            Join StageUp 🚀
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-600 mt-1">
-            Skip the CV. Show real video proof reels, chat directly on WhatsApp, and book with 100% Escrow security.
-          </p>
-        </div>
-
-        {/* Quick Demo Pre-fill Bar */}
-        <div className="mb-5 p-3 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-[10px] font-heading font-bold uppercase tracking-wider text-slate-500">
-              ⚡ Quick Fill Form (1-Click Test)
-            </span>
-          </div>
-          <div className="grid grid-cols-2 gap-2">
+      {/* Main Signup Form Container */}
+      <main className="flex-1 flex items-center justify-center py-8 px-4">
+        <div className="w-full max-w-md">
+          {/* Switcher Tab */}
+          <div className="flex p-1 bg-surface-muted rounded-btn mb-6 border border-border">
             <button
               type="button"
-              onClick={() => handleQuickFill('recruiter')}
-              className="py-1.5 px-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 font-semibold text-xs flex items-center justify-center gap-1.5 transition"
+              onClick={onNavigateToLogin}
+              className="flex-1 py-1.5 text-xs font-medium rounded-btn text-text-muted hover:text-text flex items-center justify-center gap-1.5 transition-colors duration-150"
             >
-              <Briefcase className="w-3.5 h-3.5 text-slate-700" />
-              <span>Fill as Recruiter</span>
+              <Lock className="w-3.5 h-3.5" />
+              <span>Log in</span>
             </button>
             <button
               type="button"
-              onClick={() => handleQuickFill('talent')}
-              className="py-1.5 px-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-coral font-semibold text-xs flex items-center justify-center gap-1.5 transition"
+              className="flex-1 py-1.5 text-xs font-medium rounded-btn bg-surface text-text shadow-soft flex items-center justify-center gap-1.5"
             >
-              <Sparkles className="w-3.5 h-3.5 text-coral" />
-              <span>Fill as Creator</span>
+              <User className="w-3.5 h-3.5" />
+              <span>Sign up</span>
             </button>
           </div>
-        </div>
 
-        {/* Feedback Alerts */}
-        {errorMsg && (
-          <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 flex items-start gap-2.5 text-xs text-red-700 animate-shake">
-            <AlertCircle className="w-4 h-4 shrink-0 text-red-600 mt-0.5" />
-            <div className="flex-1">{errorMsg}</div>
-          </div>
-        )}
-
-        {successMsg && (
-          <div className="mb-4 p-3 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center gap-2.5 text-xs text-emerald-700">
-            <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
-            <span className="font-medium">{successMsg}</span>
-          </div>
-        )}
-
-        {/* Main Sign Up Form */}
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
-          {/* Step 1: Choose Account Role */}
-          <div>
-            <label className="block text-[11px] font-heading font-bold uppercase tracking-wider text-slate-500 mb-2">
-              Select Your Account Type
-            </label>
-            <div className="grid grid-cols-2 gap-2.5">
-              <button
-                type="button"
-                onClick={() => setRole('recruiter')}
-                className={`p-3 rounded-xl border text-left transition ${
-                  role === 'recruiter'
-                    ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
-                    : 'bg-slate-50 hover:bg-slate-100 text-slate-800 border-slate-200'
-                }`}
-              >
-                <div className="flex items-center justify-between mb-1">
-                  <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${role === 'recruiter' ? 'bg-slate-800 text-white' : 'bg-slate-200 text-slate-700'}`}>
-                    <Briefcase className="w-3.5 h-3.5" />
-                  </div>
-                  {role === 'recruiter' && (
-                    <span className="w-4 h-4 rounded-full bg-coral text-white flex items-center justify-center text-[10px]">✓</span>
-                  )}
-                </div>
-                <div className="font-heading font-bold text-xs">Mujhe Talent Chahiye</div>
-                <div className={`text-[10px] mt-0.5 ${role === 'recruiter' ? 'text-slate-300' : 'text-slate-500'}`}>Founders, Brands &amp; Channels</div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setRole('talent')}
-                className={`p-3 rounded-xl border text-left transition ${
-                  role === 'talent'
-                    ? 'bg-coral text-white border-coral shadow-sm shadow-rose-500/25'
-                    : 'bg-slate-50 hover:bg-slate-100 text-slate-800 border-slate-200'
-                }`}
-              >
-                <div className="flex items-center justify-between mb-1">
-                  <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${role === 'talent' ? 'bg-rose-600 text-white' : 'bg-rose-100 text-coral'}`}>
-                    <Sparkles className="w-3.5 h-3.5" />
-                  </div>
-                  {role === 'talent' && (
-                    <span className="w-4 h-4 rounded-full bg-white text-coral flex items-center justify-center text-[10px] font-black">✓</span>
-                  )}
-                </div>
-                <div className="font-heading font-bold text-xs">Mujhe Kaam Chahiye</div>
-                <div className={`text-[10px] mt-0.5 ${role === 'talent' ? 'text-rose-100' : 'text-slate-500'}`}>Editors, Designers &amp; Writers</div>
-              </button>
+          <Card className="p-6">
+            <div className="mb-5">
+              <h1 className="font-heading text-2xl font-bold text-text tracking-tight">
+                Create an account
+              </h1>
+              <p className="text-xs text-text-muted mt-1 leading-relaxed">
+                Join verified video editors, designers, and brands across India.
+              </p>
             </div>
-          </div>
 
-          {/* Full Name */}
-          <div>
-            <label className="block text-xs font-heading font-bold text-slate-700 mb-1">
-              Full Name
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                <User className="w-4 h-4" />
+            {/* Role Selector */}
+            <div className="mb-4">
+              <label className="block text-[11px] font-medium text-text-muted uppercase tracking-wider mb-2">
+                I want to
+              </label>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setRole('recruiter')}
+                  className={`py-2 px-3 rounded-btn border text-xs font-medium flex items-center justify-center gap-2 transition-colors duration-150 cursor-pointer ${
+                    role === 'recruiter'
+                      ? 'bg-text text-surface border-text'
+                      : 'bg-surface text-text border-border hover:bg-surface-muted'
+                  }`}
+                >
+                  <Briefcase className="w-3.5 h-3.5" />
+                  <span>Hire Talent</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setRole('talent')}
+                  className={`py-2 px-3 rounded-btn border text-xs font-medium flex items-center justify-center gap-2 transition-colors duration-150 cursor-pointer ${
+                    role === 'talent'
+                      ? 'bg-text text-surface border-text'
+                      : 'bg-surface text-text border-border hover:bg-surface-muted'
+                  }`}
+                >
+                  <Video className="w-3.5 h-3.5" />
+                  <span>Find Work</span>
+                </button>
               </div>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                  setErrorMsg('');
-                }}
-                placeholder="e.g. Aarav Mehta"
-                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-coral focus:ring-4 focus:ring-rose-500/10 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none transition"
-              />
             </div>
-          </div>
 
-          {/* Email or Phone */}
-          <div>
-            <label className="block text-xs font-heading font-bold text-slate-700 mb-1">
-              {role === 'talent' ? 'WhatsApp Mobile Number or Email (for Client Orders)' : 'Work Email or Mobile Number'}
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                {emailOrPhone.includes('@') ? (
-                  <Mail className="w-4 h-4" />
-                ) : (
-                  <Phone className="w-4 h-4" />
-                )}
+            {/* Quick 1-Click Demo Pre-fill */}
+            <div className="mb-4 p-2.5 rounded-btn bg-surface-muted border border-border flex items-center justify-between text-xs">
+              <span className="text-[11px] text-text-muted">1-Click Test Fill:</span>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleQuickFill('recruiter')}
+                  className="px-2 py-1 rounded-btn bg-surface border border-border text-[11px] text-text hover:bg-surface-muted font-medium"
+                >
+                  Recruiter
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleQuickFill('talent')}
+                  className="px-2 py-1 rounded-btn bg-surface border border-border text-[11px] text-text hover:bg-surface-muted font-medium"
+                >
+                  Creator
+                </button>
               </div>
-              <input
-                type="text"
-                value={emailOrPhone}
-                onChange={(e) => {
-                  setEmailOrPhone(e.target.value);
-                  setErrorMsg('');
-                }}
-                placeholder={role === 'talent' ? '+91 98112 43210 or yourname@gmail.com' : 'aarav@company.com or +91 98112 23344'}
-                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-coral focus:ring-4 focus:ring-rose-500/10 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none transition"
-              />
             </div>
-          </div>
 
-          {/* Password */}
-          <div>
-            <label className="block text-xs font-heading font-bold text-slate-700 mb-1">
-              Create Password
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                <Lock className="w-4 h-4" />
+            {/* Feedback Alerts */}
+            {errorMsg && (
+              <div className="mb-4 p-3 rounded-btn bg-surface-muted border border-border flex items-start gap-2 text-xs text-accent">
+                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                <div className="flex-1">{errorMsg}</div>
               </div>
-              <input
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  setErrorMsg('');
-                }}
-                placeholder="At least 6 characters"
-                className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-coral focus:ring-4 focus:ring-rose-500/10 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none transition"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-700 transition"
-              >
-                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-              </button>
-            </div>
-          </div>
+            )}
 
-          {/* Role-Specific Fields */}
-          {role === 'recruiter' ? (
-            <>
-              {/* Company / Brand Name */}
+            {successMsg && (
+              <div className="mb-4 p-3 rounded-btn bg-surface-muted border border-border flex items-center gap-2 text-xs text-success">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <span className="font-medium">{successMsg}</span>
+              </div>
+            )}
+
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="space-y-3.5">
               <div>
-                <label className="block text-xs font-heading font-bold text-slate-700 mb-1">
-                  Company / Brand Name <span className="text-slate-400 font-normal">(Optional)</span>
+                <label className="block text-xs font-medium text-text mb-1">
+                  Full Name
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                    <Building2 className="w-4 h-4" />
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-muted">
+                    <User className="w-4 h-4" />
                   </div>
                   <input
                     type="text"
-                    value={companyName}
-                    onChange={(e) => setCompanyName(e.target.value)}
-                    placeholder="e.g. D2C Brand, YouTube Agency, Personal Studio"
-                    className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-coral focus:ring-4 focus:ring-rose-500/10 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none transition"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder={role === 'recruiter' ? 'e.g. Aarav Mehta' : 'e.g. Priya Sharma'}
+                    className="w-full pl-9 pr-3.5 py-2 rounded-btn bg-surface border border-border text-xs sm:text-sm text-text placeholder-text-muted outline-none focus:border-accent transition-colors duration-150"
                   />
                 </div>
               </div>
 
-              {/* Looking to Hire */}
               <div>
-                <label className="block text-xs font-heading font-bold text-slate-700 mb-1.5">
-                  What are you looking to hire first?
-                </label>
-                <div className="flex flex-wrap gap-1.5">
-                  {hiringOptions.map((opt) => (
-                    <button
-                      key={opt}
-                      type="button"
-                      onClick={() => setHiringInterest(opt)}
-                      className={`px-3 py-1 rounded-full text-xs font-medium border transition ${
-                        hiringInterest === opt
-                          ? 'bg-slate-900 text-white border-slate-900 font-bold shadow-xs'
-                          : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
-                      }`}
-                    >
-                      {opt}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              {/* Primary Creative Skill */}
-              <div>
-                <label className="block text-xs font-heading font-bold text-slate-700 mb-1">
-                  Primary Creative Skill &amp; Starting Rate
-                </label>
-                <select
-                  value={skill}
-                  onChange={(e) => setSkill(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-coral focus:ring-4 focus:ring-rose-500/10 text-xs sm:text-sm text-slate-900 outline-none transition font-medium"
-                >
-                  {skillOptions.map((opt) => (
-                    <option key={opt} value={opt}>
-                      {opt}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Portfolio Link */}
-              <div>
-                <label className="block text-xs font-heading font-bold text-slate-700 mb-1">
-                  Instagram / Drive / YouTube Portfolio <span className="text-slate-400 font-normal">(Optional)</span>
+                <label className="block text-xs font-medium text-text mb-1">
+                  Email address or Phone
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                    <LinkIcon className="w-4 h-4" />
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-muted">
+                    <Mail className="w-4 h-4" />
                   </div>
                   <input
-                    type="url"
-                    value={portfolioLink}
-                    onChange={(e) => setPortfolioLink(e.target.value)}
-                    placeholder="https://instagram.com/yourhandle or drive link"
-                    className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-coral focus:ring-4 focus:ring-rose-500/10 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none transition"
+                    type="text"
+                    value={emailOrPhone}
+                    onChange={(e) => setEmailOrPhone(e.target.value)}
+                    placeholder="email@domain.com or +91..."
+                    className="w-full pl-9 pr-3.5 py-2 rounded-btn bg-surface border border-border text-xs sm:text-sm text-text placeholder-text-muted outline-none focus:border-accent transition-colors duration-150"
                   />
                 </div>
               </div>
-            </>
-          )}
 
-          {/* City / Location */}
-          <div>
-            <label className="block text-xs font-heading font-bold text-slate-700 mb-1">
-              Location / City
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                <MapPin className="w-4 h-4" />
+              {role === 'recruiter' && (
+                <div>
+                  <label className="block text-xs font-medium text-text mb-1">
+                    Company / Channel Name
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-muted">
+                      <Building className="w-4 h-4" />
+                    </div>
+                    <input
+                      type="text"
+                      value={companyName}
+                      onChange={(e) => setCompanyName(e.target.value)}
+                      placeholder="e.g. Zenith Media or YouTube Channel"
+                      className="w-full pl-9 pr-3.5 py-2 rounded-btn bg-surface border border-border text-xs sm:text-sm text-text placeholder-text-muted outline-none focus:border-accent transition-colors duration-150"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {role === 'talent' && (
+                <div>
+                  <label className="block text-xs font-medium text-text mb-1">
+                    Primary Skill & Starting Rate
+                  </label>
+                  <select
+                    value={skill}
+                    onChange={(e) => setSkill(e.target.value)}
+                    className="w-full px-3 py-2 rounded-btn bg-surface border border-border text-xs sm:text-sm text-text outline-none focus:border-accent transition-colors duration-150"
+                  >
+                    {skillOptions.map((opt) => (
+                      <option key={opt} value={opt}>
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
+              <div>
+                <label className="block text-xs font-medium text-text mb-1">
+                  Password (min 6 characters)
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-muted">
+                    <Lock className="w-4 h-4" />
+                  </div>
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Create a password"
+                    className="w-full pl-9 pr-9 py-2 rounded-btn bg-surface border border-border text-xs sm:text-sm text-text placeholder-text-muted outline-none focus:border-accent transition-colors duration-150"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-text-muted hover:text-text cursor-pointer"
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
               </div>
-              <input
-                type="text"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                placeholder="e.g. Noida, Delhi NCR, Mumbai, Bengaluru"
-                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-coral focus:ring-4 focus:ring-rose-500/10 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none transition"
-              />
+
+              <div className="pt-1">
+                <label className="flex items-center gap-2 cursor-pointer text-xs text-text-muted">
+                  <input
+                    type="checkbox"
+                    checked={agreedTerms}
+                    onChange={(e) => setAgreedTerms(e.target.checked)}
+                    className="w-4 h-4 rounded-btn border-border accent-accent"
+                  />
+                  <span>I agree to the Terms of Service & Escrow Rules</span>
+                </label>
+              </div>
+
+              <Button
+                variant="primary"
+                size="lg"
+                type="submit"
+                disabled={isLoading}
+                className="w-full"
+              >
+                {isLoading ? (
+                  <span>Creating account...</span>
+                ) : (
+                  <span className="flex items-center gap-1.5">
+                    <span>Create {role === 'recruiter' ? 'Recruiter' : 'Creator'} Account</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </span>
+                )}
+              </Button>
+            </form>
+
+            <div className="mt-5 pt-4 border-t border-border text-center">
+              <p className="text-xs text-text-muted mb-2">
+                Already have an account?
+              </p>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={onNavigateToLogin}
+                className="w-full"
+              >
+                Log in instead
+              </Button>
             </div>
-          </div>
-
-          {/* Terms Agreement */}
-          <div className="pt-1">
-            <label className="flex items-start gap-2 cursor-pointer text-xs text-slate-600">
-              <input
-                type="checkbox"
-                checked={agreedTerms}
-                onChange={(e) => setAgreedTerms(e.target.checked)}
-                className="w-4 h-4 mt-0.5 rounded border-slate-300 text-coral focus:ring-coral/20 accent-coral"
-              />
-              <span>
-                I agree to StageUp's Escrow Protection Policy, Zero-Spam Direct WhatsApp contact, and Terms of Use.
-              </span>
-            </label>
-          </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full py-3.5 rounded-xl font-heading font-extrabold text-sm flex items-center justify-center gap-2 transition-all shadow-md shadow-rose-500/25 disabled:opacity-60 text-white bg-gradient-to-r from-coral to-rose-600 hover:from-rose-600 hover:to-rose-700 active:scale-[0.99] cursor-pointer"
-          >
-            {isLoading ? (
-              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-            ) : (
-              <>
-                <span>Create {role === 'recruiter' ? 'Recruiter' : 'Creator'} Account</span>
-                <ArrowRight className="w-4 h-4" />
-              </>
-            )}
-          </button>
-        </form>
-
-        {/* Already have an account */}
-        <div className="mt-4 p-4 rounded-2xl bg-white border border-slate-200 text-center shadow-2xs">
-          <p className="text-xs text-slate-600">
-            Already have a StageUp account?
-          </p>
-          <button
-            type="button"
-            onClick={onNavigateToLogin}
-            className="mt-2 w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-heading font-bold text-xs border border-slate-200 transition flex items-center justify-center gap-1.5"
-          >
-            <Lock className="w-3.5 h-3.5 text-coral" />
-            <span>Log In to Existing Account</span>
-          </button>
+          </Card>
         </div>
-      </div>
+      </main>
 
-      {/* Trust Badges Footer */}
-      <footer className="pt-6 pb-2">
-        <div className="flex items-center justify-center gap-4 text-[11px] text-slate-500 mb-2 flex-wrap">
+      {/* Footer */}
+      <footer className="bg-surface border-t border-border py-4 text-center">
+        <div className="flex items-center justify-center gap-4 text-xs text-text-muted">
           <span className="flex items-center gap-1">
-            <ShieldCheck className="w-3.5 h-3.5 text-forest" />
-            100% Escrow Protected
+            <ShieldCheck className="w-3.5 h-3.5 text-success" />
+            Escrow Protected
           </span>
           <span>•</span>
-          <span className="flex items-center gap-1">
-            <span>🇮🇳</span>
-            Pan-India Creator Network
-          </span>
+          <span>Verified Indian Creators</span>
           <span>•</span>
-          <span>Direct WhatsApp Orders</span>
+          <span>Zero Agency Fees</span>
         </div>
-        <p className="text-[10px] text-slate-400 text-center">
-          StageUp — Skip the CV, Show Your Skill. Built for Indian Creators &amp; Modern Founders.
-        </p>
       </footer>
     </div>
   );

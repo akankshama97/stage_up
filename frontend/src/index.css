@@ -1,20 +1,36 @@
+@import './tokens.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    background-color: #F8FAFC;
-    color: #0F172A;
+    background-color: var(--bg);
+    color: var(--text);
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  a, button {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgba(232, 71, 43, 0.3);
+    outline-offset: 2px;
   }
 }
 
-/* Modern clean scrollbar */
+/* Scrollbar styles using tokens */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -23,14 +39,13 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 9999px;
+  background: var(--border);
+  border-radius: var(--radius-btn);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
+  background: var(--text-muted);
 }
 
-/* Hide scrollbar for reel feed while maintaining snap scrolling */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -39,26 +54,10 @@
   scrollbar-width: none;
 }
 
-/* Smooth snap scrolling for reel cards */
 .reel-container {
   scroll-snap-type: y mandatory;
 }
 .reel-slide {
   scroll-snap-align: start;
   scroll-snap-stop: always;
-}
-
-/* Glassmorphic utilities */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-}
-
-.glass-dark {
-  background: rgba(15, 23, 42, 0.8);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
 }

@@ -140,31 +140,31 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialRole 
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-sm animate-fadeIn font-sans">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-text/40 backdrop-blur-xs font-sans">
       <div
-        className="relative w-full max-w-md bg-white rounded-3xl border border-slate-200 shadow-2xl overflow-hidden text-slate-900 animate-scaleUp"
+        className="relative w-full max-w-md bg-surface rounded-card border border-border shadow-soft overflow-hidden text-text"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header */}
-        <div className="p-5 pb-3 bg-white border-b border-slate-100">
+        <div className="p-5 pb-3 bg-surface border-b border-border">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center font-heading font-extrabold text-xs shadow-xs">
+              <div className="w-8 h-8 rounded-btn bg-text text-surface flex items-center justify-center font-heading font-bold text-xs select-none">
                 SU
               </div>
               <div>
-                <h3 className="font-heading font-extrabold text-base text-slate-900 leading-tight">
+                <h3 className="font-heading font-bold text-base text-text leading-tight">
                   {activeTab === 'login' ? 'Welcome back to StageUp' : 'Create StageUp Account'}
                 </h3>
-                <p className="text-[11px] text-slate-500">
-                  {activeTab === 'login' ? 'Access your orders & saved talent' : 'Skip the CV • Show Your Skill'}
+                <p className="text-[11px] text-text-muted">
+                  {activeTab === 'login' ? 'Access your orders & saved talent' : 'Proof-of-work hiring network'}
                 </p>
               </div>
             </div>
 
             <button
               onClick={onClose}
-              className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition"
+              className="w-8 h-8 rounded-btn bg-surface border border-border hover:bg-surface-muted flex items-center justify-center text-text transition-colors duration-150"
               aria-label="Close"
             >
               <X className="w-4 h-4" />
@@ -172,28 +172,28 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialRole 
           </div>
 
           {/* Tab Selector: Login vs Sign Up */}
-          <div className="flex p-1 bg-slate-100 rounded-full mt-4 border border-slate-200">
+          <div className="flex p-1 bg-surface-muted rounded-btn mt-4 border border-border">
             <button
               type="button"
               onClick={() => { setActiveTab('login'); setErrorMsg(''); }}
-              className={`flex-1 py-1.5 text-xs font-heading font-bold rounded-full transition ${
+              className={`flex-1 py-1.5 text-xs font-medium rounded-btn transition-colors duration-150 ${
                 activeTab === 'login'
-                  ? 'bg-gradient-to-r from-coral to-rose-600 text-white shadow-2xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-surface text-text shadow-soft'
+                  : 'text-text-muted hover:text-text'
               }`}
             >
-              Log In
+              Log in
             </button>
             <button
               type="button"
               onClick={() => { setActiveTab('signup'); setErrorMsg(''); }}
-              className={`flex-1 py-1.5 text-xs font-heading font-bold rounded-full transition ${
+              className={`flex-1 py-1.5 text-xs font-medium rounded-btn transition-colors duration-150 ${
                 activeTab === 'signup'
-                  ? 'bg-gradient-to-r from-coral to-rose-600 text-white shadow-2xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-surface text-text shadow-soft'
+                  : 'text-text-muted hover:text-text'
               }`}
             >
-              Sign Up
+              Sign up
             </button>
           </div>
         </div>
@@ -425,13 +425,13 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialRole 
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full mt-2 py-3 px-4 bg-gradient-to-r from-coral to-rose-600 hover:from-rose-600 hover:to-rose-700 active:scale-[0.99] text-white font-heading font-extrabold text-xs rounded-xl shadow-md shadow-rose-500/25 transition flex items-center justify-center gap-1.5 disabled:opacity-50 cursor-pointer"
+              className="w-full mt-2 py-2.5 px-4 bg-accent hover:bg-accent-hover text-surface font-medium text-xs rounded-btn shadow-soft transition-colors duration-150 flex items-center justify-center gap-1.5 disabled:opacity-50 cursor-pointer"
             >
               {isLoading ? (
                 <span>Please wait...</span>
               ) : (
                 <>
-                  <span>{activeTab === 'login' ? 'Log In to StageUp' : 'Complete Registration'}</span>
+                  <span>{activeTab === 'login' ? 'Log in to StageUp' : 'Complete Registration'}</span>
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </>
               )}

@@ -369,13 +369,9 @@ export default function RecruiterFeed({
   const activeProject = currentTalent.projects?.[activeCaptionIdx % (currentTalent.projects?.length || 1)] || currentTalent.projects?.[0] || null;
 
   return (
-    <div className="relative min-h-screen bg-[#0B0F19] text-white flex flex-col items-center justify-center overflow-hidden">
-      {/* Dynamic Ambient Background Glows on Desktop */}
-      <div className="hidden sm:block absolute -top-40 -left-40 w-96 h-96 bg-rose-500/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="hidden sm:block absolute -bottom-40 -right-40 w-96 h-96 bg-indigo-500/10 rounded-full blur-[140px] pointer-events-none" />
-
-      {/* Phone container mockup on desktop, full-screen on mobile - Sleek cinema chassis */}
-      <div className="relative w-full max-w-[430px] h-[100dvh] bg-black flex flex-col justify-between overflow-hidden shadow-2xl sm:rounded-[36px] sm:h-[860px] sm:my-4 sm:border-[6px] sm:border-slate-800/90 sm:ring-1 sm:ring-white/10 sm:shadow-[0_25px_70px_rgba(0,0,0,0.7)]">
+    <div className="relative min-h-screen bg-bg text-text flex flex-col items-center justify-center p-0 sm:py-6 overflow-hidden font-sans">
+      {/* Phone container mockup on desktop, full-screen on mobile */}
+      <div className="relative w-full max-w-[430px] h-[100dvh] bg-black flex flex-col justify-between overflow-hidden shadow-soft sm:rounded-card sm:h-[840px] sm:border sm:border-border">
 
         {/* SCREEN: SMART AI MATCH RESULTS RANKED LIST */}
         {showMatchResultsScreen ? (
@@ -402,18 +398,18 @@ export default function RecruiterFeed({
           />
         ) : (
           <>
-            {/* TOP BAR: Clean frosted white with subtle shadow */}
-            <header className="absolute top-0 left-0 right-0 z-30 pt-3 pb-2.5 px-3.5 bg-white/95 backdrop-blur-xl shadow-sm border-b border-slate-200/90">
+            {/* TOP BAR: Clean frosted surface matching tokens */}
+            <header className="absolute top-0 left-0 right-0 z-30 pt-3 pb-2.5 px-3.5 bg-surface/95 backdrop-blur-md border-b border-border text-text">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-2">
                   {/* Home Navigation Button */}
                   {onGoHome && (
                     <button
                       onClick={onGoHome}
-                      className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-800 text-[11px] font-semibold transition border border-slate-200 shadow-xs"
+                      className="flex items-center gap-1 px-2.5 py-1 rounded-btn bg-surface hover:bg-surface-muted text-text text-[11px] font-medium transition-colors duration-150 border border-border"
                       title="Go back to Home page"
                     >
-                      <ArrowLeft className="w-3 h-3 text-coral" />
+                      <ArrowLeft className="w-3 h-3 text-text-muted" />
                       <span>Home</span>
                     </button>
                   )}
@@ -421,10 +417,12 @@ export default function RecruiterFeed({
                   {/* StageUp Logo */}
                   <button
                     onClick={onGoHome}
-                    className="font-heading font-extrabold text-sm sm:text-base tracking-tight text-slate-900 flex items-center gap-1 hover:opacity-90 transition text-left"
+                    className="font-heading font-bold text-sm tracking-tight text-text flex items-center gap-1.5 hover:opacity-90 transition-opacity duration-150 text-left"
                   >
+                    <div className="w-6 h-6 rounded-[6px] bg-text text-surface flex items-center justify-center font-bold text-[10px]">
+                      SU
+                    </div>
                     <span>StageUp</span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-coral inline-block shadow-[0_0_6px_#FF385C]"></span>
                   </button>
 
                   {/* Auth User Status / Login Button */}

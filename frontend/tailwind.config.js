@@ -7,39 +7,71 @@ export default {
   theme: {
     extend: {
       colors: {
-        cream: {
-          DEFAULT: '#F8FAFC',
-          card: '#FFFFFF',
-          muted: '#F1F5F9',
-          border: '#E2E8F0',
-          darker: '#CBD5E1'
+        bg: 'var(--bg)',
+        surface: {
+          DEFAULT: 'var(--surface)',
+          muted: 'var(--surface-muted)',
         },
-        paper: '#F8FAFC',
+        border: 'var(--border)',
+        text: {
+          DEFAULT: 'var(--text)',
+          muted: 'var(--text-muted)',
+        },
+        accent: {
+          DEFAULT: 'var(--accent)',
+          hover: 'var(--accent-hover)',
+        },
+        success: 'var(--success)',
+
+        // Map Tailwind slate to tokens so every component automatically conforms to the same palette
+        slate: {
+          50: 'var(--bg)',
+          100: 'var(--surface-muted)',
+          200: 'var(--border)',
+          300: 'var(--border)',
+          400: 'var(--text-muted)',
+          500: 'var(--text-muted)',
+          600: 'var(--text-muted)',
+          700: 'var(--text)',
+          800: 'var(--text)',
+          900: 'var(--text)',
+          950: 'var(--text)'
+        },
+
+        // Single-palette legacy aliases to preserve consistency across all screens
+        cream: {
+          DEFAULT: 'var(--bg)',
+          card: 'var(--surface)',
+          muted: 'var(--surface-muted)',
+          border: 'var(--border)',
+          darker: 'var(--border)'
+        },
+        paper: 'var(--bg)',
         ink: {
-          DEFAULT: '#0F172A',
-          secondary: '#334155',
-          muted: '#64748B',
-          light: '#94A3B8'
+          DEFAULT: 'var(--text)',
+          secondary: 'var(--text-muted)',
+          muted: 'var(--text-muted)',
+          light: 'var(--text-muted)'
         },
         coral: {
-          DEFAULT: '#FF385C',
-          hover: '#E02447',
-          light: '#FFF1F3',
-          border: '#FECDD3'
+          DEFAULT: 'var(--accent)',
+          hover: 'var(--accent-hover)',
+          light: 'var(--surface-muted)',
+          border: 'var(--border)'
         },
         forest: {
-          DEFAULT: '#059669',
-          hover: '#047857',
-          light: '#ECFDF5',
-          border: '#A7F3D0'
+          DEFAULT: 'var(--success)',
+          hover: 'var(--success)',
+          light: 'var(--surface-muted)',
+          border: 'var(--border)'
         },
         brand: {
-          50: '#EEF2FF',
-          100: '#E0E7FF',
-          200: '#C7D2FE',
-          500: '#6366F1',
-          600: '#4F46E5',
-          700: '#4338CA'
+          50: 'var(--surface-muted)',
+          100: 'var(--surface-muted)',
+          200: 'var(--border)',
+          500: 'var(--accent)',
+          600: 'var(--accent)',
+          700: 'var(--accent-hover)'
         }
       },
       fontFamily: {
@@ -47,18 +79,19 @@ export default {
         heading: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif']
       },
       borderRadius: {
-        'human': '16px',
-        'xl': '16px',
-        '2xl': '20px',
-        '3xl': '28px'
+        btn: 'var(--radius-btn)',
+        input: 'var(--radius-btn)',
+        card: 'var(--radius-card)',
+        tag: 'var(--radius-tag)',
       },
       boxShadow: {
-        'paper': '0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.02)',
-        'paper-lg': '0 12px 36px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04)',
-        'glow': '0 0 25px rgba(255, 56, 92, 0.3)',
-        'glow-indigo': '0 0 25px rgba(99, 102, 241, 0.3)',
-        'glass': '0 8px 32px 0 rgba(15, 23, 42, 0.08)',
-        'reel-action': '0 6px 18px rgba(0, 0, 0, 0.35)'
+        soft: 'var(--shadow-soft)',
+      },
+      transitionDuration: {
+        DEFAULT: '150ms',
+      },
+      maxWidth: {
+        content: '1120px',
       }
     },
   },
