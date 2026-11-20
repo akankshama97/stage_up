@@ -310,7 +310,7 @@ export default function RecruiterFeed({
         particleCount: 28,
         spread: 60,
         origin: { y: 0.8, x: 0.85 },
-        colors: ['#FF4D2E', '#1E7A4C', '#FAF7F2']
+        colors: ['#FF385C', '#059669', '#6366F1']
       });
     }
   };
@@ -344,21 +344,21 @@ export default function RecruiterFeed({
 
   if (!currentTalent) {
     return (
-      <div className="min-h-screen bg-[#FAF7F2] flex flex-col items-center justify-center p-6 text-center text-[#1A1A1A]">
-        <div className="w-14 h-14 bg-white border border-neutral-200 rounded-full flex items-center justify-center text-neutral-500 mb-3 shadow-xs">
-          <Search className="w-6 h-6" />
+      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-6 text-center text-white">
+        <div className="w-16 h-16 bg-slate-900 border border-slate-800 rounded-full flex items-center justify-center text-slate-400 mb-3 shadow-lg">
+          <Search className="w-7 h-7 text-coral" />
         </div>
-        <p className="font-heading font-bold text-lg text-[#1A1A1A]">
+        <p className="font-heading font-extrabold text-xl text-white">
           No creators found matching your filters
         </p>
-        <p className="text-xs text-neutral-600 mt-1 max-w-xs">
+        <p className="text-xs text-slate-400 mt-1.5 max-w-xs">
           Try clearing your search term, city selection, or budget filters.
         </p>
         <button
           onClick={resetAllFilters}
-          className="mt-4 px-4 py-2 bg-[#1A1A1A] hover:bg-neutral-800 text-white rounded-human text-xs font-bold flex items-center gap-1.5 shadow-sm transition"
+          className="mt-5 px-5 py-2.5 bg-gradient-to-r from-coral to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-lg shadow-rose-500/25 transition active:scale-95"
         >
-          <RotateCcw className="w-3.5 h-3.5" />
+          <RotateCcw className="w-4 h-4" />
           <span>Reset All Filters</span>
         </button>
       </div>
@@ -369,9 +369,13 @@ export default function RecruiterFeed({
   const activeProject = currentTalent.projects?.[activeCaptionIdx % (currentTalent.projects?.length || 1)] || currentTalent.projects?.[0] || null;
 
   return (
-    <div className="relative min-h-screen bg-[#FAF7F2] text-[#1A1A1A] flex flex-col items-center justify-center overflow-hidden">
-      {/* Phone container mockup on desktop, full-screen on mobile - Warm tactile frame */}
-      <div className="relative w-full max-w-[430px] h-[100dvh] bg-[#FAF7F2] flex flex-col justify-between overflow-hidden shadow-2xl sm:rounded-[20px] sm:h-[880px] sm:my-4 sm:border sm:border-neutral-300">
+    <div className="relative min-h-screen bg-[#0B0F19] text-white flex flex-col items-center justify-center overflow-hidden">
+      {/* Dynamic Ambient Background Glows on Desktop */}
+      <div className="hidden sm:block absolute -top-40 -left-40 w-96 h-96 bg-rose-500/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="hidden sm:block absolute -bottom-40 -right-40 w-96 h-96 bg-indigo-500/10 rounded-full blur-[140px] pointer-events-none" />
+
+      {/* Phone container mockup on desktop, full-screen on mobile - Sleek cinema chassis */}
+      <div className="relative w-full max-w-[430px] h-[100dvh] bg-black flex flex-col justify-between overflow-hidden shadow-2xl sm:rounded-[36px] sm:h-[860px] sm:my-4 sm:border-[6px] sm:border-slate-800/90 sm:ring-1 sm:ring-white/10 sm:shadow-[0_25px_70px_rgba(0,0,0,0.7)]">
 
         {/* SCREEN: SMART AI MATCH RESULTS RANKED LIST */}
         {showMatchResultsScreen ? (
@@ -398,45 +402,45 @@ export default function RecruiterFeed({
           />
         ) : (
           <>
-            {/* TOP BAR: White with soft shadow, Black text "StageUp" */}
-            <header className="absolute top-0 left-0 right-0 z-30 pt-3 pb-2.5 px-3.5 bg-white/95 backdrop-blur-md shadow-[0_2px_12px_rgba(0,0,0,0.06)] border-b border-neutral-200/80">
+            {/* TOP BAR: Clean frosted white with subtle shadow */}
+            <header className="absolute top-0 left-0 right-0 z-30 pt-3 pb-2.5 px-3.5 bg-white/95 backdrop-blur-xl shadow-sm border-b border-slate-200/90">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
                   {/* Home Navigation Button */}
                   {onGoHome && (
                     <button
                       onClick={onGoHome}
-                      className="flex items-center gap-1 px-2 py-1 rounded-full bg-neutral-100 hover:bg-neutral-200 active:scale-95 text-[#1A1A1A] text-[11px] font-semibold transition border border-neutral-200 shadow-xs"
+                      className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-800 text-[11px] font-semibold transition border border-slate-200 shadow-xs"
                       title="Go back to Home page"
                     >
-                      <ArrowLeft className="w-3 h-3 text-[#FF4D2E]" />
+                      <ArrowLeft className="w-3 h-3 text-coral" />
                       <span>Home</span>
                     </button>
                   )}
 
-                  {/* StageUp Logo - Black Text */}
+                  {/* StageUp Logo */}
                   <button
                     onClick={onGoHome}
-                    className="font-heading font-extrabold text-sm sm:text-base tracking-tight text-[#1A1A1A] flex items-center gap-1 hover:opacity-90 transition text-left"
+                    className="font-heading font-extrabold text-sm sm:text-base tracking-tight text-slate-900 flex items-center gap-1 hover:opacity-90 transition text-left"
                   >
                     <span>StageUp</span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#FF4D2E] inline-block"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-coral inline-block shadow-[0_0_6px_#FF385C]"></span>
                   </button>
 
                   {/* Auth User Status / Login Button */}
                   {currentUser ? (
-                    <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-neutral-100 border border-neutral-200 text-[10px] shadow-xs">
-                      <span className={`w-1.5 h-1.5 rounded-full ${currentUser.role === 'recruiter' ? 'bg-[#FF4D2E]' : 'bg-emerald-500'}`}></span>
-                      <span className="font-bold text-[#1A1A1A] max-w-[70px] truncate">
+                    <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-[10px] shadow-xs">
+                      <span className={`w-1.5 h-1.5 rounded-full ${currentUser.role === 'recruiter' ? 'bg-coral' : 'bg-emerald-500'}`}></span>
+                      <span className="font-bold text-slate-900 max-w-[70px] truncate">
                         {currentUser.name.split(' ')[0]}
                       </span>
-                      <span className="text-[9px] text-neutral-500 capitalize">
+                      <span className="text-[9px] text-slate-500 capitalize">
                         ({currentUser.role === 'recruiter' ? 'Recruiter' : 'Creator'})
                       </span>
                       {onLogout && (
                         <button
                           onClick={onLogout}
-                          className="text-neutral-400 hover:text-neutral-700 ml-0.5"
+                          className="text-slate-400 hover:text-slate-700 ml-0.5"
                           title="Log out"
                         >
                           <LogOut className="w-2.5 h-2.5" />
@@ -447,15 +451,15 @@ export default function RecruiterFeed({
                     <div className="flex items-center gap-1">
                       <button
                         onClick={() => onNavigateToLogin ? onNavigateToLogin('recruiter') : onOpenAuth('recruiter')}
-                        className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-white hover:bg-neutral-50 text-[#1A1A1A] text-[10px] font-bold border border-neutral-200 transition shadow-xs"
+                        className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-white hover:bg-slate-50 text-slate-800 text-[10px] font-bold border border-slate-200 transition shadow-xs"
                         title="Log in to account"
                       >
-                        <User className="w-2.5 h-2.5 text-[#FF4D2E]" />
+                        <User className="w-2.5 h-2.5 text-coral" />
                         <span>Log In</span>
                       </button>
                       <button
                         onClick={() => onNavigateToSignup ? onNavigateToSignup('recruiter') : onOpenAuth('recruiter')}
-                        className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#1A1A1A] hover:bg-neutral-800 text-white text-[10px] font-bold transition shadow-xs"
+                        className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold transition shadow-xs"
                         title="Create an account"
                       >
                         <span>Sign Up</span>
@@ -470,8 +474,8 @@ export default function RecruiterFeed({
                     onClick={() => setIsSearchVisible(!isSearchVisible)}
                     className={`p-1.5 rounded-full transition border ${
                       isSearchVisible || searchQuery
-                        ? 'bg-[#FF4D2E] text-white border-[#FF4D2E]'
-                        : 'bg-neutral-100 hover:bg-neutral-200 text-[#1A1A1A] border-neutral-200'
+                        ? 'bg-coral text-white border-coral shadow-xs'
+                        : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
                     }`}
                     title="Search creators & skills"
                   >
@@ -483,15 +487,15 @@ export default function RecruiterFeed({
                     onClick={() => setIsFilterModalOpen(true)}
                     className={`flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-medium border transition ${
                       activeFilterCount > 0
-                        ? 'bg-[#FF4D2E] text-white border-[#FF4D2E] font-bold'
-                        : 'bg-neutral-100 hover:bg-neutral-200 text-[#1A1A1A] border-neutral-200'
+                        ? 'bg-coral text-white border-coral font-bold shadow-xs'
+                        : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
                     }`}
                     title="Filter by category & budget"
                   >
                     <SlidersHorizontal className="w-3 h-3" />
                     <span>Filter</span>
                     {activeFilterCount > 0 && (
-                      <span className="w-4 h-4 rounded-full bg-[#FF4D2E] text-white font-bold text-[9px] flex items-center justify-center">
+                      <span className="w-4 h-4 rounded-full bg-white text-coral font-bold text-[9px] flex items-center justify-center">
                         {activeFilterCount}
                       </span>
                     )}
@@ -500,23 +504,23 @@ export default function RecruiterFeed({
                   {/* Urgent 24h Gigs Casting Calls */}
                   <button
                     onClick={onOpenUrgentGigs}
-                    className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#FF4D2E] hover:bg-coral-hover text-white text-[11px] font-semibold border border-[#FF4D2E] transition shadow-xs animate-pulse"
+                    className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-500 to-coral hover:from-amber-600 hover:to-rose-600 text-white text-[11px] font-semibold transition shadow-xs animate-pulse"
                     title="Urgent 24-Hour Gigs & Casting Calls"
                   >
                     <Flame className="w-3 h-3 fill-white" />
-                    <span>Urgent Gigs</span>
+                    <span>Urgent</span>
                   </button>
 
                   {/* Escrow Orders Button */}
                   <button
                     onClick={onOpenOrders}
-                    className="flex items-center gap-1 px-2 py-1 rounded-full bg-[#1E7A4C]/10 hover:bg-[#1E7A4C]/20 text-[#1E7A4C] text-[11px] font-semibold border border-[#1E7A4C]/30 transition shadow-xs"
+                    className="flex items-center gap-1 px-2 py-1 rounded-full bg-emerald-50 hover:bg-emerald-100 text-forest text-[11px] font-semibold border border-emerald-200 transition shadow-xs"
                     title="View My Escrow Orders"
                   >
-                    <ShieldCheck className="w-3 h-3 text-[#1E7A4C]" />
+                    <ShieldCheck className="w-3 h-3 text-forest" />
                     <span>Orders</span>
                     {ordersCount > 0 && (
-                      <span className="w-4 h-4 rounded-full bg-[#1E7A4C] text-white text-[9px] font-bold flex items-center justify-center">
+                      <span className="w-4 h-4 rounded-full bg-forest text-white text-[9px] font-bold flex items-center justify-center">
                         {ordersCount}
                       </span>
                     )}
@@ -525,17 +529,17 @@ export default function RecruiterFeed({
                   {/* Shortlist Counter Badge */}
                   <button
                     onClick={onOpenShortlistList}
-                    className="flex items-center gap-1 px-2 py-1 rounded-full bg-neutral-100 hover:bg-neutral-200 text-[#1A1A1A] text-[11px] font-medium border border-neutral-200 transition"
+                    className="flex items-center gap-1 px-2 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-medium border border-slate-200 transition"
                     title="View Shortlisted Talents"
                   >
-                    <Bookmark className={`w-3 h-3 ${shortlistedIds.size > 0 ? 'text-[#FF4D2E] fill-[#FF4D2E]' : 'text-[#1A1A1A]'}`} />
+                    <Bookmark className={`w-3 h-3 ${shortlistedIds.size > 0 ? 'text-coral fill-coral' : 'text-slate-700'}`} />
                     <span>{shortlistedIds.size}</span>
                   </button>
 
                   {/* Post Work CTA */}
                   <button
                     onClick={onOpenCreate}
-                    className="flex items-center gap-1 px-2 py-1 rounded-full bg-[#FF4D2E] hover:bg-coral-hover text-white text-[11px] font-semibold shadow-xs transition"
+                    className="flex items-center gap-1 px-2 py-1 rounded-full bg-coral hover:bg-coral-hover text-white text-[11px] font-semibold shadow-xs transition"
                     title="Post Your Work"
                   >
                     <Plus className="w-3 h-3" />
@@ -544,27 +548,27 @@ export default function RecruiterFeed({
                 </div>
               </div>
 
-              {/* FEATURE: "Find My Perfect Match" in Coral Orange #FF4D2E */}
+              {/* FEATURE: "Find My Perfect Match" in Radiant Coral Gradient */}
               <div className="pt-2">
                 {!isMatchActive ? (
                   <button
                     onClick={() => setIsMatchModalOpen(true)}
-                    className="w-full py-1.5 px-3 rounded-human bg-[#FF4D2E] hover:bg-coral-hover active:scale-[0.98] text-white text-xs font-heading font-extrabold flex items-center justify-between shadow-xs transition border border-coral-border group"
+                    className="w-full py-1.5 px-3.5 rounded-xl bg-gradient-to-r from-coral to-rose-600 hover:from-rose-600 hover:to-rose-700 active:scale-[0.98] text-white text-xs font-heading font-extrabold flex items-center justify-between shadow-md shadow-rose-500/20 transition group"
                     title="Find your perfect Indian creator match with Smart AI Match"
                   >
                     <div className="flex items-center gap-1.5">
                       <Sparkles className="w-3.5 h-3.5 text-amber-200 animate-pulse" />
                       <span>Find My Perfect Match ✨</span>
                     </div>
-                    <span className="text-[10px] bg-white/20 px-2 py-0.5 rounded-full font-medium text-white group-hover:bg-white/30 transition">
+                    <span className="text-[10px] bg-white/20 px-2.5 py-0.5 rounded-full font-medium text-white group-hover:bg-white/30 transition">
                       AI Match →
                     </span>
                   </button>
                 ) : (
-                  <div className="flex items-center gap-1.5 bg-neutral-100 p-1 rounded-human border border-neutral-200 shadow-xs">
+                  <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200 shadow-xs">
                     <button
                       onClick={() => setShowMatchResultsScreen(true)}
-                      className="flex-1 py-1 px-2.5 rounded-human bg-[#FF4D2E] hover:bg-coral-hover text-white text-[11px] font-heading font-bold flex items-center justify-between shadow-xs transition"
+                      className="flex-1 py-1 px-2.5 rounded-lg bg-coral hover:bg-coral-hover text-white text-[11px] font-heading font-bold flex items-center justify-between shadow-xs transition"
                     >
                       <span className="flex items-center gap-1 truncate">
                         <Sparkles className="w-3 h-3 text-amber-200" />
@@ -576,14 +580,14 @@ export default function RecruiterFeed({
                     </button>
                     <button
                       onClick={() => setIsMatchModalOpen(true)}
-                      className="px-2 py-1 rounded-human bg-white hover:bg-neutral-50 text-[#1A1A1A] border border-neutral-200 text-[10px] font-medium transition"
+                      className="px-2 py-1 rounded-lg bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 text-[10px] font-medium transition"
                       title="Modify match criteria"
                     >
                       Edit
                     </button>
                     <button
                       onClick={handleClearMatchFilter}
-                      className="px-2 py-1 rounded-human bg-white hover:bg-neutral-50 text-[#1A1A1A] border border-neutral-200 text-[10px] font-medium flex items-center gap-0.5 transition"
+                      className="px-2 py-1 rounded-lg bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 text-[10px] font-medium flex items-center gap-0.5 transition"
                       title="Clear AI match filter"
                     >
                       <X className="w-3 h-3" />
@@ -605,14 +609,14 @@ export default function RecruiterFeed({
                         setCurrentIndex(0);
                       }}
                       placeholder="Search by skill, DaVinci, hook, editor name..."
-                      className="w-full text-xs bg-neutral-100 border border-neutral-300 rounded-human py-1.5 pl-8 pr-7 text-[#1A1A1A] placeholder:text-neutral-500 focus:outline-none focus:border-[#FF4D2E]"
+                      className="w-full text-xs bg-slate-100 border border-slate-200 rounded-xl py-1.5 pl-8 pr-7 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-coral focus:ring-2 focus:ring-rose-500/10"
                       autoFocus
                     />
-                    <Search className="w-3.5 h-3.5 text-neutral-500 absolute left-2.5 top-2.5" />
+                    <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" />
                     {searchQuery && (
                       <button
                         onClick={() => setSearchQuery('')}
-                        className="absolute right-2.5 top-2 text-neutral-500 hover:text-[#1A1A1A]"
+                        className="absolute right-2.5 top-2 text-slate-400 hover:text-slate-700"
                       >
                         <X className="w-3.5 h-3.5" />
                       </button>
@@ -621,7 +625,7 @@ export default function RecruiterFeed({
                 </div>
               )}
 
-              {/* City Filter Pills: White background, Black text, Coral border when active */}
+              {/* City Filter Pills */}
               <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-2 pb-0.5">
                 {cities.map((city) => (
                   <button
@@ -632,8 +636,8 @@ export default function RecruiterFeed({
                     }}
                     className={`px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition-all shadow-xs ${
                       selectedCity === city
-                        ? 'bg-white text-[#1A1A1A] border-2 border-[#FF4D2E] shadow-xs font-bold'
-                        : 'bg-white hover:bg-neutral-50 text-[#1A1A1A] border border-neutral-200/90'
+                        ? 'bg-slate-900 text-white font-bold border border-slate-900 shadow-xs'
+                        : 'bg-white hover:bg-slate-50 text-slate-700 border border-slate-200'
                     }`}
                   >
                     {city === 'All' ? '🇮🇳 All' : city}
@@ -645,7 +649,7 @@ export default function RecruiterFeed({
             {/* CENTER: Reel Player Area */}
             <div
               onClick={togglePlayPause}
-              className="relative flex-1 w-full h-full bg-[#1A1A1A] flex items-center justify-center cursor-pointer select-none overflow-hidden"
+              className="relative flex-1 w-full h-full bg-slate-950 flex items-center justify-center cursor-pointer select-none overflow-hidden"
             >
               {/* Native HTML5 Video Element */}
               {currentTalent.videoUrl && (
@@ -660,7 +664,7 @@ export default function RecruiterFeed({
                 />
               )}
 
-              {/* Dynamic Reel Canvas Backdrop (Clean natural contrast, no dark blue/purple gradients) */}
+              {/* Dynamic Reel Canvas Backdrop */}
               <div className="absolute inset-0 z-0 overflow-hidden">
                 <div
                   className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 transform ${
@@ -670,20 +674,20 @@ export default function RecruiterFeed({
                     backgroundImage: `url(${activeProject?.image || currentTalent.posterUrl || currentTalent.avatar})`
                   }}
                 />
-                <div className="absolute inset-0 bg-black/20" />
+                <div className="absolute inset-0 bg-black/25" />
               </div>
 
               {/* Floating AI Match active banner when viewing reel */}
               {isMatchActive && currentTalent && (
                 <div className="absolute top-36 left-3.5 right-14 z-20 pointer-events-auto">
-                  <div className="flex items-center justify-between gap-1.5 px-3 py-1.5 rounded-human bg-white/95 border border-[#FF4D2E] text-[#1A1A1A] shadow-md animate-fadeIn">
+                  <div className="flex items-center justify-between gap-1.5 px-3 py-1.5 rounded-xl bg-white/95 border border-coral text-slate-900 shadow-lg animate-fadeIn">
                     <div className="flex items-center gap-1.5 text-xs font-heading font-bold truncate">
-                      <Sparkles className="w-3.5 h-3.5 text-[#FF4D2E] shrink-0" />
+                      <Sparkles className="w-3.5 h-3.5 text-coral shrink-0" />
                       <span className="truncate">
                         Match: {currentTalent.name}
                       </span>
-                      <span className={`px-1.5 py-0.2 rounded text-[10px] font-mono font-bold ${
-                        (currentTalent.matchScore ?? 0) > 90 ? 'bg-[#1E7A4C] text-white' : 'bg-[#FF4D2E] text-white'
+                      <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono font-bold ${
+                        (currentTalent.matchScore ?? 0) > 90 ? 'bg-forest text-white' : 'bg-coral text-white'
                       }`}>
                         {currentTalent.matchScore ?? 0}%
                       </span>
@@ -694,17 +698,17 @@ export default function RecruiterFeed({
                           e.stopPropagation();
                           setShowMatchResultsScreen(true);
                         }}
-                        className="text-[10px] text-[#FF4D2E] font-bold hover:underline"
+                        className="text-[10px] text-coral font-bold hover:underline"
                       >
                         All Matches
                       </button>
-                      <span className="text-neutral-300">•</span>
+                      <span className="text-slate-300">•</span>
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           handleClearMatchFilter();
                         }}
-                        className="text-[10px] text-neutral-500 hover:text-[#1A1A1A]"
+                        className="text-[10px] text-slate-500 hover:text-slate-800"
                       >
                         Clear
                       </button>
@@ -713,20 +717,20 @@ export default function RecruiterFeed({
                 </div>
               )}
 
-              {/* Sound Toggle (Top Right of Player) - White circular button with black icon */}
+              {/* Sound Toggle (Top Right of Player) */}
               <button
                 onClick={toggleMute}
-                className={`absolute ${isMatchActive ? 'top-48' : 'top-36'} right-3.5 z-20 w-8 h-8 rounded-full bg-white/90 border border-neutral-200/80 shadow-md flex items-center justify-center text-[#1A1A1A] backdrop-blur-sm hover:bg-white transition`}
+                className={`absolute ${isMatchActive ? 'top-48' : 'top-36'} right-3.5 z-20 w-9 h-9 rounded-full bg-slate-900/80 hover:bg-slate-900 text-white border border-white/20 shadow-lg flex items-center justify-center backdrop-blur-md transition`}
                 title={isMuted ? 'Unmute' : 'Mute'}
               >
-                {isMuted ? <VolumeX className="w-4 h-4 text-neutral-600" /> : <Volume2 className="w-4 h-4 text-[#FF4D2E]" />}
+                {isMuted ? <VolumeX className="w-4 h-4 text-slate-400" /> : <Volume2 className="w-4 h-4 text-coral" />}
               </button>
 
               {/* Live Kinetic Caption Banner */}
               <div className={`absolute ${isMatchActive ? 'top-56' : 'top-44'} left-3.5 right-14 z-20 pointer-events-none`}>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-human bg-white/95 border border-neutral-200 text-[#1A1A1A] shadow-sm backdrop-blur-none animate-fadeIn">
-                  <Sparkles className="w-3.5 h-3.5 text-[#FF4D2E] shrink-0 animate-pulse" />
-                  <span className="text-xs font-semibold tracking-wide text-[#1A1A1A]">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-950/85 border border-white/20 text-white shadow-lg backdrop-blur-md animate-fadeIn">
+                  <Sparkles className="w-3.5 h-3.5 text-coral shrink-0 animate-pulse" />
+                  <span className="text-xs font-semibold tracking-wide text-white">
                     {currentCaptions[activeCaptionIdx]}
                   </span>
                 </div>
@@ -734,8 +738,8 @@ export default function RecruiterFeed({
 
               {/* Play/Pause Center Indicator */}
               {showPlayPulse && (
-                <div className="absolute z-20 w-16 h-16 rounded-full bg-white/80 border border-neutral-200 shadow-lg flex items-center justify-center text-[#1A1A1A] scale-110 transition-transform">
-                  {isPlaying ? <Play className="w-8 h-8 fill-[#1A1A1A] ml-1" /> : <Pause className="w-8 h-8 fill-[#1A1A1A]" />}
+                <div className="absolute z-20 w-16 h-16 rounded-full bg-slate-900/80 border border-white/20 shadow-2xl flex items-center justify-center text-white scale-110 transition-transform backdrop-blur-md">
+                  {isPlaying ? <Play className="w-8 h-8 fill-white ml-1" /> : <Pause className="w-8 h-8 fill-white" />}
                 </div>
               )}
 
@@ -747,7 +751,7 @@ export default function RecruiterFeed({
                     handlePrev();
                   }}
                   disabled={currentIndex === 0}
-                  className="w-8 h-8 rounded-full bg-white/90 border border-neutral-200 text-[#1A1A1A] shadow-md flex items-center justify-center hover:bg-white disabled:opacity-30 transition"
+                  className="w-8 h-8 rounded-full bg-slate-900/80 hover:bg-slate-900 text-white border border-white/20 shadow-md flex items-center justify-center disabled:opacity-30 transition backdrop-blur-sm"
                   title="Previous reel (Up arrow)"
                 >
                   <ChevronUp className="w-4 h-4" />
@@ -758,7 +762,7 @@ export default function RecruiterFeed({
                     handleNext();
                   }}
                   disabled={currentIndex === filteredTalents.length - 1}
-                  className="w-8 h-8 rounded-full bg-white/90 border border-neutral-200 text-[#1A1A1A] shadow-md flex items-center justify-center hover:bg-white disabled:opacity-30 transition"
+                  className="w-8 h-8 rounded-full bg-slate-900/80 hover:bg-slate-900 text-white border border-white/20 shadow-md flex items-center justify-center disabled:opacity-30 transition backdrop-blur-sm"
                   title="Next reel (Down arrow)"
                 >
                   <ChevronDown className="w-4 h-4" />
@@ -766,7 +770,7 @@ export default function RecruiterFeed({
               </div>
             </div>
 
-            {/* RIGHT ACTION RAIL: White circular buttons with Black icons */}
+            {/* RIGHT ACTION RAIL: Frosted Glass circular action buttons */}
             <div className="absolute right-3.5 bottom-28 z-30 flex flex-col items-center gap-3 select-none pointer-events-auto">
               {/* 1. Shortlist button */}
               <button
@@ -774,17 +778,17 @@ export default function RecruiterFeed({
                 className="flex flex-col items-center gap-1 group active:scale-90 transition"
                 aria-label="Shortlist this creator"
               >
-                <div className={`w-11 h-11 rounded-full flex items-center justify-center border shadow-md transition ${
+                <div className={`w-11 h-11 rounded-full flex items-center justify-center border shadow-lg transition-all duration-200 ${
                   isShortlisted
-                    ? 'bg-[#FF4D2E] border-[#FF4D2E] text-white scale-105'
-                    : 'bg-white border-neutral-200 text-[#1A1A1A] hover:border-[#FF4D2E]'
+                    ? 'bg-coral border-coral text-white scale-105 shadow-rose-500/30'
+                    : 'bg-white/95 hover:bg-white border-white/80 text-slate-900 hover:border-coral backdrop-blur-md'
                 }`}>
-                  <Heart className={`w-5 h-5 ${isShortlisted ? 'fill-white text-white' : 'text-[#1A1A1A]'}`} />
+                  <Heart className={`w-5 h-5 ${isShortlisted ? 'fill-white text-white' : 'text-slate-900'}`} />
                 </div>
-                <span className="text-[10px] font-bold text-[#1A1A1A] bg-white/90 px-1.5 py-0.2 rounded-full shadow-xs font-heading">
+                <span className="text-[10px] font-bold text-slate-900 bg-white/95 px-2 py-0.2 rounded-full shadow-xs font-heading backdrop-blur-xs">
                   {(currentTalent.shortlistedCount || 1) + (isShortlisted ? 1 : 0)}
                 </span>
-                <span className="text-[9px] uppercase tracking-wider text-[#1A1A1A] font-bold bg-white/90 px-1 py-0.2 rounded shadow-xs -mt-0.5">
+                <span className="text-[9px] uppercase tracking-wider text-slate-900 font-bold bg-white/95 px-1 py-0.2 rounded shadow-xs -mt-0.5">
                   Shortlist
                 </span>
               </button>
@@ -798,13 +802,13 @@ export default function RecruiterFeed({
                 className="flex flex-col items-center gap-1 group active:scale-90 transition"
                 aria-label="View creator packages"
               >
-                <div className="w-11 h-11 rounded-full bg-white border border-neutral-200 text-[#1A1A1A] flex items-center justify-center shadow-md hover:border-[#FF4D2E] transition">
-                  <FolderGit2 className="w-5 h-5 text-[#1A1A1A]" />
+                <div className="w-11 h-11 rounded-full bg-white/95 hover:bg-white border border-white/80 text-slate-900 flex items-center justify-center shadow-lg hover:border-coral transition backdrop-blur-md">
+                  <FolderGit2 className="w-5 h-5 text-slate-900" />
                 </div>
-                <span className="text-[10px] font-bold text-[#1A1A1A] bg-white/90 px-1.5 py-0.2 rounded-full shadow-xs font-heading">
+                <span className="text-[10px] font-bold text-slate-900 bg-white/95 px-2 py-0.2 rounded-full shadow-xs font-heading">
                   {currentTalent.projects?.length || 3}
                 </span>
-                <span className="text-[9px] uppercase tracking-wider text-[#1A1A1A] font-bold bg-white/90 px-1 py-0.2 rounded shadow-xs -mt-0.5">
+                <span className="text-[9px] uppercase tracking-wider text-slate-900 font-bold bg-white/95 px-1 py-0.2 rounded shadow-xs -mt-0.5">
                   Gigs
                 </span>
               </button>
@@ -818,13 +822,13 @@ export default function RecruiterFeed({
                 className="flex flex-col items-center gap-1 group active:scale-90 transition"
                 aria-label="Compare Raw vs Final Edit"
               >
-                <div className="w-11 h-11 rounded-full bg-white border border-neutral-200 text-[#1A1A1A] flex items-center justify-center shadow-md hover:border-[#FF4D2E] transition">
-                  <Sliders className="w-5 h-5 text-[#1A1A1A]" />
+                <div className="w-11 h-11 rounded-full bg-white/95 hover:bg-white border border-white/80 text-slate-900 flex items-center justify-center shadow-lg hover:border-coral transition backdrop-blur-md">
+                  <Sliders className="w-5 h-5 text-slate-900" />
                 </div>
-                <span className="text-[9px] font-bold text-[#1A1A1A] bg-white/90 px-1 py-0.2 rounded shadow-xs font-heading">
+                <span className="text-[9px] font-bold text-slate-900 bg-white/95 px-1.5 py-0.2 rounded shadow-xs font-heading">
                   Raw ↔ Edit
                 </span>
-                <span className="text-[8px] uppercase tracking-wider text-[#1A1A1A] font-bold bg-white/90 px-1 py-0.2 rounded shadow-xs -mt-0.5">
+                <span className="text-[8px] uppercase tracking-wider text-slate-900 font-bold bg-white/95 px-1 py-0.2 rounded shadow-xs -mt-0.5">
                   Proof
                 </span>
               </button>
@@ -838,17 +842,17 @@ export default function RecruiterFeed({
                 className="flex flex-col items-center gap-1 group active:scale-90 transition"
                 aria-label="Live Skill Test"
               >
-                <div className={`w-11 h-11 rounded-full flex items-center justify-center shadow-md transition ${
+                <div className={`w-11 h-11 rounded-full flex items-center justify-center shadow-lg transition ${
                   isLiveTested
                     ? 'bg-amber-100 border-2 border-amber-400 text-amber-950 scale-105'
-                    : 'bg-white border border-neutral-200 text-[#1A1A1A] hover:border-amber-400'
+                    : 'bg-white/95 hover:bg-white border border-white/80 text-slate-900 hover:border-amber-400 backdrop-blur-md'
                 }`}>
-                  <Award className="w-5 h-5 text-[#1A1A1A]" />
+                  <Award className="w-5 h-5 text-slate-900" />
                 </div>
-                <span className="text-[9px] font-bold text-[#1A1A1A] bg-white/90 px-1 py-0.2 rounded shadow-xs font-heading">
+                <span className="text-[9px] font-bold text-slate-900 bg-white/95 px-1.5 py-0.2 rounded shadow-xs font-heading">
                   {isLiveTested ? 'Tested 🏆' : 'Live Test'}
                 </span>
-                <span className="text-[8px] uppercase tracking-wider text-[#1A1A1A] font-bold bg-white/90 px-1 py-0.2 rounded shadow-xs -mt-0.5">
+                <span className="text-[8px] uppercase tracking-wider text-slate-900 font-bold bg-white/95 px-1 py-0.2 rounded shadow-xs -mt-0.5">
                   {isLiveTested ? 'Verified' : '15-Min'}
                 </span>
               </button>
@@ -863,13 +867,13 @@ export default function RecruiterFeed({
                   className="flex flex-col items-center gap-1 group active:scale-90 transition"
                   aria-label="Voiceover Audition Studio"
                 >
-                  <div className="w-11 h-11 rounded-full bg-white border border-neutral-200 text-[#1A1A1A] flex items-center justify-center shadow-md hover:border-emerald-500 transition">
-                    <Mic className="w-5 h-5 text-[#1A1A1A]" />
+                  <div className="w-11 h-11 rounded-full bg-white/95 hover:bg-white border border-white/80 text-slate-900 flex items-center justify-center shadow-lg hover:border-forest transition backdrop-blur-md">
+                    <Mic className="w-5 h-5 text-slate-900" />
                   </div>
-                  <span className="text-[9px] font-bold text-[#1A1A1A] bg-white/90 px-1 py-0.2 rounded shadow-xs font-heading">
+                  <span className="text-[9px] font-bold text-slate-900 bg-white/95 px-1.5 py-0.2 rounded shadow-xs font-heading">
                     Audition
                   </span>
-                  <span className="text-[8px] uppercase tracking-wider text-[#1A1A1A] font-bold bg-white/90 px-1 py-0.2 rounded shadow-xs -mt-0.5">
+                  <span className="text-[8px] uppercase tracking-wider text-slate-900 font-bold bg-white/95 px-1 py-0.2 rounded shadow-xs -mt-0.5">
                     Voice
                   </span>
                 </button>
@@ -884,13 +888,13 @@ export default function RecruiterFeed({
                 className="flex flex-col items-center gap-1 group active:scale-90 transition"
                 aria-label="Chat with creator"
               >
-                <div className="w-11 h-11 rounded-full bg-white border border-neutral-200 text-[#1E7A4C] flex items-center justify-center shadow-md hover:border-[#1E7A4C] transition">
-                  <MessageCircle className="w-5 h-5 text-[#1E7A4C]" />
+                <div className="w-11 h-11 rounded-full bg-white/95 hover:bg-white border border-white/80 text-forest flex items-center justify-center shadow-lg hover:border-forest transition backdrop-blur-md">
+                  <MessageCircle className="w-5 h-5 text-forest" />
                 </div>
-                <span className="text-[10px] font-bold text-[#1A1A1A] bg-white/90 px-1.5 py-0.2 rounded-full shadow-xs font-heading">
+                <span className="text-[10px] font-bold text-slate-900 bg-white/95 px-2 py-0.2 rounded-full shadow-xs font-heading">
                   Chat
                 </span>
-                <span className="text-[8px] uppercase tracking-wider text-[#1A1A1A] font-bold bg-white/90 px-1 py-0.2 rounded shadow-xs -mt-0.5">
+                <span className="text-[8px] uppercase tracking-wider text-slate-900 font-bold bg-white/95 px-1 py-0.2 rounded shadow-xs -mt-0.5">
                   Direct
                 </span>
               </button>
@@ -904,10 +908,10 @@ export default function RecruiterFeed({
                 className="flex flex-col items-center gap-1 active:scale-90 transition"
                 title="Creator Rate Card & UPI Invoice"
               >
-                <div className="w-9 h-9 rounded-full bg-white border border-neutral-200 text-[#1A1A1A] flex items-center justify-center shadow-sm hover:border-[#FF4D2E] transition">
-                  <FileText className="w-4 h-4 text-[#1A1A1A]" />
+                <div className="w-9 h-9 rounded-full bg-white/95 hover:bg-white border border-white/80 text-slate-900 flex items-center justify-center shadow-sm hover:border-coral transition backdrop-blur-md">
+                  <FileText className="w-4 h-4 text-slate-900" />
                 </div>
-                <span className="text-[8px] uppercase tracking-wider text-[#1A1A1A] font-bold bg-white/90 px-1 py-0.2 rounded shadow-xs -mt-0.5">
+                <span className="text-[8px] uppercase tracking-wider text-slate-900 font-bold bg-white/95 px-1 py-0.2 rounded shadow-xs -mt-0.5">
                   Invoice
                 </span>
               </button>
@@ -918,15 +922,15 @@ export default function RecruiterFeed({
                 className="flex flex-col items-center gap-1 active:scale-90 transition"
                 title="Share Reel"
               >
-                <div className="w-9 h-9 rounded-full bg-white border border-neutral-200 text-[#1A1A1A] flex items-center justify-center shadow-sm">
-                  <Share2 className="w-4 h-4 text-[#1A1A1A]" />
+                <div className="w-9 h-9 rounded-full bg-white/95 hover:bg-white border border-white/80 text-slate-900 flex items-center justify-center shadow-sm backdrop-blur-md">
+                  <Share2 className="w-4 h-4 text-slate-900" />
                 </div>
               </button>
             </div>
 
             {/* WHITE BOTTOM CARD OVERLAY: Creator Info, Pricing & Direct CTAs */}
             <div className="absolute left-3 right-16 bottom-3 z-30 pointer-events-auto">
-              <div className="bg-white/95 backdrop-blur-md rounded-[16px] border border-black/[0.08] p-3.5 shadow-[0_6px_24px_rgba(0,0,0,0.12)] space-y-2">
+              <div className="bg-white/95 backdrop-blur-xl rounded-2xl border border-white/90 p-3.5 shadow-[0_12px_36px_rgba(0,0,0,0.22)] space-y-2">
                 {/* Creator Header */}
                 <div
                   onClick={(e) => {
@@ -939,25 +943,25 @@ export default function RecruiterFeed({
                     <img
                       src={currentTalent.avatar}
                       alt={currentTalent.name}
-                      className="w-10 h-10 rounded-full border-2 border-neutral-100 object-cover group-hover:ring-2 group-hover:ring-[#FF4D2E] transition"
+                      className="w-10 h-10 rounded-full border-2 border-slate-100 object-cover group-hover:ring-2 group-hover:ring-coral transition"
                     />
-                    <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#1E7A4C] border-2 border-white flex items-center justify-center">
+                    <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-forest border-2 border-white flex items-center justify-center">
                       <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
                     </span>
                   </div>
 
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <h3 className="font-heading font-extrabold text-sm sm:text-base text-[#1A1A1A] group-hover:text-[#FF4D2E] transition leading-tight truncate">
+                      <h3 className="font-heading font-extrabold text-sm sm:text-base text-slate-900 group-hover:text-coral transition leading-tight truncate">
                         {currentTalent.name}
                       </h3>
                       {/* Green Verified Badge ✓ */}
-                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded-full bg-[#1E7A4C]/10 border border-[#1E7A4C]/20 text-[#1E7A4C] text-[10px] font-bold">
-                        <CheckCircle className="w-3 h-3 text-[#1E7A4C] fill-[#1E7A4C] text-white" />
+                      <span className="inline-flex items-center gap-0.5 px-2 py-0.2 rounded-full bg-emerald-50 border border-emerald-200 text-forest text-[10px] font-bold">
+                        <CheckCircle className="w-3 h-3 text-forest fill-forest text-white" />
                         <span>Verified ✓</span>
                       </span>
                       {isLiveTested && (
-                        <span className="inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded-full bg-amber-100 text-amber-900 border border-amber-300 text-[10px] font-extrabold">
+                        <span className="inline-flex items-center gap-0.5 px-2 py-0.2 rounded-full bg-amber-100 text-amber-900 border border-amber-300 text-[10px] font-extrabold">
                           <Award className="w-2.5 h-2.5 text-amber-900" />
                           <span>Live Tested</span>
                         </span>
@@ -965,28 +969,28 @@ export default function RecruiterFeed({
                     </div>
 
                     {/* City: Noida | Price: ₹500 | Delivery: 24 hrs */}
-                    <div className="flex items-center gap-1.5 text-[11px] text-neutral-600 font-medium mt-0.5 flex-wrap">
-                      <span className="flex items-center gap-0.5 text-neutral-800">
-                        <MapPin className="w-3 h-3 text-[#FF4D2E]" /> {currentTalent.city}
+                    <div className="flex items-center gap-1.5 text-[11px] text-slate-600 font-medium mt-0.5 flex-wrap">
+                      <span className="flex items-center gap-0.5 text-slate-800">
+                        <MapPin className="w-3 h-3 text-coral" /> {currentTalent.city}
                       </span>
-                      <span className="text-neutral-300">|</span>
-                      <span className="font-heading font-bold text-[#FF4D2E]">
+                      <span className="text-slate-300">|</span>
+                      <span className="font-heading font-bold text-coral">
                         Price: {currentTalent.price}
                       </span>
-                      <span className="text-neutral-300">|</span>
-                      <span className="flex items-center gap-0.5 text-[#1E7A4C] font-semibold">
-                        <Clock className="w-3 h-3 text-[#1E7A4C]" /> Delivery: {currentTalent.turnaroundTime || '24 hrs'}
+                      <span className="text-slate-300">|</span>
+                      <span className="flex items-center gap-0.5 text-forest font-semibold">
+                        <Clock className="w-3 h-3 text-forest" /> Delivery: {currentTalent.turnaroundTime || '24 hrs'}
                       </span>
                     </div>
                   </div>
                 </div>
 
-                {/* Skill tags: Reel Editing */}
+                {/* Skill tags */}
                 <div className="flex flex-wrap gap-1.5">
                   {currentTalent.skills.slice(0, 3).map((skill, sIdx) => (
                     <span
                       key={sIdx}
-                      className="px-2 py-0.5 rounded-[6px] bg-neutral-100 border border-neutral-200 text-[#1A1A1A] text-[10px] sm:text-[11px] font-medium"
+                      className="px-2.5 py-0.5 rounded-lg bg-slate-100 border border-slate-200 text-slate-800 text-[10px] sm:text-[11px] font-medium"
                     >
                       {skill.split('-')[0].trim()}
                     </span>
@@ -997,12 +1001,12 @@ export default function RecruiterFeed({
                 <div className="flex items-center gap-2 pt-0.5 flex-wrap">
                   {/* If AI Match Active, show match score pill */}
                   {isMatchActive && currentTalent && (
-                    <div className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-[8px] font-heading font-extrabold text-[11px] shadow-xs ${
+                    <div className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-xl font-heading font-extrabold text-[11px] shadow-xs ${
                       (currentTalent.matchScore ?? 0) > 90
-                        ? 'bg-[#1E7A4C] text-white'
+                        ? 'bg-forest text-white'
                         : (currentTalent.matchScore ?? 0) >= 70
-                        ? 'bg-[#FF4D2E] text-white'
-                        : 'bg-neutral-600 text-white'
+                        ? 'bg-coral text-white'
+                        : 'bg-slate-700 text-white'
                     }`}>
                       <Sparkles className="w-3 h-3 text-amber-200" />
                       <span>{currentTalent.matchScore ?? 0}% Match</span>
@@ -1017,7 +1021,7 @@ export default function RecruiterFeed({
                         onBookEscrow(currentTalent, activeProject || { title: `${currentTalent.name}'s Service`, price: currentTalent.price });
                       }
                     }}
-                    className="px-3 py-1.5 rounded-[8px] bg-[#FF4D2E] hover:bg-coral-hover text-white font-heading font-extrabold text-xs shadow-xs flex items-center gap-1 active:scale-95 transition"
+                    className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-coral to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white font-heading font-extrabold text-xs shadow-md shadow-rose-500/25 flex items-center gap-1 active:scale-95 transition"
                   >
                     <Lock className="w-3 h-3 text-white" />
                     <span>Hire Now</span>
@@ -1029,10 +1033,10 @@ export default function RecruiterFeed({
                       e.stopPropagation();
                       if (onOpenSkillTest) onOpenSkillTest(currentTalent);
                     }}
-                    className={`px-2.5 py-1.5 rounded-[8px] font-heading font-bold text-xs shadow-xs flex items-center gap-1 active:scale-95 transition ${
+                    className={`px-2.5 py-1.5 rounded-xl font-heading font-bold text-xs shadow-xs flex items-center gap-1 active:scale-95 transition ${
                       isLiveTested
                         ? 'bg-amber-100 text-amber-900 border border-amber-300'
-                        : 'bg-neutral-100 hover:bg-neutral-200 text-[#1A1A1A] border border-neutral-200'
+                        : 'bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200'
                     }`}
                     title="15-Minute Live Skill Challenge"
                   >
@@ -1045,7 +1049,7 @@ export default function RecruiterFeed({
                       e.stopPropagation();
                       onViewProfile(currentTalent);
                     }}
-                    className="text-[11px] text-neutral-600 underline underline-offset-2 hover:text-[#1A1A1A] font-medium ml-auto"
+                    className="text-[11px] text-slate-600 underline underline-offset-2 hover:text-slate-900 font-medium ml-auto"
                   >
                     Passport →
                   </button>
@@ -1054,9 +1058,9 @@ export default function RecruiterFeed({
             </div>
 
             {/* Real-Time Reel Progress Bar at Bottom */}
-            <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-neutral-200 z-40">
+            <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-slate-800 z-40">
               <div
-                className="h-full bg-[#FF4D2E] transition-all duration-150 ease-linear"
+                className="h-full bg-gradient-to-r from-coral via-rose-500 to-indigo-500 transition-all duration-150 ease-linear shadow-xs"
                 style={{ width: `${reelProgress}%` }}
               />
             </div>
@@ -1066,18 +1070,23 @@ export default function RecruiterFeed({
 
       {/* FILTER MODAL / DRAWER */}
       {isFilterModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/70 backdrop-blur-none animate-fadeIn">
-          <div className="relative w-full max-w-sm bg-white rounded-t-[20px] sm:rounded-human border border-cream-border p-4 space-y-4 shadow-2xl">
-            <div className="flex items-center justify-between pb-2 border-b border-cream-border">
-              <div className="flex items-center gap-1.5">
-                <SlidersHorizontal className="w-4 h-4 text-coral" />
-                <h3 className="font-heading font-bold text-sm text-ink">
-                  Filter Creators
-                </h3>
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/75 backdrop-blur-sm animate-fadeIn">
+          <div className="relative w-full max-w-sm bg-white rounded-t-3xl sm:rounded-2xl border border-slate-200 p-5 space-y-4 shadow-2xl">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-rose-50 border border-rose-200 flex items-center justify-center text-coral">
+                  <SlidersHorizontal className="w-4 h-4 text-coral" />
+                </div>
+                <div>
+                  <h3 className="font-heading font-extrabold text-sm text-slate-900">
+                    Filter Creators
+                  </h3>
+                  <span className="text-[11px] text-slate-500">Find the exact skill & budget</span>
+                </div>
               </div>
               <button
                 onClick={() => setIsFilterModalOpen(false)}
-                className="w-7 h-7 rounded-full bg-cream-muted flex items-center justify-center text-ink hover:bg-cream-darker"
+                className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-200 transition"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -1085,7 +1094,7 @@ export default function RecruiterFeed({
 
             {/* Category / Skill */}
             <div>
-              <label className="block text-xs font-heading font-bold text-ink mb-1.5">
+              <label className="block text-xs font-heading font-bold text-slate-800 mb-1.5">
                 Skill Category
               </label>
               <div className="grid grid-cols-2 gap-1.5">
@@ -1096,10 +1105,10 @@ export default function RecruiterFeed({
                       setSelectedCategory(cat.id);
                       setCurrentIndex(0);
                     }}
-                    className={`p-2 rounded-human border text-left text-xs transition ${
+                    className={`p-2.5 rounded-xl border text-left text-xs transition ${
                       selectedCategory === cat.id
-                        ? 'border-coral bg-coral-light font-bold text-coral'
-                        : 'border-cream-border hover:bg-cream-muted text-ink'
+                        ? 'border-coral bg-rose-50 font-bold text-coral shadow-2xs'
+                        : 'border-slate-200 hover:bg-slate-50 text-slate-700'
                     }`}
                   >
                     {cat.label}
@@ -1110,7 +1119,7 @@ export default function RecruiterFeed({
 
             {/* Budget Range */}
             <div>
-              <label className="block text-xs font-heading font-bold text-ink mb-1.5">
+              <label className="block text-xs font-heading font-bold text-slate-800 mb-1.5">
                 Budget Range
               </label>
               <div className="grid grid-cols-3 gap-1.5 text-xs">
@@ -1126,10 +1135,10 @@ export default function RecruiterFeed({
                       setSelectedBudget(bg.id);
                       setCurrentIndex(0);
                     }}
-                    className={`p-2 rounded-human border text-center transition ${
+                    className={`p-2.5 rounded-xl border text-center transition ${
                       selectedBudget === bg.id
-                        ? 'border-coral bg-coral-light font-bold text-coral'
-                        : 'border-cream-border hover:bg-cream-muted text-ink'
+                        ? 'border-coral bg-rose-50 font-bold text-coral shadow-2xs'
+                        : 'border-slate-200 hover:bg-slate-50 text-slate-700'
                     }`}
                   >
                     {bg.label}
@@ -1142,15 +1151,15 @@ export default function RecruiterFeed({
             <div className="pt-2 flex items-center gap-2">
               <button
                 onClick={resetAllFilters}
-                className="flex-1 py-2 px-3 rounded-human bg-cream-muted hover:bg-cream-darker text-ink text-xs font-semibold"
+                className="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition"
               >
                 Reset All
               </button>
               <button
                 onClick={() => setIsFilterModalOpen(false)}
-                className="flex-1 py-2 px-3 rounded-human bg-ink hover:bg-neutral-800 text-cream text-xs font-bold"
+                className="flex-1 py-2.5 px-3 rounded-xl bg-gradient-to-r from-coral to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white text-xs font-bold shadow-md shadow-rose-500/20 transition active:scale-95"
               >
-                Apply ({filteredTalents.length} Creators)
+                Apply ({filteredTalents.length})
               </button>
             </div>
           </div>

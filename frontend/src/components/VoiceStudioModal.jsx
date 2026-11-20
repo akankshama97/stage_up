@@ -167,7 +167,7 @@ export default function VoiceStudioModal({
                     className="flex-1 rounded-full transition-all duration-150"
                     style={{
                       height: `${animatedHeight}%`,
-                      backgroundColor: isPlayed ? '#FF4D2E' : '#404040'
+                      backgroundColor: isPlayed ? '#FF385C' : '#404040'
                     }}
                   />
                 );

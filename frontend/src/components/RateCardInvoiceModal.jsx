@@ -309,7 +309,7 @@ export default function RateCardInvoiceModal({ talent, onClose }) {
                   className="w-24 h-24 sm:w-28 sm:h-28"
                   shapeRendering="crispEdges"
                 >
-                  <rect width="100%" height="100%" fill="#FAF7F2" />
+                  <rect width="100%" height="100%" fill="#FFFFFF" />
                   {qrMatrix.map((row, r) =>
                     row.map((val, c) =>
                       val ? (
@@ -319,7 +319,7 @@ export default function RateCardInvoiceModal({ talent, onClose }) {
                           y={r}
                           width={1}
                           height={1}
-                          fill="#1A1A1A"
+                          fill="#0F172A"
                         />
                       ) : null
                     )

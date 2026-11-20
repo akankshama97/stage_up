@@ -158,25 +158,25 @@ export default function BeforeAfterProofModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/70 backdrop-blur-sm animate-fadeIn">
-      <div className="relative w-full max-w-xl max-h-[92vh] overflow-y-auto bg-cream rounded-human border border-cream-border shadow-2xl flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm animate-fadeIn font-sans">
+      <div className="relative w-full max-w-xl max-h-[92vh] overflow-y-auto bg-white rounded-3xl border border-slate-200 shadow-2xl flex flex-col">
         {/* Header */}
-        <div className="sticky top-0 z-20 bg-cream/95 backdrop-blur-sm border-b border-cream-border px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-coral-light border border-coral-border flex items-center justify-center text-coral">
+        <div className="sticky top-0 z-20 bg-white/95 backdrop-blur-xl border-b border-slate-100 px-4 py-3.5 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center text-coral shadow-2xs">
               <Zap className="w-4 h-4 fill-coral" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-heading font-bold text-sm text-ink leading-tight">
+                <h3 className="font-heading font-extrabold text-sm text-slate-900 leading-tight">
                   Raw vs Final Transformation
                 </h3>
-                <span className="text-[10px] font-semibold text-forest bg-forest-light px-2 py-0.5 rounded-full border border-forest-border flex items-center gap-1">
+                <span className="text-[10px] font-bold text-forest bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 flex items-center gap-1">
                   <TrendingUp className="w-2.5 h-2.5" />
                   {currentProof.metric}
                 </span>
               </div>
-              <p className="text-[11px] text-ink-muted">
+              <p className="text-[11px] text-slate-500">
                 {talent.name} ({talent.city}) • {currentProof.category}
               </p>
             </div>
@@ -184,7 +184,7 @@ export default function BeforeAfterProofModal({
 
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-human bg-white border border-cream-border flex items-center justify-center text-ink hover:bg-cream-muted transition shadow-sm"
+            className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-200 flex items-center justify-center text-slate-700 transition"
           >
             <X className="w-4 h-4" />
           </button>
@@ -194,36 +194,36 @@ export default function BeforeAfterProofModal({
         <div className="p-4 sm:p-5 space-y-4">
           {/* View Mode Switcher */}
           <div className="flex items-center justify-between">
-            <span className="text-xs font-heading font-semibold text-ink-secondary">
+            <span className="text-xs font-heading font-bold text-slate-700">
               Drag slider to compare:
             </span>
-            <div className="flex items-center gap-1 bg-white p-1 rounded-human border border-cream-border">
+            <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
               <button
                 onClick={() => setActiveTab('slider')}
-                className={`text-[11px] font-heading font-medium px-2.5 py-1 rounded transition ${
+                className={`text-[11px] font-heading font-bold px-3 py-1 rounded-lg transition ${
                   activeTab === 'slider'
-                    ? 'bg-ink text-white shadow-sm'
-                    : 'text-ink-secondary hover:text-ink'
+                    ? 'bg-slate-900 text-white shadow-2xs'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Split Slider
               </button>
               <button
                 onClick={() => setActiveTab('before')}
-                className={`text-[11px] font-heading font-medium px-2.5 py-1 rounded transition ${
+                className={`text-[11px] font-heading font-bold px-3 py-1 rounded-lg transition ${
                   activeTab === 'before'
-                    ? 'bg-ink text-white shadow-sm'
-                    : 'text-ink-secondary hover:text-ink'
+                    ? 'bg-slate-900 text-white shadow-2xs'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Raw Asset
               </button>
               <button
                 onClick={() => setActiveTab('after')}
-                className={`text-[11px] font-heading font-medium px-2.5 py-1 rounded transition ${
+                className={`text-[11px] font-heading font-bold px-3 py-1 rounded-lg transition ${
                   activeTab === 'after'
-                    ? 'bg-coral text-white shadow-sm'
-                    : 'text-ink-secondary hover:text-ink'
+                    ? 'bg-coral text-white shadow-2xs'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Final Edit ✨
@@ -232,7 +232,7 @@ export default function BeforeAfterProofModal({
           </div>
 
           {/* Interactive Split Screen Viewport */}
-          <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full rounded-human overflow-hidden border-2 border-cream-border bg-neutral-900 select-none shadow-paper">
+          <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 select-none shadow-md">
             {activeTab === 'slider' ? (
               <div
                 className="relative w-full h-full cursor-ew-resize overflow-hidden"
@@ -261,13 +261,13 @@ export default function BeforeAfterProofModal({
                     }}
                   />
                   {/* Subtle 'Raw' tint banner */}
-                  <div className="absolute top-3 left-3 bg-black/75 text-white text-[10px] font-bold px-2 py-0.5 rounded backdrop-blur-sm border border-white/20">
+                  <div className="absolute top-3 left-3 bg-black/75 text-white text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-sm border border-white/20">
                     RAW FOOTAGE
                   </div>
                 </div>
 
                 {/* Final Edit tag (Right side) */}
-                <div className="absolute top-3 right-3 bg-coral text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
+                <div className="absolute top-3 right-3 bg-coral text-white text-[10px] font-bold px-2 py-0.5 rounded-md shadow-sm">
                   FINAL POLISH
                 </div>
 
@@ -276,14 +276,14 @@ export default function BeforeAfterProofModal({
                   className="absolute top-0 bottom-0 w-1 bg-white shadow-lg pointer-events-none"
                   style={{ left: `${sliderPosition}%` }}
                 >
-                  <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white text-ink shadow-md border-2 border-coral flex items-center justify-center">
+                  <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white text-slate-900 shadow-md border-2 border-coral flex items-center justify-center">
                     <Sliders className="w-3.5 h-3.5 text-coral" />
                   </div>
                 </div>
 
                 {/* Bottom interactive helper hint */}
                 <div className="absolute bottom-2 inset-x-0 flex justify-center pointer-events-none">
-                  <span className="text-[10px] font-semibold text-white/90 bg-black/60 px-2.5 py-0.5 rounded-full backdrop-blur-sm">
+                  <span className="text-[10px] font-semibold text-white/90 bg-black/60 px-3 py-0.5 rounded-full backdrop-blur-sm">
                     ⟵ Drag left/right to reveal the edit ⟶
                   </span>
                 </div>
@@ -295,7 +295,7 @@ export default function BeforeAfterProofModal({
                   alt={currentProof.beforeLabel}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute top-3 left-3 bg-black/80 text-white text-xs font-bold px-2.5 py-1 rounded border border-white/20">
+                <div className="absolute top-3 left-3 bg-black/80 text-white text-xs font-bold px-2.5 py-1 rounded-md border border-white/20">
                   {currentProof.beforeLabel}
                 </div>
               </div>
@@ -306,7 +306,7 @@ export default function BeforeAfterProofModal({
                   alt={currentProof.afterLabel}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute top-3 right-3 bg-coral text-white text-xs font-bold px-2.5 py-1 rounded shadow-sm">
+                <div className="absolute top-3 right-3 bg-coral text-white text-xs font-bold px-2.5 py-1 rounded-md shadow-sm">
                   {currentProof.afterLabel}
                 </div>
               </div>
@@ -314,13 +314,13 @@ export default function BeforeAfterProofModal({
           </div>
 
           {/* Detailed Skill Breakdown */}
-          <div className="bg-white rounded-human border border-cream-border p-4 shadow-paper space-y-3">
-            <h4 className="font-heading font-bold text-xs uppercase tracking-wider text-ink-secondary flex items-center gap-1.5">
+          <div className="bg-slate-50 rounded-2xl border border-slate-200 p-4 shadow-2xs space-y-3">
+            <h4 className="font-heading font-bold text-xs uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-coral" />
               What Changed in the Edit (Skill Breakdown)
             </h4>
 
-            <p className="text-xs text-ink-secondary leading-relaxed">
+            <p className="text-xs text-slate-600 leading-relaxed">
               {currentProof.description}
             </p>
 
@@ -328,9 +328,9 @@ export default function BeforeAfterProofModal({
               {currentProof.breakdown.map((item, idx) => (
                 <div
                   key={idx}
-                  className="flex items-start gap-2 bg-cream/60 p-2 rounded-human border border-cream-border text-xs text-ink"
+                  className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 shadow-2xs"
                 >
-                  <CheckCircle2 className="w-3.5 h-3.5 text-forest flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-forest shrink-0 mt-0.5" />
                   <span>{item}</span>
                 </div>
               ))}
@@ -340,10 +340,10 @@ export default function BeforeAfterProofModal({
           {/* Pricing & 1-Tap Action Bar */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
             <div>
-              <div className="text-[11px] text-ink-muted">Fixed Gig Rate</div>
+              <div className="text-[11px] text-slate-400">Fixed Gig Rate</div>
               <div className="font-heading font-extrabold text-lg text-coral">
                 {talent.price}{' '}
-                <span className="text-xs font-medium text-ink-secondary">
+                <span className="text-xs font-medium text-slate-500">
                   ({talent.priceUnit || 'per project'})
                 </span>
               </div>
@@ -355,7 +355,7 @@ export default function BeforeAfterProofModal({
                   onClose();
                   if (onOpenChat) onOpenChat(talent);
                 }}
-                className="flex-1 sm:flex-initial py-2.5 px-4 rounded-human bg-white hover:bg-cream-muted text-ink font-heading font-bold text-xs border border-cream-border transition shadow-sm flex items-center justify-center gap-1.5"
+                className="flex-1 sm:flex-initial py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-heading font-bold text-xs border border-slate-200 transition shadow-2xs flex items-center justify-center gap-1.5"
               >
                 <MessageCircle className="w-3.5 h-3.5 text-forest" />
                 <span>Chat on WhatsApp</span>
@@ -368,7 +368,7 @@ export default function BeforeAfterProofModal({
                     onBookEscrow(talent, talent.projects?.[0] || null);
                   }
                 }}
-                className="flex-1 sm:flex-initial py-2.5 px-5 rounded-human bg-coral hover:bg-coral-hover text-white font-heading font-bold text-xs transition shadow-sm flex items-center justify-center gap-1.5"
+                className="flex-1 sm:flex-initial py-2.5 px-5 rounded-xl bg-gradient-to-r from-coral to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white font-heading font-bold text-xs transition shadow-md shadow-rose-500/25 flex items-center justify-center gap-1.5"
               >
                 <Lock className="w-3.5 h-3.5" />
                 <span>Book via Escrow</span>

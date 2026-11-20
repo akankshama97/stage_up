@@ -26,7 +26,7 @@ export default function OrdersDrawer({
       particleCount: 50,
       spread: 70,
       origin: { y: 0.6 },
-      colors: ['#1E7A4C', '#FF4D2E', '#FAF7F2']
+      colors: ['#059669', '#FF385C', '#6366F1']
     });
 
     if (onUpdateStatus) {

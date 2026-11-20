@@ -101,26 +101,27 @@ export default function SignupPage({
       return;
     }
     if (!agreedTerms) {
-      setErrorMsg('Please agree to the StageUp Escrow & Terms of Service.');
+      setErrorMsg('Please agree to the terms to continue.');
       return;
     }
 
     setIsLoading(true);
 
+    const isRecruiter = role === 'recruiter';
+    const payload = {
+      name: name.trim(),
+      emailOrPhone: emailOrPhone.trim(),
+      password,
+      role,
+      companyName: isRecruiter ? companyName.trim() : '',
+      city: city.trim() || 'Delhi NCR',
+      skills: isRecruiter ? [hiringInterest] : [skill],
+      portfolioLink: !isRecruiter ? portfolioLink.trim() : ''
+    };
+
     try {
       const apiBase = import.meta.env.VITE_API_URL || '';
-      const payload = {
-        name: name.trim(),
-        email: emailOrPhone.includes('@') ? emailOrPhone.trim().toLowerCase() : '',
-        phone: !emailOrPhone.includes('@') ? emailOrPhone.trim() : '',
-        password,
-        role,
-        companyName: role === 'recruiter' ? companyName.trim() : '',
-        city,
-        skills: role === 'talent' ? [skill] : [hiringInterest]
-      };
-
-      const res = await fetch(`${apiBase}/api/auth/signup`, {
+      const res = await fetch(`${apiBase}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -130,32 +131,34 @@ export default function SignupPage({
         const data = await res.json();
         if (data.user) {
           localStorage.setItem('stageup_auth_user', JSON.stringify(data.user));
-          if (data.token) localStorage.setItem('stageup_auth_token', data.token);
-          setSuccessMsg(`Account created successfully! Welcome, ${data.user.name.split(' ')[0]}!`);
+          if (data.token) {
+            localStorage.setItem('stageup_auth_token', data.token);
+          }
+          setSuccessMsg(`Welcome to StageUp, ${data.user.name.split(' ')[0]}! Setting up your workspace...`);
           setTimeout(() => {
             onAuthSuccess(data.user, data.token);
+            setIsLoading(false);
           }, 450);
           return;
         }
       } else {
-        const errData = await res.json().catch(() => null);
-        if (errData?.error) {
-          setErrorMsg(errData.error);
+        const err = await res.json().catch(() => ({}));
+        if (err.message) {
+          setErrorMsg(err.message);
           setIsLoading(false);
           return;
         }
       }
-    } catch (err) {
-      console.warn('Backend signup API offline, using smart local fallback:', err);
+    } catch (networkErr) {
+      console.warn('Backend register unavailable, using local demo account creation:', networkErr);
     }
 
-    // Graceful offline fallback
-    const isRecruiter = role === 'recruiter';
+    // Client-side demo fallback
     const fallbackUser = {
-      _id: `user_${Date.now()}`,
+      _id: `user_registered_${Date.now()}`,
       name: name.trim(),
       email: emailOrPhone.includes('@') ? emailOrPhone.trim() : `${name.toLowerCase().replace(/\s+/g, '')}@stageup.in`,
-      phone: !emailOrPhone.includes('@') ? emailOrPhone.trim() : '+919811223344',
+      phone: !emailOrPhone.includes('@') ? emailOrPhone.trim() : '+919811243210',
       role,
       companyName: isRecruiter ? (companyName.trim() || 'Brand / Studio') : '',
       isPrivate: isRecruiter,
@@ -177,13 +180,13 @@ export default function SignupPage({
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] text-[#1A1A1A] flex flex-col justify-between p-4 sm:p-6 max-w-lg mx-auto selection:bg-coral-light selection:text-coral animate-fadeIn">
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-between p-4 sm:p-6 max-w-lg mx-auto selection:bg-rose-100 selection:text-coral animate-fadeIn font-sans">
       {/* Top Header */}
       <div>
-        <header className="flex items-center justify-between pt-2 pb-5 border-b border-neutral-200">
+        <header className="flex items-center justify-between pt-2 pb-5 border-b border-slate-200">
           <button
             onClick={onBack}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-neutral-200 text-neutral-700 hover:text-[#1A1A1A] hover:bg-neutral-50 transition text-xs font-semibold shadow-xs"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition text-xs font-semibold shadow-2xs"
             aria-label="Back"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
@@ -191,56 +194,56 @@ export default function SignupPage({
           </button>
 
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-[8px] bg-[#1A1A1A] text-white flex items-center justify-center font-heading font-extrabold text-xs">
+            <div className="w-7 h-7 rounded-lg bg-slate-900 text-white flex items-center justify-center font-heading font-extrabold text-xs">
               SU
             </div>
-            <span className="font-heading font-extrabold text-base tracking-tight text-[#1A1A1A]">
+            <span className="font-heading font-extrabold text-base tracking-tight text-slate-900">
               StageUp
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FF4D2E] inline-block ml-0.5"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-coral inline-block ml-0.5 shadow-[0_0_6px_#FF385C]"></span>
             </span>
           </div>
 
           <button
             onClick={onNavigateToLogin}
-            className="text-xs font-heading font-bold text-[#FF4D2E] hover:underline"
+            className="text-xs font-heading font-bold text-coral hover:underline"
           >
             Log In
           </button>
         </header>
 
         {/* Page Switcher Tabs: Log In vs Sign Up */}
-        <div className="flex p-1 bg-neutral-200/70 rounded-human mt-5 mb-5 border border-neutral-200">
+        <div className="flex p-1 bg-slate-200/70 rounded-full mt-5 mb-5 border border-slate-200">
           <button
             type="button"
             onClick={onNavigateToLogin}
-            className="flex-1 py-2 text-xs font-heading font-bold rounded-human text-neutral-600 hover:text-[#1A1A1A] flex items-center justify-center gap-1.5 transition"
+            className="flex-1 py-2 text-xs font-heading font-bold rounded-full text-slate-600 hover:text-slate-900 flex items-center justify-center gap-1.5 transition"
           >
             <Lock className="w-3.5 h-3.5" />
             <span>Log In</span>
           </button>
           <button
             type="button"
-            className="flex-1 py-2 text-xs font-heading font-bold rounded-human bg-white text-[#1A1A1A] shadow-xs flex items-center justify-center gap-1.5 transition"
+            className="flex-1 py-2 text-xs font-heading font-bold rounded-full bg-gradient-to-r from-coral to-rose-600 text-white shadow-xs flex items-center justify-center gap-1.5 transition"
           >
-            <User className="w-3.5 h-3.5 text-[#FF4D2E]" />
+            <User className="w-3.5 h-3.5" />
             <span>Sign Up</span>
           </button>
         </div>
 
         {/* Hero Title */}
         <div className="mb-5">
-          <h1 className="font-heading text-2xl sm:text-3xl font-extrabold text-[#1A1A1A] tracking-tight">
+          <h1 className="font-heading text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
             Join StageUp 🚀
           </h1>
-          <p className="text-xs sm:text-sm text-neutral-600 mt-1">
+          <p className="text-xs sm:text-sm text-slate-600 mt-1">
             Skip the CV. Show real video proof reels, chat directly on WhatsApp, and book with 100% Escrow security.
           </p>
         </div>
 
         {/* Quick Demo Pre-fill Bar */}
-        <div className="mb-5 p-3 rounded-human bg-white border border-neutral-200 shadow-xs">
+        <div className="mb-5 p-3 rounded-2xl bg-white border border-slate-200 shadow-2xs">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-[10px] font-heading font-bold uppercase tracking-wider text-neutral-500">
+            <span className="text-[10px] font-heading font-bold uppercase tracking-wider text-slate-500">
               ⚡ Quick Fill Form (1-Click Test)
             </span>
           </div>
@@ -248,17 +251,17 @@ export default function SignupPage({
             <button
               type="button"
               onClick={() => handleQuickFill('recruiter')}
-              className="py-1.5 px-2.5 rounded-human bg-amber-50 hover:bg-amber-100 border border-amber-200 text-[#1A1A1A] font-semibold text-xs flex items-center justify-center gap-1.5 transition"
+              className="py-1.5 px-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 font-semibold text-xs flex items-center justify-center gap-1.5 transition"
             >
-              <Briefcase className="w-3.5 h-3.5 text-[#FF4D2E]" />
+              <Briefcase className="w-3.5 h-3.5 text-slate-700" />
               <span>Fill as Recruiter</span>
             </button>
             <button
               type="button"
               onClick={() => handleQuickFill('talent')}
-              className="py-1.5 px-2.5 rounded-human bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-[#1A1A1A] font-semibold text-xs flex items-center justify-center gap-1.5 transition"
+              className="py-1.5 px-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-coral font-semibold text-xs flex items-center justify-center gap-1.5 transition"
             >
-              <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+              <Sparkles className="w-3.5 h-3.5 text-coral" />
               <span>Fill as Creator</span>
             </button>
           </div>
@@ -266,78 +269,78 @@ export default function SignupPage({
 
         {/* Feedback Alerts */}
         {errorMsg && (
-          <div className="mb-4 p-3 rounded-human bg-red-50 border border-red-200 flex items-start gap-2.5 text-xs text-red-700 animate-shake">
+          <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 flex items-start gap-2.5 text-xs text-red-700 animate-shake">
             <AlertCircle className="w-4 h-4 shrink-0 text-red-600 mt-0.5" />
             <div className="flex-1">{errorMsg}</div>
           </div>
         )}
 
         {successMsg && (
-          <div className="mb-4 p-3 rounded-human bg-emerald-50 border border-emerald-200 flex items-center gap-2.5 text-xs text-emerald-700">
+          <div className="mb-4 p-3 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center gap-2.5 text-xs text-emerald-700">
             <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
             <span className="font-medium">{successMsg}</span>
           </div>
         )}
 
         {/* Main Sign Up Form */}
-        <form onSubmit={handleSubmit} className="bg-white rounded-[18px] border border-neutral-200 p-5 shadow-sm space-y-4">
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
           {/* Step 1: Choose Account Role */}
           <div>
-            <label className="block text-[11px] font-heading font-bold uppercase tracking-wider text-neutral-600 mb-2">
+            <label className="block text-[11px] font-heading font-bold uppercase tracking-wider text-slate-500 mb-2">
               Select Your Account Type
             </label>
             <div className="grid grid-cols-2 gap-2.5">
               <button
                 type="button"
                 onClick={() => setRole('recruiter')}
-                className={`p-3 rounded-human border text-left transition ${
+                className={`p-3 rounded-xl border text-left transition ${
                   role === 'recruiter'
-                    ? 'bg-amber-50/60 border-[#FF4D2E] ring-2 ring-[#FF4D2E]/20 shadow-xs'
-                    : 'bg-neutral-50 hover:bg-neutral-100 border-neutral-200'
+                    ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
+                    : 'bg-slate-50 hover:bg-slate-100 text-slate-800 border-slate-200'
                 }`}
               >
                 <div className="flex items-center justify-between mb-1">
-                  <div className="w-7 h-7 rounded-full bg-amber-100 flex items-center justify-center text-amber-700">
-                    <Briefcase className="w-3.5 h-3.5 text-[#FF4D2E]" />
+                  <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${role === 'recruiter' ? 'bg-slate-800 text-white' : 'bg-slate-200 text-slate-700'}`}>
+                    <Briefcase className="w-3.5 h-3.5" />
                   </div>
                   {role === 'recruiter' && (
-                    <span className="w-4 h-4 rounded-full bg-[#FF4D2E] text-white flex items-center justify-center text-[10px]">✓</span>
+                    <span className="w-4 h-4 rounded-full bg-coral text-white flex items-center justify-center text-[10px]">✓</span>
                   )}
                 </div>
-                <div className="font-heading font-bold text-xs text-[#1A1A1A]">Mujhe Talent Chahiye</div>
-                <div className="text-[10px] text-neutral-500 mt-0.5">Founders, Brands & Channels</div>
+                <div className="font-heading font-bold text-xs">Mujhe Talent Chahiye</div>
+                <div className={`text-[10px] mt-0.5 ${role === 'recruiter' ? 'text-slate-300' : 'text-slate-500'}`}>Founders, Brands &amp; Channels</div>
               </button>
 
               <button
                 type="button"
                 onClick={() => setRole('talent')}
-                className={`p-3 rounded-human border text-left transition ${
+                className={`p-3 rounded-xl border text-left transition ${
                   role === 'talent'
-                    ? 'bg-emerald-50/60 border-emerald-600 ring-2 ring-emerald-600/20 shadow-xs'
-                    : 'bg-neutral-50 hover:bg-neutral-100 border-neutral-200'
+                    ? 'bg-coral text-white border-coral shadow-sm shadow-rose-500/25'
+                    : 'bg-slate-50 hover:bg-slate-100 text-slate-800 border-slate-200'
                 }`}
               >
                 <div className="flex items-center justify-between mb-1">
-                  <div className="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700">
+                  <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${role === 'talent' ? 'bg-rose-600 text-white' : 'bg-rose-100 text-coral'}`}>
                     <Sparkles className="w-3.5 h-3.5" />
                   </div>
                   {role === 'talent' && (
-                    <span className="w-4 h-4 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px]">✓</span>
+                    <span className="w-4 h-4 rounded-full bg-white text-coral flex items-center justify-center text-[10px] font-black">✓</span>
                   )}
                 </div>
-                <div className="font-heading font-bold text-xs text-[#1A1A1A]">Mujhe Kaam Chahiye</div>
-                <div className="text-[10px] text-neutral-500 mt-0.5">Editors, Designers & Writers</div>
+                <div className="font-heading font-bold text-xs">Mujhe Kaam Chahiye</div>
+                <div className={`text-[10px] mt-0.5 ${role === 'talent' ? 'text-rose-100' : 'text-slate-500'}`}>Editors, Designers &amp; Writers</div>
               </button>
             </div>
           </div>
 
           {/* Full Name */}
           <div>
-            <label className="block text-xs font-heading font-bold text-neutral-700 mb-1">
+            <label className="block text-xs font-heading font-bold text-slate-700 mb-1">
               Full Name
             </label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-neutral-400">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                 <User className="w-4 h-4" />
               </div>
               <input
@@ -348,18 +351,18 @@ export default function SignupPage({
                   setErrorMsg('');
                 }}
                 placeholder="e.g. Aarav Mehta"
-                className="w-full pl-9 pr-3 py-2.5 rounded-human bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-[#FF4D2E] focus:ring-2 focus:ring-[#FF4D2E]/20 text-xs sm:text-sm text-[#1A1A1A] placeholder-neutral-400 outline-none transition"
+                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-coral focus:ring-4 focus:ring-rose-500/10 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none transition"
               />
             </div>
           </div>
 
           {/* Email or Phone */}
           <div>
-            <label className="block text-xs font-heading font-bold text-neutral-700 mb-1">
+            <label className="block text-xs font-heading font-bold text-slate-700 mb-1">
               {role === 'talent' ? 'WhatsApp Mobile Number or Email (for Client Orders)' : 'Work Email or Mobile Number'}
             </label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-neutral-400">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                 {emailOrPhone.includes('@') ? (
                   <Mail className="w-4 h-4" />
                 ) : (
@@ -374,18 +377,18 @@ export default function SignupPage({
                   setErrorMsg('');
                 }}
                 placeholder={role === 'talent' ? '+91 98112 43210 or yourname@gmail.com' : 'aarav@company.com or +91 98112 23344'}
-                className="w-full pl-9 pr-3 py-2.5 rounded-human bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-[#FF4D2E] focus:ring-2 focus:ring-[#FF4D2E]/20 text-xs sm:text-sm text-[#1A1A1A] placeholder-neutral-400 outline-none transition"
+                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-coral focus:ring-4 focus:ring-rose-500/10 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none transition"
               />
             </div>
           </div>
 
           {/* Password */}
           <div>
-            <label className="block text-xs font-heading font-bold text-neutral-700 mb-1">
+            <label className="block text-xs font-heading font-bold text-slate-700 mb-1">
               Create Password
             </label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-neutral-400">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                 <Lock className="w-4 h-4" />
               </div>
               <input
@@ -396,12 +399,12 @@ export default function SignupPage({
                   setErrorMsg('');
                 }}
                 placeholder="At least 6 characters"
-                className="w-full pl-9 pr-10 py-2.5 rounded-human bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-[#FF4D2E] focus:ring-2 focus:ring-[#FF4D2E]/20 text-xs sm:text-sm text-[#1A1A1A] placeholder-neutral-400 outline-none transition"
+                className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-coral focus:ring-4 focus:ring-rose-500/10 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none transition"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-neutral-400 hover:text-neutral-700 transition"
+                className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-700 transition"
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
@@ -413,11 +416,11 @@ export default function SignupPage({
             <>
               {/* Company / Brand Name */}
               <div>
-                <label className="block text-xs font-heading font-bold text-neutral-700 mb-1">
-                  Company / Brand Name <span className="text-neutral-400 font-normal">(Optional)</span>
+                <label className="block text-xs font-heading font-bold text-slate-700 mb-1">
+                  Company / Brand Name <span className="text-slate-400 font-normal">(Optional)</span>
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-neutral-400">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                     <Building2 className="w-4 h-4" />
                   </div>
                   <input
@@ -425,14 +428,14 @@ export default function SignupPage({
                     value={companyName}
                     onChange={(e) => setCompanyName(e.target.value)}
                     placeholder="e.g. D2C Brand, YouTube Agency, Personal Studio"
-                    className="w-full pl-9 pr-3 py-2.5 rounded-human bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-[#FF4D2E] focus:ring-2 focus:ring-[#FF4D2E]/20 text-xs sm:text-sm text-[#1A1A1A] placeholder-neutral-400 outline-none transition"
+                    className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-coral focus:ring-4 focus:ring-rose-500/10 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none transition"
                   />
                 </div>
               </div>
 
               {/* Looking to Hire */}
               <div>
-                <label className="block text-xs font-heading font-bold text-neutral-700 mb-1.5">
+                <label className="block text-xs font-heading font-bold text-slate-700 mb-1.5">
                   What are you looking to hire first?
                 </label>
                 <div className="flex flex-wrap gap-1.5">
@@ -441,10 +444,10 @@ export default function SignupPage({
                       key={opt}
                       type="button"
                       onClick={() => setHiringInterest(opt)}
-                      className={`px-2.5 py-1 rounded-full text-xs font-medium border transition ${
+                      className={`px-3 py-1 rounded-full text-xs font-medium border transition ${
                         hiringInterest === opt
-                          ? 'bg-[#FF4D2E] text-white border-[#FF4D2E]'
-                          : 'bg-neutral-50 hover:bg-neutral-100 text-neutral-700 border-neutral-200'
+                          ? 'bg-slate-900 text-white border-slate-900 font-bold shadow-xs'
+                          : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
                       }`}
                     >
                       {opt}
@@ -457,13 +460,13 @@ export default function SignupPage({
             <>
               {/* Primary Creative Skill */}
               <div>
-                <label className="block text-xs font-heading font-bold text-neutral-700 mb-1">
-                  Primary Creative Skill & Starting Rate
+                <label className="block text-xs font-heading font-bold text-slate-700 mb-1">
+                  Primary Creative Skill &amp; Starting Rate
                 </label>
                 <select
                   value={skill}
                   onChange={(e) => setSkill(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-human bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-[#FF4D2E] focus:ring-2 focus:ring-[#FF4D2E]/20 text-xs sm:text-sm text-[#1A1A1A] outline-none transition"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-coral focus:ring-4 focus:ring-rose-500/10 text-xs sm:text-sm text-slate-900 outline-none transition font-medium"
                 >
                   {skillOptions.map((opt) => (
                     <option key={opt} value={opt}>
@@ -475,11 +478,11 @@ export default function SignupPage({
 
               {/* Portfolio Link */}
               <div>
-                <label className="block text-xs font-heading font-bold text-neutral-700 mb-1">
-                  Instagram / Drive / YouTube Portfolio <span className="text-neutral-400 font-normal">(Optional)</span>
+                <label className="block text-xs font-heading font-bold text-slate-700 mb-1">
+                  Instagram / Drive / YouTube Portfolio <span className="text-slate-400 font-normal">(Optional)</span>
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-neutral-400">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                     <LinkIcon className="w-4 h-4" />
                   </div>
                   <input
@@ -487,7 +490,7 @@ export default function SignupPage({
                     value={portfolioLink}
                     onChange={(e) => setPortfolioLink(e.target.value)}
                     placeholder="https://instagram.com/yourhandle or drive link"
-                    className="w-full pl-9 pr-3 py-2.5 rounded-human bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-[#FF4D2E] focus:ring-2 focus:ring-[#FF4D2E]/20 text-xs sm:text-sm text-[#1A1A1A] placeholder-neutral-400 outline-none transition"
+                    className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-coral focus:ring-4 focus:ring-rose-500/10 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none transition"
                   />
                 </div>
               </div>
@@ -496,11 +499,11 @@ export default function SignupPage({
 
           {/* City / Location */}
           <div>
-            <label className="block text-xs font-heading font-bold text-neutral-700 mb-1">
+            <label className="block text-xs font-heading font-bold text-slate-700 mb-1">
               Location / City
             </label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-neutral-400">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                 <MapPin className="w-4 h-4" />
               </div>
               <input
@@ -508,19 +511,19 @@ export default function SignupPage({
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 placeholder="e.g. Noida, Delhi NCR, Mumbai, Bengaluru"
-                className="w-full pl-9 pr-3 py-2.5 rounded-human bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-[#FF4D2E] focus:ring-2 focus:ring-[#FF4D2E]/20 text-xs sm:text-sm text-[#1A1A1A] placeholder-neutral-400 outline-none transition"
+                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-coral focus:ring-4 focus:ring-rose-500/10 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none transition"
               />
             </div>
           </div>
 
           {/* Terms Agreement */}
           <div className="pt-1">
-            <label className="flex items-start gap-2 cursor-pointer text-xs text-neutral-600">
+            <label className="flex items-start gap-2 cursor-pointer text-xs text-slate-600">
               <input
                 type="checkbox"
                 checked={agreedTerms}
                 onChange={(e) => setAgreedTerms(e.target.checked)}
-                className="w-4 h-4 mt-0.5 rounded border-neutral-300 text-[#FF4D2E] focus:ring-[#FF4D2E]/20"
+                className="w-4 h-4 mt-0.5 rounded border-slate-300 text-coral focus:ring-coral/20 accent-coral"
               />
               <span>
                 I agree to StageUp's Escrow Protection Policy, Zero-Spam Direct WhatsApp contact, and Terms of Use.
@@ -532,11 +535,7 @@ export default function SignupPage({
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full py-3 rounded-human font-heading font-bold text-sm flex items-center justify-center gap-2 transition shadow-md disabled:opacity-60 text-white ${
-              role === 'recruiter'
-                ? 'bg-[#1A1A1A] hover:bg-neutral-800'
-                : 'bg-[#FF4D2E] hover:bg-[#e03f22]'
-            }`}
+            className="w-full py-3.5 rounded-xl font-heading font-extrabold text-sm flex items-center justify-center gap-2 transition-all shadow-md shadow-rose-500/25 disabled:opacity-60 text-white bg-gradient-to-r from-coral to-rose-600 hover:from-rose-600 hover:to-rose-700 active:scale-[0.99] cursor-pointer"
           >
             {isLoading ? (
               <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -550,16 +549,16 @@ export default function SignupPage({
         </form>
 
         {/* Already have an account */}
-        <div className="mt-4 p-4 rounded-human bg-white border border-neutral-200 text-center shadow-xs">
-          <p className="text-xs text-neutral-600">
+        <div className="mt-4 p-4 rounded-2xl bg-white border border-slate-200 text-center shadow-2xs">
+          <p className="text-xs text-slate-600">
             Already have a StageUp account?
           </p>
           <button
             type="button"
             onClick={onNavigateToLogin}
-            className="mt-2 w-full py-2.5 px-4 rounded-human bg-neutral-100 hover:bg-neutral-200 text-[#1A1A1A] font-heading font-bold text-xs border border-neutral-200 transition flex items-center justify-center gap-1.5"
+            className="mt-2 w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-heading font-bold text-xs border border-slate-200 transition flex items-center justify-center gap-1.5"
           >
-            <Lock className="w-3.5 h-3.5 text-[#FF4D2E]" />
+            <Lock className="w-3.5 h-3.5 text-coral" />
             <span>Log In to Existing Account</span>
           </button>
         </div>
@@ -567,9 +566,9 @@ export default function SignupPage({
 
       {/* Trust Badges Footer */}
       <footer className="pt-6 pb-2">
-        <div className="flex items-center justify-center gap-4 text-[11px] text-neutral-500 mb-2 flex-wrap">
+        <div className="flex items-center justify-center gap-4 text-[11px] text-slate-500 mb-2 flex-wrap">
           <span className="flex items-center gap-1">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+            <ShieldCheck className="w-3.5 h-3.5 text-forest" />
             100% Escrow Protected
           </span>
           <span>•</span>
@@ -580,8 +579,8 @@ export default function SignupPage({
           <span>•</span>
           <span>Direct WhatsApp Orders</span>
         </div>
-        <p className="text-[10px] text-neutral-400 text-center">
-          StageUp — Skip the CV, Show Your Skill. Built for Indian Creators & Modern Founders.
+        <p className="text-[10px] text-slate-400 text-center">
+          StageUp — Skip the CV, Show Your Skill. Built for Indian Creators &amp; Modern Founders.
         </p>
       </footer>
     </div>

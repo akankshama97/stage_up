@@ -4,8 +4,8 @@
 
 @layer base {
   body {
-    background-color: #FAF7F2;
-    color: #1A1A1A;
+    background-color: #F8FAFC;
+    color: #0F172A;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 
@@ -14,20 +14,20 @@
   }
 }
 
-/* Custom subtle paper scrollbar */
+/* Modern clean scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAF7F2;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #DDD6C8;
+  background: #CBD5E1;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C4BCAC;
+  background: #94A3B8;
 }
 
 /* Hide scrollbar for reel feed while maintaining snap scrolling */
@@ -46,4 +46,19 @@
 .reel-slide {
   scroll-snap-align: start;
   scroll-snap-stop: always;
+}
+
+/* Glassmorphic utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.glass-dark {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }

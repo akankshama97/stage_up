@@ -157,7 +157,7 @@ export default function CreateTalentModal({ onClose, onCreated }) {
         particleCount: 50,
         spread: 70,
         origin: { y: 0.6 },
-        colors: ['#FF4D2E', '#1E7A4C', '#FAF7F2']
+        colors: ['#FF385C', '#059669', '#6366F1']
       });
 
       onCreated(created);

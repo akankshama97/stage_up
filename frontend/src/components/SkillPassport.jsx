@@ -45,7 +45,7 @@ export default function SkillPassport({ talent, isLiveTested = false }) {
       particleCount: 30,
       spread: 60,
       origin: { y: 0.7 },
-      colors: ['#FF4D2E', '#1E7A4C', '#FFB800']
+      colors: ['#FF385C', '#059669', '#F59E0B']
     });
     setTimeout(() => setDownloadToast(false), 3000);
   };
@@ -59,33 +59,33 @@ export default function SkillPassport({ talent, isLiveTested = false }) {
   };
 
   return (
-    <div className="bg-white rounded-human border-2 border-cream-border p-4 sm:p-6 shadow-paper space-y-5 relative overflow-hidden">
-      {/* Background Indian Security Micro-Pattern Motifs (Subtle Paper Watermark) */}
-      <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+    <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 shadow-sm space-y-5 relative overflow-hidden font-sans">
+      {/* Subtle modern ambient glow */}
+      <div className="absolute top-0 right-0 w-48 h-48 bg-rose-500/5 rounded-full blur-3xl pointer-events-none" />
 
       {/* TOP HEADER: REPUBLIC OF CREATORS / PASSPORT HEADER */}
-      <div className="border-b-2 border-dashed border-cream-border pb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div className="border-b border-slate-100 pb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-human bg-cream border-2 border-cream-border flex items-center justify-center text-ink shadow-inner flex-shrink-0">
-            <span className="font-heading font-black text-xs text-center leading-none text-ink">
+          <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-white shadow-xs shrink-0">
+            <span className="font-heading font-black text-xs text-center leading-none text-white">
               🇮🇳<br />IND
             </span>
           </div>
 
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-ink-muted">
+              <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-slate-400">
                 Official Skill Passport
               </span>
-              <span className="text-[10px] bg-forest-light text-forest font-bold px-2 py-0.2 rounded-full border border-forest-border">
+              <span className="text-[10px] bg-emerald-50 text-forest font-bold px-2 py-0.5 rounded-full border border-emerald-200">
                 CV Replacement
               </span>
             </div>
-            <h3 className="font-heading font-extrabold text-base sm:text-lg text-ink tracking-tight flex items-center gap-1.5">
+            <h3 className="font-heading font-extrabold text-base sm:text-lg text-slate-900 tracking-tight flex items-center gap-1.5">
               Republic of Indian Creators 🇮🇳
             </h3>
-            <span className="font-mono text-[11px] text-ink-muted block mt-0.5">
-              Doc ID: <span className="font-bold text-ink">{passportNumber}</span> • Issued: {issueDate}
+            <span className="font-mono text-[11px] text-slate-500 block mt-0.5">
+              Doc ID: <span className="font-bold text-slate-900">{passportNumber}</span> • Issued: {issueDate}
             </span>
           </div>
         </div>
@@ -94,7 +94,7 @@ export default function SkillPassport({ talent, isLiveTested = false }) {
         <div className="flex items-center gap-1.5 w-full sm:w-auto justify-end">
           <button
             onClick={handleCopyPassportLink}
-            className="py-1.5 px-2.5 rounded-human bg-cream hover:bg-cream-muted border border-cream-border text-ink text-xs font-heading font-semibold transition flex items-center gap-1 shadow-sm"
+            className="py-1.5 px-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 text-xs font-heading font-semibold transition flex items-center gap-1 shadow-2xs"
             title="Copy Passport Share Link"
           >
             {copiedLink ? <Check className="w-3.5 h-3.5 text-forest" /> : <Share2 className="w-3.5 h-3.5" />}
@@ -103,81 +103,81 @@ export default function SkillPassport({ talent, isLiveTested = false }) {
 
           <button
             onClick={handleDownloadPassport}
-            className="py-1.5 px-3 rounded-human bg-ink hover:bg-neutral-800 text-cream text-xs font-heading font-bold transition flex items-center gap-1.5 shadow-sm"
+            className="py-1.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-heading font-bold transition flex items-center gap-1.5 shadow-2xs"
             title="Download Passport as Image"
           >
             <Download className="w-3.5 h-3.5 text-amber-400" />
-            <span>Download Passport as Image</span>
+            <span>Download Passport</span>
           </button>
         </div>
       </div>
 
       {/* DOWNLOAD CONFIRMATION TOAST */}
       {downloadToast && (
-        <div className="p-2.5 rounded-human bg-forest text-white text-xs font-heading font-bold flex items-center justify-between shadow-paper animate-fadeIn">
+        <div className="p-2.5 rounded-xl bg-forest text-white text-xs font-heading font-bold flex items-center justify-between shadow-md animate-fadeIn">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-emerald-200" />
-            <span>Official Skill Passport snapshot generated & ready for download!</span>
+            <span>Official Skill Passport snapshot generated &amp; ready for download!</span>
           </div>
           <span className="text-[10px] text-emerald-200 font-normal">PNG High-Res</span>
         </div>
       )}
 
       {/* PASSPORT BIOMETRIC & TRADE PROFILE SECTION */}
-      <div className="bg-cream/60 rounded-human border border-cream-border p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="bg-slate-50 rounded-2xl border border-slate-200 p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <div className="relative flex-shrink-0">
+          <div className="relative shrink-0">
             <img
               src={talent.avatar}
               alt={talent.name}
-              className="w-20 h-24 rounded-lg object-cover border-2 border-white shadow-sm"
+              className="w-20 h-24 rounded-xl object-cover border-2 border-white shadow-sm"
             />
-            {/* Red Holographic / Paper Corner */}
-            <div className="absolute -top-1.5 -left-1.5 bg-coral text-white text-[8px] font-mono font-bold px-1 py-0.2 rounded shadow">
+            {/* Holographic Badge */}
+            <div className="absolute -top-1.5 -left-1.5 bg-coral text-white text-[8px] font-mono font-bold px-1.5 py-0.5 rounded shadow">
               AUTH
             </div>
           </div>
 
           <div className="space-y-1">
-            <span className="text-[10px] uppercase font-mono tracking-wider text-ink-muted block font-semibold">
+            <span className="text-[10px] uppercase font-mono tracking-wider text-slate-400 block font-semibold">
               Certified Professional
             </span>
-            <h4 className="font-heading font-extrabold text-lg text-ink leading-tight flex items-center gap-1.5">
+            <h4 className="font-heading font-extrabold text-lg text-slate-900 leading-tight flex items-center gap-1.5">
               {talent.name}
             </h4>
 
-            <div className="flex items-center gap-2 text-xs text-ink-secondary flex-wrap">
+            <div className="flex items-center gap-2 text-xs text-slate-600 flex-wrap">
               <span className="font-medium flex items-center gap-0.5">
                 <MapPin className="w-3 h-3 text-coral" /> {talent.city}, India
               </span>
               <span>•</span>
-              <span className="font-bold text-ink bg-white px-2 py-0.5 rounded border border-cream-border">
+              <span className="font-bold text-slate-900 bg-white px-2 py-0.5 rounded border border-slate-200">
                 {primaryTrade}
               </span>
             </div>
 
-            <div className="text-[11px] text-ink-muted pt-0.5">
+            <div className="text-[11px] text-slate-500 pt-0.5">
               Average Turnaround: <span className="font-semibold text-forest">{talent.turnaroundTime || '24 hrs'}</span>
             </div>
           </div>
         </div>
 
         {/* OFFICIAL VERIFIED STAMP */}
-        <div className="flex sm:flex-col items-center justify-center p-3 rounded-full border-2 border-forest/60 bg-forest-light/60 text-forest text-center self-end sm:self-center shadow-sm">
-          <div className="w-10 h-10 rounded-full bg-forest text-white flex items-center justify-center font-black text-xs shadow-inner">
+        <div className="flex sm:flex-col items-center justify-center p-3 rounded-2xl border border-emerald-300 bg-emerald-50 text-forest text-center self-end sm:self-center shadow-xs">
+          <div className="w-9 h-9 rounded-full bg-forest text-white flex items-center justify-center font-black text-xs shadow-inner">
             ✓
           </div>
           <div className="text-[9px] font-heading font-black uppercase tracking-tighter text-forest mt-1 leading-tight">
-            STAGEUP VERIFIED<br />GOVT STANDARD
+            STAGEUP VERIFIED<br />BENCHMARK
           </div>
         </div>
       </div>
 
       {/* GOLDEN LIVE TESTED BADGE IF ACTIVE */}
       {isLiveTested && (
-        <div className="bg-amber-50 rounded-human border-2 border-amber-400 p-3 flex items-center justify-between shadow-sm animate-fadeIn">
+        <div className="bg-amber-50 rounded-2xl border border-amber-300 p-3 flex items-center justify-between shadow-2xs animate-fadeIn">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-amber-400 text-amber-950 flex items-center justify-center flex-shrink-0 shadow-sm">
+            <div className="w-8 h-8 rounded-full bg-amber-400 text-amber-950 flex items-center justify-center shrink-0 shadow-xs">
               <Award className="w-4 h-4" />
             </div>
             <div>
@@ -195,12 +195,12 @@ export default function SkillPassport({ talent, isLiveTested = false }) {
         </div>
       )}
 
-      {/* THE 4 PILLARS OF PROOF (CV REPLACEMENT CARDS) */}
+      {/* THE 4 PILLARS OF PROOF */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
         {/* CARD 1: RELIABILITY SCORE */}
-        <div className="bg-cream/40 rounded-human border border-cream-border p-4 shadow-sm space-y-2">
+        <div className="bg-slate-50 rounded-2xl border border-slate-200 p-4 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-heading font-bold text-ink-secondary flex items-center gap-1.5">
+            <span className="text-xs font-heading font-bold text-slate-700 flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 text-forest" />
               Reliability Score
             </span>
@@ -209,20 +209,19 @@ export default function SkillPassport({ talent, isLiveTested = false }) {
             </span>
           </div>
 
-          {/* Progress bar */}
-          <div className="w-full h-2 bg-cream-muted rounded-full overflow-hidden border border-cream-border">
+          <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
             <div className="h-full bg-forest rounded-full transition-all duration-500" style={{ width: '98%' }} />
           </div>
 
-          <p className="text-[11px] text-ink-muted">
+          <p className="text-[11px] text-slate-500">
             Delivered 48 of 49 gigs strictly on-time within guaranteed turnaround.
           </p>
         </div>
 
         {/* CARD 2: REVISION SCORE */}
-        <div className="bg-cream/40 rounded-human border border-cream-border p-4 shadow-sm space-y-2">
+        <div className="bg-slate-50 rounded-2xl border border-slate-200 p-4 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-heading font-bold text-ink-secondary flex items-center gap-1.5">
+            <span className="text-xs font-heading font-bold text-slate-700 flex items-center gap-1.5">
               <RotateCcw className="w-3.5 h-3.5 text-coral" />
               Revision Friction Score
             </span>
@@ -231,45 +230,45 @@ export default function SkillPassport({ talent, isLiveTested = false }) {
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5 text-xs text-ink font-semibold">
-            <div className="flex-1 bg-white p-1 rounded border border-cream-border text-center text-[11px]">
+          <div className="flex items-center gap-1.5 text-xs text-slate-900 font-semibold">
+            <div className="flex-1 bg-white p-1 rounded-lg border border-slate-200 text-center text-[11px]">
               1st Cut Approval: <span className="text-forest font-bold">84%</span>
             </div>
-            <div className="flex-1 bg-white p-1 rounded border border-cream-border text-center text-[11px]">
-              Industry Avg: <span className="text-ink-muted">3.8</span>
+            <div className="flex-1 bg-white p-1 rounded-lg border border-slate-200 text-center text-[11px]">
+              Industry Avg: <span className="text-slate-400">3.8</span>
             </div>
           </div>
 
-          <p className="text-[11px] text-ink-muted">
+          <p className="text-[11px] text-slate-500">
             Clients require minimum back-and-forth due to detailed project brief matching.
           </p>
         </div>
 
         {/* CARD 3: REPEAT CLIENT RATE */}
-        <div className="bg-cream/40 rounded-human border border-cream-border p-4 shadow-sm space-y-2">
+        <div className="bg-slate-50 rounded-2xl border border-slate-200 p-4 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-heading font-bold text-ink-secondary flex items-center gap-1.5">
-              <Users className="w-3.5 h-3.5 text-ink" />
+            <span className="text-xs font-heading font-bold text-slate-700 flex items-center gap-1.5">
+              <Users className="w-3.5 h-3.5 text-slate-900" />
               Repeat Client Rate
             </span>
-            <span className="font-heading font-extrabold text-base text-ink">
+            <span className="font-heading font-extrabold text-base text-slate-900">
               64%
             </span>
           </div>
 
-          <div className="w-full h-2 bg-cream-muted rounded-full overflow-hidden border border-cream-border">
+          <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
             <div className="h-full bg-coral rounded-full transition-all duration-500" style={{ width: '64%' }} />
           </div>
 
-          <p className="text-[11px] text-ink-muted">
+          <p className="text-[11px] text-slate-500">
             64 out of 100 first-time clients re-booked within 60 days.
           </p>
         </div>
 
         {/* CARD 4: ESCROW SETTLEMENT TRACK RECORD */}
-        <div className="bg-cream/40 rounded-human border border-cream-border p-4 shadow-sm space-y-2">
+        <div className="bg-slate-50 rounded-2xl border border-slate-200 p-4 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-heading font-bold text-ink-secondary flex items-center gap-1.5">
+            <span className="text-xs font-heading font-bold text-slate-700 flex items-center gap-1.5">
               <ShieldCheck className="w-3.5 h-3.5 text-forest" />
               Dispute Rate
             </span>
@@ -278,32 +277,32 @@ export default function SkillPassport({ talent, isLiveTested = false }) {
             </span>
           </div>
 
-          <div className="bg-white p-1.5 rounded border border-cream-border flex items-center justify-between text-xs">
-            <span className="text-ink-muted text-[11px]">Escrow Funds Cleared:</span>
-            <span className="font-heading font-bold text-ink">₹1,84,000+</span>
+          <div className="bg-white p-1.5 rounded-lg border border-slate-200 flex items-center justify-between text-xs">
+            <span className="text-slate-500 text-[11px]">Escrow Funds Cleared:</span>
+            <span className="font-heading font-bold text-slate-900">₹1,84,000+</span>
           </div>
 
-          <p className="text-[11px] text-ink-muted">
+          <p className="text-[11px] text-slate-500">
             100% of escrow contracts successfully approved by clients without refund disputes.
           </p>
         </div>
       </div>
 
       {/* MONTHLY EARNINGS PROOF GRAPH (LAST 6 MONTHS) */}
-      <div className="bg-cream/50 rounded-human border border-cream-border p-4 shadow-sm space-y-3">
+      <div className="bg-slate-50 rounded-2xl border border-slate-200 p-4 shadow-2xs space-y-3">
         <div className="flex items-center justify-between">
           <div>
-            <h4 className="font-heading font-bold text-xs uppercase tracking-wider text-ink-secondary flex items-center gap-1.5">
+            <h4 className="font-heading font-bold text-xs uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
               <TrendingUp className="w-3.5 h-3.5 text-forest" />
-              Proof of Income & Volume (Last 6 Months)
+              Proof of Income &amp; Volume (Last 6 Months)
             </h4>
-            <p className="text-[11px] text-ink-muted">
+            <p className="text-[11px] text-slate-500">
               Verified freelance income settled via StageUp UPI Escrow
             </p>
           </div>
 
           <div className="text-right">
-            <span className="text-[10px] text-ink-muted">Total 6-Mo Volume:</span>
+            <span className="text-[10px] text-slate-400">Total 6-Mo Volume:</span>
             <div className="font-heading font-extrabold text-sm text-forest">
               ₹2,07,500
             </div>
@@ -311,17 +310,15 @@ export default function SkillPassport({ talent, isLiveTested = false }) {
         </div>
 
         {/* Bar Chart */}
-        <div className="h-28 flex items-end justify-between gap-2 pt-4 px-2 bg-white rounded-human border border-cream-border">
+        <div className="h-28 flex items-end justify-between gap-2 pt-4 px-2 bg-white rounded-xl border border-slate-200">
           {earningsHistory.map((item, idx) => (
             <div key={idx} className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
-              {/* Tooltip on hover */}
-              <span className="text-[9px] font-mono font-bold text-ink-muted group-hover:text-coral transition">
+              <span className="text-[9px] font-mono font-bold text-slate-400 group-hover:text-coral transition">
                 ₹{(item.amount / 1000).toFixed(1)}k
               </span>
 
-              {/* Bar */}
               <div
-                className="w-full max-w-[28px] rounded-t-[4px] bg-cream-muted group-hover:bg-coral transition-all duration-300 border border-cream-border relative"
+                className="w-full max-w-[28px] rounded-t-md bg-slate-200 group-hover:bg-coral transition-all duration-300 relative"
                 style={{ height: `${item.height}%` }}
               >
                 {idx === earningsHistory.length - 1 && (
@@ -329,8 +326,7 @@ export default function SkillPassport({ talent, isLiveTested = false }) {
                 )}
               </div>
 
-              {/* Month label */}
-              <span className="text-[10px] font-heading font-semibold text-ink-secondary">
+              <span className="text-[10px] font-heading font-semibold text-slate-600">
                 {item.month}
               </span>
             </div>
@@ -339,7 +335,7 @@ export default function SkillPassport({ talent, isLiveTested = false }) {
       </div>
 
       {/* FOOTER GUARANTEE BADGE */}
-      <div className="pt-2 border-t border-cream-border flex flex-col sm:flex-row items-center justify-between gap-2 text-[10px] text-ink-muted">
+      <div className="pt-2 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-2 text-[10px] text-slate-500">
         <span>Verified by StageUp Independent Talent Audit Protocol</span>
         <span className="font-mono text-forest font-bold flex items-center gap-1">
           <ShieldCheck className="w-3 h-3 text-forest" /> 100% NO CV • PURE PROOF OF WORK

@@ -28,28 +28,27 @@ export default function AiMatchResultsView({
   onViewProfile,
   testedTalentIds = new Set()
 }) {
-  // State for active "Why this match?" tooltip popover
   const [activeTooltipTalentId, setActiveTooltipTalentId] = useState(null);
 
   const getScoreBadgeClass = (score) => {
     if (score > 90) {
       return {
-        container: 'bg-forest-light text-forest border-2 border-forest',
+        container: 'bg-emerald-50 text-forest border border-emerald-300',
         label: 'text-forest',
         pill: 'bg-forest text-white'
       };
     }
     if (score >= 70) {
       return {
-        container: 'bg-coral-light text-coral border-2 border-coral',
+        container: 'bg-rose-50 text-coral border border-rose-300',
         label: 'text-coral',
         pill: 'bg-coral text-white'
       };
     }
     return {
-      container: 'bg-cream-muted text-ink-muted border-2 border-cream-border',
-      label: 'text-ink-secondary',
-      pill: 'bg-ink-muted text-white'
+      container: 'bg-slate-100 text-slate-600 border border-slate-200',
+      label: 'text-slate-600',
+      pill: 'bg-slate-600 text-white'
     };
   };
 
@@ -58,16 +57,16 @@ export default function AiMatchResultsView({
   };
 
   return (
-    <div className="relative w-full h-full bg-cream text-ink flex flex-col overflow-hidden">
+    <div className="relative w-full h-full bg-slate-50 text-slate-900 flex flex-col overflow-hidden font-sans">
       
-      {/* TOP HEADER: Clean Anti-AI Tactile Paper Bar */}
-      <div className="sticky top-0 z-30 bg-cream/95 backdrop-blur-none border-b-2 border-cream-border px-3.5 py-3 flex-shrink-0 shadow-sm">
+      {/* TOP HEADER */}
+      <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 px-3.5 py-3 flex-shrink-0 shadow-sm">
         <div className="flex items-center justify-between gap-2">
           
           {/* Back to normal feed */}
           <button
             onClick={onClearFilter}
-            className="flex items-center gap-1 px-2.5 py-1.5 rounded-human bg-white hover:bg-cream-muted border border-cream-border text-xs font-heading font-bold text-ink transition shadow-sm active:scale-95"
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-xs font-heading font-bold text-slate-800 transition shadow-2xs active:scale-95"
             title="Go back to normal feed"
           >
             <ArrowLeft className="w-3.5 h-3.5 text-coral" />
@@ -78,11 +77,11 @@ export default function AiMatchResultsView({
           <div className="text-center">
             <div className="flex items-center justify-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-coral" />
-              <h2 className="font-heading font-extrabold text-sm text-ink tracking-tight">
+              <h2 className="font-heading font-extrabold text-sm text-slate-900 tracking-tight">
                 AI Match Score
               </h2>
             </div>
-            <span className="text-[10px] text-ink-muted font-mono font-medium block">
+            <span className="text-[10px] text-slate-500 font-mono font-medium block">
               {matchedTalents.length} creators ranked by fit
             </span>
           </div>
@@ -90,35 +89,35 @@ export default function AiMatchResultsView({
           {/* Clear Filter Button */}
           <button
             onClick={onClearFilter}
-            className="flex items-center gap-1 px-2.5 py-1.5 rounded-human bg-cream-muted hover:bg-cream-darker border border-cream-border text-xs font-heading font-semibold text-ink-secondary transition shadow-sm active:scale-95"
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-xs font-heading font-semibold text-slate-600 transition shadow-2xs active:scale-95"
             title="Clear matching filter"
           >
-            <RotateCcw className="w-3 h-3 text-ink-secondary" />
-            <span>Clear Filter</span>
+            <RotateCcw className="w-3 h-3 text-slate-500" />
+            <span>Clear</span>
           </button>
         </div>
 
         {/* Selected Criteria Filter Chips */}
         {criteria && (
-          <div className="flex items-center justify-between gap-1.5 mt-2.5 pt-2 border-t border-cream-border/60">
+          <div className="flex items-center justify-between gap-1.5 mt-2.5 pt-2 border-t border-slate-100">
             <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-ink-muted flex-shrink-0">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 shrink-0">
                 Criteria:
               </span>
-              <span className="px-2 py-0.5 rounded-full bg-coral-light border border-coral-border text-coral text-[11px] font-heading font-bold whitespace-nowrap">
+              <span className="px-2 py-0.5 rounded-full bg-rose-50 border border-rose-200 text-coral text-[11px] font-heading font-bold whitespace-nowrap">
                 {criteria.skill}
               </span>
-              <span className="px-2 py-0.5 rounded-full bg-forest-light border border-forest-border text-forest text-[11px] font-heading font-bold whitespace-nowrap">
+              <span className="px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-forest text-[11px] font-heading font-bold whitespace-nowrap">
                 {criteria.budget}
               </span>
-              <span className="px-2 py-0.5 rounded-full bg-white border border-cream-border text-ink text-[11px] font-heading font-semibold whitespace-nowrap">
+              <span className="px-2 py-0.5 rounded-full bg-white border border-slate-200 text-slate-700 text-[11px] font-heading font-semibold whitespace-nowrap">
                 {criteria.deadline}
               </span>
             </div>
 
             <button
               onClick={onEditCriteria}
-              className="px-2 py-0.5 rounded-human bg-white hover:bg-cream-muted border border-cream-border text-[11px] font-heading font-bold text-coral whitespace-nowrap flex-shrink-0 transition"
+              className="px-2.5 py-0.5 rounded-lg bg-white hover:bg-slate-50 border border-slate-200 text-[11px] font-heading font-bold text-coral whitespace-nowrap shrink-0 transition shadow-2xs"
               title="Edit your requirements"
             >
               Modify
@@ -145,16 +144,16 @@ export default function AiMatchResultsView({
           return (
             <div
               key={creator._id || index}
-              className={`relative bg-white rounded-human border-2 p-4 shadow-paper transition-all ${
+              className={`relative bg-white rounded-2xl border p-4 shadow-sm transition-all duration-200 ${
                 isTopCreator
-                  ? 'border-coral/50 ring-1 ring-coral/20 bg-gradient-to-b from-coral-light/20 to-white'
-                  : 'border-cream-border hover:border-cream-darker'
+                  ? 'border-coral/50 ring-2 ring-coral/15 bg-gradient-to-b from-rose-50/30 to-white shadow-md'
+                  : 'border-slate-200 hover:border-slate-300'
               }`}
             >
               {/* TOP TAG FOR BEST MATCH */}
               {isTopCreator && (
                 <div className="mb-2.5 flex items-center justify-between">
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-100 border border-amber-300 text-amber-950 font-heading font-extrabold text-xs shadow-sm">
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-100 border border-amber-300 text-amber-950 font-heading font-extrabold text-xs shadow-2xs">
                     <span>🏆 Best Match For You</span>
                   </div>
                   <span className="text-[10px] font-mono text-coral font-bold uppercase tracking-wider">
@@ -163,18 +162,18 @@ export default function AiMatchResultsView({
                 </div>
               )}
 
-              {/* MAIN CREATOR ROW: Avatar + Details + Big Match Score Badge */}
+              {/* MAIN CREATOR ROW */}
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-start gap-3 min-w-0">
                   {/* Photo */}
                   <div
                     onClick={() => onViewProfile && onViewProfile(creator)}
-                    className="relative cursor-pointer group flex-shrink-0"
+                    className="relative cursor-pointer group shrink-0"
                   >
                     <img
                       src={creator.avatar}
                       alt={creator.name}
-                      className="w-14 h-14 rounded-human object-cover border-2 border-cream-border group-hover:ring-2 group-hover:ring-coral transition"
+                      className="w-14 h-14 rounded-xl object-cover border-2 border-slate-100 group-hover:ring-2 group-hover:ring-coral transition"
                     />
                     <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-forest border-2 border-white flex items-center justify-center">
                       <span className="w-1.5 h-1.5 rounded-full bg-white" />
@@ -186,11 +185,11 @@ export default function AiMatchResultsView({
                     <div className="flex items-center gap-1.5 flex-wrap">
                       <h3
                         onClick={() => onViewProfile && onViewProfile(creator)}
-                        className="font-heading font-bold text-base text-ink hover:text-coral transition cursor-pointer truncate"
+                        className="font-heading font-bold text-base text-slate-900 hover:text-coral transition cursor-pointer truncate"
                       >
                         {creator.name}
                       </h3>
-                      <CheckCircle2 className="w-3.5 h-3.5 text-forest flex-shrink-0" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-forest shrink-0" />
                       {isTested && (
                         <span className="text-[10px] bg-amber-100 text-amber-900 border border-amber-300 px-1.5 py-0.2 rounded font-extrabold flex items-center gap-0.5">
                           <Award className="w-2.5 h-2.5 text-amber-900" />
@@ -199,17 +198,17 @@ export default function AiMatchResultsView({
                       )}
                     </div>
 
-                    <div className="flex items-center gap-2 text-xs text-ink-muted mt-0.5">
-                      <span className="flex items-center gap-0.5 font-medium">
+                    <div className="flex items-center gap-2 text-xs text-slate-500 mt-0.5">
+                      <span className="flex items-center gap-0.5 font-medium text-slate-700">
                         <MapPin className="w-3 h-3 text-coral" /> {creator.city}
                       </span>
                       <span>•</span>
-                      <span className="font-heading font-bold text-forest">
+                      <span className="font-heading font-bold text-coral">
                         {creator.price}
                       </span>
                       <span>•</span>
-                      <span className="flex items-center gap-0.5 text-ink-secondary">
-                        <Clock className="w-3 h-3" /> {creator.turnaroundTime || '24 hrs'}
+                      <span className="flex items-center gap-0.5 text-forest font-semibold">
+                        <Clock className="w-3 h-3 text-forest" /> {creator.turnaroundTime || '24 hrs'}
                       </span>
                     </div>
 
@@ -218,7 +217,7 @@ export default function AiMatchResultsView({
                       {(creator.skills || []).slice(0, 2).map((skillStr, sIdx) => (
                         <span
                           key={sIdx}
-                          className="px-1.5 py-0.2 rounded bg-cream border border-cream-border text-[10px] text-ink-secondary font-medium"
+                          className="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 text-[10px] text-slate-700 font-medium"
                         >
                           {skillStr.split('-')[0].trim()}
                         </span>
@@ -228,9 +227,9 @@ export default function AiMatchResultsView({
                 </div>
 
                 {/* BIG MATCH SCORE BADGE */}
-                <div className="flex flex-col items-center flex-shrink-0">
+                <div className="flex flex-col items-center shrink-0">
                   <div
-                    className={`w-16 h-16 rounded-human flex flex-col items-center justify-center p-1 text-center shadow-sm transition ${badgeStyle.container}`}
+                    className={`w-16 h-16 rounded-2xl flex flex-col items-center justify-center p-1 text-center shadow-xs transition ${badgeStyle.container}`}
                   >
                     <span className="font-heading font-black text-lg leading-none tracking-tight">
                       {score}%
@@ -240,7 +239,7 @@ export default function AiMatchResultsView({
                     </span>
                   </div>
 
-                  {/* Why this match? Tooltip Trigger Button */}
+                  {/* Why this match? */}
                   <button
                     onClick={() => toggleTooltip(creator._id)}
                     className="mt-1.5 flex items-center gap-0.5 text-[10px] font-heading font-semibold text-coral hover:underline"
@@ -252,17 +251,17 @@ export default function AiMatchResultsView({
                 </div>
               </div>
 
-              {/* WHY THIS MATCH? TOOLTIP CARD (POP-OVER BREAKDOWN) */}
+              {/* WHY THIS MATCH? TOOLTIP CARD */}
               {isTooltipOpen && (
-                <div className="mt-3 p-3 bg-cream rounded-human border border-cream-border text-xs space-y-2 animate-fadeIn relative shadow-sm">
-                  <div className="flex items-center justify-between pb-1.5 border-b border-cream-border">
-                    <span className="font-heading font-bold text-ink flex items-center gap-1">
+                <div className="mt-3 p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-2 animate-fadeIn relative shadow-xs">
+                  <div className="flex items-center justify-between pb-1.5 border-b border-slate-200">
+                    <span className="font-heading font-bold text-slate-900 flex items-center gap-1">
                       <Sparkles className="w-3.5 h-3.5 text-coral" />
                       Score Breakdown ({score}%)
                     </span>
                     <button
                       onClick={() => setActiveTooltipTalentId(null)}
-                      className="text-ink-muted hover:text-ink"
+                      className="text-slate-400 hover:text-slate-700"
                     >
                       <X className="w-3.5 h-3.5" />
                     </button>
@@ -270,54 +269,54 @@ export default function AiMatchResultsView({
 
                   <div className="space-y-1.5 text-[11px]">
                     <div className="flex items-center justify-between">
-                      <span className="text-ink-secondary">
+                      <span className="text-slate-600">
                         • Skill Match ({criteria?.skill}):
                       </span>
                       <span className="font-mono font-bold text-forest">
                         +{breakdown.skillPoints} pts
                       </span>
                     </div>
-                    <div className="text-[10px] text-ink-muted pl-2">
+                    <div className="text-[10px] text-slate-500 pl-2">
                       {breakdown.skillNote || 'Verified Skill Portfolio'}
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <span className="text-ink-secondary">
+                      <span className="text-slate-600">
                         • Budget Fit ({criteria?.budget}):
                       </span>
                       <span className="font-mono font-bold text-forest">
                         +{breakdown.budgetPoints} pts
                       </span>
                     </div>
-                    <div className="text-[10px] text-ink-muted pl-2">
+                    <div className="text-[10px] text-slate-500 pl-2">
                       {breakdown.budgetNote || `Rate is ${creator.price}`}
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <span className="text-ink-secondary">
+                      <span className="text-slate-600">
                         • Deadline Fit ({criteria?.deadline}):
                       </span>
                       <span className="font-mono font-bold text-forest">
                         +{breakdown.deadlinePoints} pts
                       </span>
                     </div>
-                    <div className="text-[10px] text-ink-muted pl-2">
+                    <div className="text-[10px] text-slate-500 pl-2">
                       {breakdown.deadlineNote || `Turnaround is ${creator.turnaroundTime || '24 hrs'}`}
                     </div>
                   </div>
 
-                  <div className="pt-1 border-t border-cream-border text-[10px] text-ink-muted font-mono">
-                    Total Match Score = {score}% • Verified Proof-of-Work
+                  <div className="pt-1 border-t border-slate-200 text-[10px] text-slate-500 font-mono">
+                    Total Match Score = {score}% • 100% Verified Proof-of-Work
                   </div>
                 </div>
               )}
 
               {/* 3 SMALL REASONS WHY MATCHED */}
-              <div className="mt-3 pt-2.5 border-t border-cream-border flex flex-wrap gap-1.5">
+              <div className="mt-3 pt-2.5 border-t border-slate-100 flex flex-wrap gap-1.5">
                 {(breakdown.reasons || []).map((reason, rIdx) => (
                   <span
                     key={rIdx}
-                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-forest-light text-forest border border-forest-border text-[11px] font-heading font-semibold"
+                    className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 text-forest border border-emerald-200 text-[11px] font-heading font-semibold"
                   >
                     {reason}
                   </span>
@@ -325,15 +324,15 @@ export default function AiMatchResultsView({
               </div>
 
               {/* SKILL PASSPORT SCORE VISIBILITY */}
-              <div className="mt-2.5 flex items-center justify-between bg-cream/70 rounded-human px-2.5 py-1.5 border border-cream-border text-xs">
+              <div className="mt-2.5 flex items-center justify-between bg-slate-50 rounded-xl px-3 py-2 border border-slate-200 text-xs">
                 <div className="flex items-center gap-1.5">
                   <ShieldCheck className="w-3.5 h-3.5 text-forest" />
-                  <span className="text-[11px] text-ink-secondary font-medium">Skill Passport Score:</span>
+                  <span className="text-[11px] text-slate-600 font-medium">Skill Passport Score:</span>
                   <span className="text-[11px] font-mono font-bold text-forest">98% Reliability</span>
                 </div>
                 <button
                   onClick={() => onViewProfile && onViewProfile(creator)}
-                  className="text-[10px] font-heading font-semibold text-ink-muted hover:text-ink underline"
+                  className="text-[10px] font-heading font-semibold text-slate-600 hover:text-slate-900 underline"
                 >
                   View Passport →
                 </button>
@@ -343,15 +342,15 @@ export default function AiMatchResultsView({
               <div className="mt-3 grid grid-cols-2 gap-2">
                 <button
                   onClick={() => onViewReel && onViewReel(creator, index)}
-                  className="py-2 px-3 rounded-human bg-cream hover:bg-cream-muted border-2 border-cream-border text-ink font-heading font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition"
+                  className="py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 font-heading font-bold text-xs flex items-center justify-center gap-1.5 shadow-2xs active:scale-95 transition"
                 >
-                  <Play className="w-3.5 h-3.5 fill-ink" />
+                  <Play className="w-3.5 h-3.5 fill-slate-800" />
                   <span>View Reel</span>
                 </button>
 
                 <button
                   onClick={() => onHireNow && onHireNow(creator)}
-                  className="py-2 px-3 rounded-human bg-coral hover:bg-coral-hover text-white font-heading font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition border border-coral-border"
+                  className="py-2.5 px-3 rounded-xl bg-gradient-to-r from-coral to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white font-heading font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-rose-500/25 active:scale-95 transition"
                 >
                   <Lock className="w-3.5 h-3.5 text-white" />
                   <span>Hire Now</span>
@@ -361,14 +360,14 @@ export default function AiMatchResultsView({
           );
         })}
 
-        {/* BOTTOM CLEAR FILTER / RETURN TO NORMAL FEED */}
+        {/* BOTTOM CLEAR FILTER */}
         <div className="pt-2 text-center">
           <button
             onClick={onClearFilter}
-            className="w-full py-2.5 px-4 rounded-human bg-white hover:bg-cream-muted border border-cream-border text-ink text-xs font-heading font-bold flex items-center justify-center gap-1.5 shadow-sm transition"
+            className="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 text-xs font-heading font-bold flex items-center justify-center gap-1.5 shadow-2xs transition"
           >
-            <RotateCcw className="w-3.5 h-3.5 text-ink-secondary" />
-            <span>Clear Filter & Return to Normal Feed</span>
+            <RotateCcw className="w-3.5 h-3.5 text-slate-500" />
+            <span>Clear Filter &amp; Return to Normal Feed</span>
           </button>
         </div>
       </div>

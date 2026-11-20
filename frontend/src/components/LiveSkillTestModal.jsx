@@ -150,7 +150,7 @@ export default function LiveSkillTestModal({
       particleCount: 50,
       spread: 80,
       origin: { y: 0.5 },
-      colors: ['#FFB800', '#FF4D2E', '#1E7A4C', '#FAF7F2']
+      colors: ['#FFB800', '#FF385C', '#059669', '#6366F1']
     });
 
     if (onTestPassed) {
