@@ -790,9 +790,12 @@ export default function AuthPage({
       </main>
 
       {/* Footer */}
-      <footer className="w-full border-t border-[#E7E0D3]/80 bg-white/60 backdrop-blur-xs py-3.5 text-center px-4">
+      <footer className="w-full border-t border-[#E7E0D3]/80 bg-white/60 backdrop-blur-xs py-3.5 text-center px-4 space-y-1">
         <p className="text-xs text-[#5F5A50]">
           StageUp &bull; Direct Creator-to-Brand Marketplace India &bull; 100% Escrow Protection
+        </p>
+        <p className="text-[11px] font-semibold text-[#1A1A1A]">
+          Made by Akanksha Maurya
         </p>
       </footer>
 
