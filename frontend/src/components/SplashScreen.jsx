@@ -125,10 +125,20 @@ export default function SplashScreen({
             <div className="flex items-center gap-3">
               {currentUser ? (
                 <div className="flex items-center gap-3">
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    onClick={onStart}
+                  >
+                    Browse Feed →
+                  </Button>
                   <div className="flex items-center gap-2 text-xs text-text font-medium">
-                    <span className="w-2 h-2 rounded-full bg-success"></span>
-                    <span className="max-w-[120px] truncate">{currentUser.name}</span>
-                    <span className="text-text-muted">({currentUser.role})</span>
+                    <img
+                      src={currentUser.avatar || '/recruiter-profile.jpg'}
+                      alt={currentUser.name}
+                      className="w-6 h-6 rounded-full object-cover object-[50%_15%] border border-border"
+                    />
+                    <span className="max-w-[100px] truncate hidden sm:inline">{currentUser.name.split(' ')[0]}</span>
                   </div>
                   <Button
                     variant="ghost"

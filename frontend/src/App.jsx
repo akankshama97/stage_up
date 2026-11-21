@@ -288,8 +288,8 @@ export default function App() {
   const handleAuthSuccess = (user, token) => {
     setCurrentUser(user);
     setUserRole(user.role);
-    window.location.hash = '#feed';
-    setCurrentScreen('feed');
+    window.location.hash = '#splash';
+    setCurrentScreen('splash');
   };
 
   const handleLogout = () => {
