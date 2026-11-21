@@ -424,27 +424,6 @@ export default function SplashScreen({
 
       {/* 6. SOCIAL PROOF (Skipped per instruction: only real data, none verified yet) */}
 
-      {/* 7. FINAL CTA BAND */}
-      <Section surfaceMuted className="py-14 sm:py-20 border-t border-border">
-        <Container>
-          <div className="max-w-xl mx-auto text-center flex flex-col items-center">
-            <h2 className="font-heading font-bold text-2xl sm:text-4xl text-text leading-tight mb-4">
-              Hire your next creator by their work.
-            </h2>
-            <p className="text-text-muted text-sm sm:text-base leading-relaxed mb-6">
-              Skip traditional CVs. Review actual timeline cuts and message verified creators directly.
-            </p>
-            <Button
-              variant="primary"
-              size="lg"
-              onClick={onStart}
-            >
-              Find creators
-            </Button>
-          </div>
-        </Container>
-      </Section>
-
       {/* 8. FOOTER */}
       <footer className="bg-surface border-t border-border py-12 mt-auto">
         <Container>
