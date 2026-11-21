@@ -23,10 +23,13 @@ export default function App() {
   // Navigation screen: 'splash' | 'role-select' | 'feed' | 'profile' | 'login' | 'signup'
   const [currentScreen, setCurrentScreen] = useState(() => {
     try {
+      const saved = localStorage.getItem('stageup_auth_user');
       const hash = window.location.hash.toLowerCase();
       if (hash === '#login') return 'login';
       if (hash === '#signup') return 'signup';
-      if (hash === '#feed') return 'feed';
+      if (hash === '#feed') {
+        return saved ? 'feed' : 'login';
+      }
     } catch (e) {}
     return 'splash';
   });
@@ -245,7 +248,7 @@ export default function App() {
     } catch (e) {}
   };
 
-  // Sync URL hash with back/forward buttons
+  // Sync URL hash with back/forward buttons & protect main page
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.toLowerCase();
@@ -254,7 +257,12 @@ export default function App() {
       } else if (hash === '#signup') {
         setCurrentScreen('signup');
       } else if (hash === '#feed') {
-        setCurrentScreen('feed');
+        if (!currentUser) {
+          window.location.hash = '#login';
+          setCurrentScreen('login');
+        } else {
+          setCurrentScreen('feed');
+        }
       } else if (hash === '#splash' || hash === '' || hash === '#') {
         // Only switch to splash if currently in login or signup
         setCurrentScreen(prev => (prev === 'login' || prev === 'signup' ? 'splash' : prev));
@@ -263,7 +271,18 @@ export default function App() {
 
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
+  }, [currentUser]);
+
+  // Strict Auth Guard: Nobody can enter the main marketplace feed without logging in or signing up
+  useEffect(() => {
+    if (!currentUser) {
+      if (currentScreen === 'feed' || currentScreen === 'profile' || currentScreen === 'role-select') {
+        setAuthPageRole('recruiter');
+        window.location.hash = '#login';
+        setCurrentScreen('login');
+      }
+    }
+  }, [currentUser, currentScreen]);
 
   // Auth Handlers
   const handleAuthSuccess = (user, token) => {
@@ -278,6 +297,8 @@ export default function App() {
     localStorage.removeItem('stageup_auth_token');
     setCurrentUser(null);
     setUserRole(null);
+    window.location.hash = '#login';
+    setCurrentScreen('login');
   };
 
   const handleOpenAuth = (role = 'recruiter') => {
@@ -300,8 +321,16 @@ export default function App() {
     setCurrentScreen('signup');
   };
 
-  // On Role Select
+  // On Role Select (requires authentication to enter main page)
   const handleSelectRole = (role) => {
+    if (!currentUser) {
+      if (role === 'talent') {
+        handleNavigateToSignup('talent');
+      } else {
+        handleNavigateToLogin('recruiter');
+      }
+      return;
+    }
     setUserRole(role);
     if (role === 'talent') {
       setIsCreateModalOpen(true);
@@ -331,17 +360,35 @@ export default function App() {
           onNavigateToLogin={handleNavigateToLogin}
           onNavigateToSignup={handleNavigateToSignup}
           onLogout={handleLogout}
-          onStart={() => setCurrentScreen('feed')}
-          onSelectRole={(role) => {
-            if (role) {
-              handleSelectRole(role);
+          onStart={() => {
+            if (!currentUser) {
+              handleNavigateToLogin('recruiter');
             } else {
-              setCurrentScreen('role-select');
+              setCurrentScreen('feed');
+            }
+          }}
+          onSelectRole={(role) => {
+            if (!currentUser) {
+              if (role === 'talent') {
+                handleNavigateToSignup('talent');
+              } else {
+                handleNavigateToLogin('recruiter');
+              }
+            } else {
+              if (role) {
+                handleSelectRole(role);
+              } else {
+                setCurrentScreen('role-select');
+              }
             }
           }}
           onViewTalent={(t) => {
-            setSelectedTalent(t);
-            setCurrentScreen('profile');
+            if (!currentUser) {
+              handleNavigateToLogin('recruiter');
+            } else {
+              setSelectedTalent(t);
+              setCurrentScreen('profile');
+            }
           }}
         />
       )}

@@ -88,6 +88,17 @@ export default function RecruiterFeed({
   const [matchCriteria, setMatchCriteria] = useState(null);
   const [showMatchResultsScreen, setShowMatchResultsScreen] = useState(false);
 
+  // Authentication Guard: Redirect to login if user is unauthenticated
+  useEffect(() => {
+    if (!currentUser) {
+      if (onNavigateToLogin) {
+        onNavigateToLogin('recruiter');
+      } else if (onGoHome) {
+        onGoHome();
+      }
+    }
+  }, [currentUser, onNavigateToLogin, onGoHome]);
+
   // Clear AI Match Filter
   const handleClearMatchFilter = () => {
     setIsMatchActive(false);
