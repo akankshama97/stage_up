@@ -524,15 +524,8 @@ export default function RecruiterFeed({
                   </button>
                 </div>
 
-                {/* Mobile Right: User avatar + Logout + Search + Filter */}
+                {/* Mobile Right: Search + Filter */}
                 <div className="flex items-center gap-1.5">
-                  {currentUser && (
-                    <img
-                      src={currentUser.avatar || (currentUser.role === 'recruiter' ? '/recruiter-profile.jpg' : 'https://images.unsplash.com/photo-1617922001439-4a2e6562f328?auto=format&fit=crop&w=400&q=80')}
-                      alt={currentUser.name}
-                      className="w-6 h-6 rounded-full object-cover object-[50%_15%] border border-orange-200"
-                    />
-                  )}
 
                   {/* Search */}
                   <button

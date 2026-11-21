@@ -140,13 +140,12 @@ export default function SplashScreen({
                     />
                     <span className="max-w-[90px] truncate hidden sm:inline">{currentUser.name.split(' ')[0]}</span>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
+                  <button
                     onClick={onLogout}
+                    className="inline-flex items-center justify-center gap-1.5 text-xs px-3 py-1.5 h-8 rounded-btn font-semibold bg-red-600 hover:bg-red-700 text-white transition-colors duration-150 cursor-pointer shadow-soft"
                   >
                     Log out
-                  </Button>
+                  </button>
                 </div>
               ) : (
                 <>
