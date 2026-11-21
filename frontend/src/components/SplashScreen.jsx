@@ -533,7 +533,9 @@ export default function SplashScreen({
 
           <div className="pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3 text-[13px] text-text-muted">
             <p>© 2026 StageUp. All rights reserved.</p>
-            <p className="font-semibold text-text">Made by Akanksha Maurya</p>
+            <p className="font-semibold text-text flex items-center justify-center gap-1">
+              Made by Akanksha Maurya <span className="text-red-500 animate-pulse">❤️</span>
+            </p>
             <p>Proof-of-work talent network.</p>
           </div>
         </Container>

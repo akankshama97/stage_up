@@ -794,8 +794,8 @@ export default function AuthPage({
         <p className="text-xs text-[#5F5A50]">
           StageUp &bull; Direct Creator-to-Brand Marketplace India &bull; 100% Escrow Protection
         </p>
-        <p className="text-[11px] font-semibold text-[#1A1A1A]">
-          Made by Akanksha Maurya
+        <p className="text-[11px] font-semibold text-[#1A1A1A] flex items-center justify-center gap-1">
+          Made by Akanksha Maurya <span className="text-red-500 animate-pulse">❤️</span>
         </p>
       </footer>
 
