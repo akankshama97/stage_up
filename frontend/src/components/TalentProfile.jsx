@@ -19,7 +19,8 @@ import {
   Mic,
   QrCode,
   Award,
-  LogOut
+  LogOut,
+  Star
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import SkillPassport from './SkillPassport';
@@ -136,6 +137,11 @@ export default function TalentProfile({
                     <span>Live Tested</span>
                   </span>
                 )}
+                {/* ⭐ Client Rating Badge */}
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200 text-xs font-bold shadow-2xs">
+                  <Star className="w-3 h-3 fill-amber-400 text-amber-500" />
+                  <span>{talent.rating || '4.9'} ({talent.completedProjects || 28} projects delivered)</span>
+                </span>
               </div>
 
               <div className="flex items-center gap-2 text-xs text-slate-500 mt-1">
@@ -149,7 +155,7 @@ export default function TalentProfile({
               </div>
 
               {/* Price Tag */}
-              <div className="mt-3 flex items-center gap-2">
+              <div className="mt-3 flex items-center gap-2 flex-wrap">
                 <div className="px-3 py-1 rounded-xl bg-rose-50 border border-rose-200 text-coral font-heading font-extrabold text-xs">
                   {talent.price} <span className="text-[10px] font-medium text-slate-600">({talent.priceUnit || 'per gig'})</span>
                 </div>
@@ -160,8 +166,26 @@ export default function TalentProfile({
             </div>
           </div>
 
+          {/* Software & Tools Badges */}
+          <div className="mt-4 pt-3 border-t border-slate-100">
+            <h4 className="text-[11px] font-heading font-bold uppercase tracking-wider text-slate-400 mb-2">
+              Software &amp; Tools Mastered
+            </h4>
+            <div className="flex flex-wrap gap-1.5">
+              {(talent.tools || ['DaVinci Resolve', 'Premiere Pro', 'CapCut']).map((tool, tIdx) => (
+                <span
+                  key={tIdx}
+                  className="px-2.5 py-1 rounded-lg bg-slate-900 text-white font-mono text-xs font-bold tracking-tight shadow-sm flex items-center gap-1.5"
+                >
+                  <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  {tool}
+                </span>
+              ))}
+            </div>
+          </div>
+
           {/* Bio */}
-          <div className="mt-4 pt-4 border-t border-slate-100">
+          <div className="mt-4 pt-3 border-t border-slate-100">
             <h4 className="text-[11px] font-heading font-bold uppercase tracking-wider text-slate-400 mb-1">
               About The Creator
             </h4>

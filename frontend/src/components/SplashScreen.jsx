@@ -253,12 +253,25 @@ export default function SplashScreen({
                 {/* Card Meta & Details */}
                 <div className="mt-4 pt-3 border-t border-border flex items-center justify-between">
                   <div>
-                    <h3 className="font-heading font-bold text-base text-text">
-                      {previewTalent.name}
-                    </h3>
-                    <p className="text-xs text-text-muted">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <h3 className="font-heading font-bold text-base text-text">
+                        {previewTalent.name}
+                      </h3>
+                      <span className="inline-flex items-center gap-0.5 text-[10px] font-bold text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
+                        ⭐ {previewTalent.rating || '4.9'} ({previewTalent.completedProjects || 38} delivered)
+                      </span>
+                    </div>
+                    <p className="text-xs text-text-muted mt-0.5">
                       {talentPrimarySkill} • {talentPriceDisplay}
                     </p>
+                    <div className="flex items-center gap-1 mt-1.5 flex-wrap">
+                      {(previewTalent.tools || ['DaVinci Resolve', 'Premiere Pro', 'CapCut']).map((tool, idx) => (
+                        <span key={idx} className="px-1.5 py-0.5 rounded bg-slate-900 text-white font-mono text-[9px] font-semibold flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                          {tool}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                   <Button
                     variant="link"

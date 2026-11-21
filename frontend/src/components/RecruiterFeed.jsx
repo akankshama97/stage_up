@@ -32,7 +32,8 @@ import {
   Award,
   Timer,
   User,
-  LogOut
+  LogOut,
+  Star
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import AiMatchModal from './AiMatchModal';
@@ -930,6 +931,11 @@ export default function RecruiterFeed({
                           <span>Live Tested</span>
                         </span>
                       )}
+                      {/* ⭐ Client Rating & Delivered Projects */}
+                      <span className="inline-flex items-center gap-1 px-2 py-0.2 rounded-full bg-amber-50 text-amber-900 border border-amber-200 text-[10px] font-extrabold">
+                        <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-500" />
+                        <span>{currentTalent.rating || '4.9'} ({currentTalent.completedProjects || 28} delivered)</span>
+                      </span>
                     </div>
 
                     {/* City: Noida | Price: ₹500 | Delivery: 24 hrs */}
@@ -949,16 +955,35 @@ export default function RecruiterFeed({
                   </div>
                 </div>
 
-                {/* Skill tags */}
-                <div className="flex flex-wrap gap-1.5">
-                  {currentTalent.skills.slice(0, 3).map((skill, sIdx) => (
-                    <span
-                      key={sIdx}
-                      className="px-2.5 py-0.5 rounded-lg bg-slate-100 border border-slate-200 text-slate-800 text-[10px] sm:text-[11px] font-medium"
-                    >
-                      {skill.split('-')[0].trim()}
+                {/* Software Tool Badges & Skills */}
+                <div className="space-y-1.5">
+                  {/* Tool Badges */}
+                  <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+                    <span className="text-[9px] uppercase tracking-wider font-bold text-slate-400 shrink-0">
+                      Tools:
                     </span>
-                  ))}
+                    {(currentTalent.tools || ['DaVinci Resolve', 'Premiere Pro', 'CapCut']).map((tool, tIdx) => (
+                      <span
+                        key={tIdx}
+                        className="px-2 py-0.5 rounded-md bg-slate-900 text-white font-mono text-[9px] font-bold tracking-tight shadow-2xs flex items-center gap-1 shrink-0"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Skill tags */}
+                  <div className="flex flex-wrap gap-1.5">
+                    {currentTalent.skills.slice(0, 3).map((skill, sIdx) => (
+                      <span
+                        key={sIdx}
+                        className="px-2 py-0.5 rounded-lg bg-slate-100 border border-slate-200 text-slate-800 text-[10px] font-medium"
+                      >
+                        {skill.split('-')[0].trim()}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Pricing & Escrow Hire CTAs */}
