@@ -106,17 +106,6 @@ export default function TalentProfile({
           >
             <Share2 className="w-4 h-4" />
           </button>
-
-          {onLogout && (
-            <button
-              onClick={onLogout}
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-btn bg-surface hover:bg-rose-50 text-accent border border-border transition-colors duration-150 text-xs font-semibold cursor-pointer"
-              title="Log out"
-            >
-              <LogOut className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Log out</span>
-            </button>
-          )}
         </div>
       </div>
 

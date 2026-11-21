@@ -399,9 +399,7 @@ export default function RecruiterFeed({
               StageUp
               <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
             </span>
-            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-orange-50 text-[#E8472B] border border-orange-200">
-              Talent Feed
-            </span>
+
           </div>
 
           {onGoHome && (
@@ -477,17 +475,6 @@ export default function RecruiterFeed({
             </div>
           )}
 
-          {/* PROMINENT LOGOUT BUTTON */}
-          {onLogout && (
-            <button
-              onClick={onLogout}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-rose-50 text-[#5F5A50] hover:text-[#E8472B] border border-[#E7E0D3] hover:border-red-200 transition-colors duration-150 text-xs font-bold shadow-xs cursor-pointer"
-              title="Log out of StageUp"
-            >
-              <LogOut className="w-3.5 h-3.5 text-[#E8472B]" />
-              <span>Log out</span>
-            </button>
-          )}
         </div>
       </nav>
 
@@ -525,19 +512,7 @@ export default function RecruiterFeed({
             <header className="absolute top-0 left-0 right-0 z-30 pt-3 pb-2.5 px-3.5 bg-white/95 backdrop-blur-md border-b border-[#E7E0D3] text-[#1A1A1A]">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  {/* Home Navigation Button */}
-                  {onGoHome && (
-                    <button
-                      onClick={onGoHome}
-                      className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white hover:bg-orange-50 text-[#1A1A1A] text-[11px] font-medium transition-colors border border-[#E7E0D3]"
-                      title="Go back to Home page"
-                    >
-                      <ArrowLeft className="w-3 h-3 text-[#E8472B]" />
-                      <span>Home</span>
-                    </button>
-                  )}
-
-                  {/* StageUp Logo */}
+                  {/* StageUp Logo - click to go home */}
                   <button
                     onClick={onGoHome}
                     className="font-heading font-bold text-sm tracking-tight text-[#1A1A1A] flex items-center gap-1.5 hover:opacity-90 transition-opacity duration-150 text-left"
@@ -549,34 +524,17 @@ export default function RecruiterFeed({
                   </button>
                 </div>
 
-                {/* Mobile User & Logout & Quick Actions */}
+                {/* Mobile Right: User avatar + Logout + Search + Filter */}
                 <div className="flex items-center gap-1.5">
                   {currentUser && (
-                    <div className="flex items-center gap-1.5 mr-0.5">
-                      <img
-                        src={currentUser.avatar || (currentUser.role === 'recruiter' ? '/recruiter-profile.jpg' : 'https://images.unsplash.com/photo-1617922001439-4a2e6562f328?auto=format&fit=crop&w=400&q=80')}
-                        alt={currentUser.name}
-                        className="w-5 h-5 rounded-full object-cover object-[50%_15%] border border-orange-200"
-                      />
-                      <span className="text-[11px] font-bold text-[#1A1A1A] max-w-[70px] truncate hidden sm:inline">
-                        {currentUser.name.split(' ')[0]}
-                      </span>
-                    </div>
+                    <img
+                      src={currentUser.avatar || (currentUser.role === 'recruiter' ? '/recruiter-profile.jpg' : 'https://images.unsplash.com/photo-1617922001439-4a2e6562f328?auto=format&fit=crop&w=400&q=80')}
+                      alt={currentUser.name}
+                      className="w-6 h-6 rounded-full object-cover object-[50%_15%] border border-orange-200"
+                    />
                   )}
 
-                  {/* PROMINENT MOBILE LOGOUT BUTTON */}
-                  {onLogout && (
-                    <button
-                      onClick={onLogout}
-                      className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white text-[#E8472B] hover:bg-rose-50 border border-orange-200 text-[11px] font-bold shadow-xs transition cursor-pointer"
-                      title="Log out"
-                    >
-                      <LogOut className="w-3 h-3 text-[#E8472B]" />
-                      <span>Log out</span>
-                    </button>
-                  )}
-
-                  {/* Search Toggle */}
+                  {/* Search */}
                   <button
                     onClick={() => setIsSearchVisible(!isSearchVisible)}
                     className={`p-1.5 rounded-lg transition border ${
@@ -584,12 +542,12 @@ export default function RecruiterFeed({
                         ? 'bg-[#E8472B] text-white border-[#E8472B] shadow-xs'
                         : 'bg-white hover:bg-orange-50 text-[#5F5A50] border-[#E7E0D3]'
                     }`}
-                    title="Search creators & skills"
+                    title="Search creators"
                   >
                     <Search className="w-3.5 h-3.5" />
                   </button>
 
-                  {/* Advanced Filter Drawer Button */}
+                  {/* Filter */}
                   <button
                     onClick={() => setIsFilterModalOpen(true)}
                     className={`flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-medium border transition ${
@@ -597,7 +555,7 @@ export default function RecruiterFeed({
                         ? 'bg-[#E8472B] text-white border-[#E8472B] font-bold shadow-xs'
                         : 'bg-white hover:bg-orange-50 text-[#5F5A50] border-[#E7E0D3]'
                     }`}
-                    title="Filter by category & budget"
+                    title="Filter"
                   >
                     <SlidersHorizontal className="w-3 h-3" />
                     <span>Filter</span>
