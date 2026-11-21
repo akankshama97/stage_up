@@ -444,6 +444,8 @@ export default function App() {
       {currentScreen === 'profile' && selectedTalent && (
         <TalentProfile
           talent={selectedTalent}
+          currentUser={currentUser}
+          onLogout={handleLogout}
           isShortlisted={shortlistedIds.has(selectedTalent._id)}
           onToggleShortlist={handleToggleShortlist}
           onBack={() => setCurrentScreen('feed')}

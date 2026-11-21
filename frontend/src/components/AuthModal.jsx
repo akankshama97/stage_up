@@ -119,7 +119,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialRole 
     const isRecruiter = role === 'recruiter';
     const fallbackUser = {
       _id: `user_${Date.now()}`,
-      name: activeTab === 'signup' && name.trim() ? name.trim() : (isRecruiter ? 'Rohit Sharma (Recruiter)' : 'Priya Sharma (Creator)'),
+      name: activeTab === 'signup' && name.trim() ? name.trim() : (isRecruiter ? 'Akanksha (Recruiter)' : 'Priya Sharma (Creator)'),
       email: emailOrPhone.includes('@') ? emailOrPhone.trim() : `${role}@stageup.in`,
       phone: !emailOrPhone.includes('@') ? emailOrPhone.trim() : '+919811243210',
       role,
@@ -128,7 +128,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialRole 
       city: city || 'Delhi NCR',
       skills: isRecruiter ? ['Reel Editors'] : [skill],
       avatar: isRecruiter
-        ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'
+        ? '/recruiter-profile.jpg'
         : 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80'
     };
 

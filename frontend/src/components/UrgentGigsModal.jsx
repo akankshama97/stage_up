@@ -20,8 +20,8 @@ export const initialUrgentGigs = [
   {
     id: 'gig_1',
     title: 'Urgent: 3 Tech Reels for D2C AI Keyboard Launch',
-    recruiter: 'Kabir V. (Founder @ KeyFlow)',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+    recruiter: 'Akanksha (Founder & Director)',
+    avatar: '/recruiter-profile.jpg',
     city: 'Bengaluru',
     budget: '₹1,500',
     category: 'Reel Editing',
@@ -98,7 +98,7 @@ export default function UrgentGigsModal({
   const [newCity, setNewCity] = useState('Delhi');
   const [newDeadline, setNewDeadline] = useState('Within 24 Hours');
   const [newBrief, setNewBrief] = useState('');
-  const [recruiterName, setRecruiterName] = useState('Siddharth (Founder)');
+  const [recruiterName, setRecruiterName] = useState('Akanksha (Founder)');
 
   if (!isOpen) return null;
 
@@ -129,7 +129,7 @@ export default function UrgentGigsModal({
       id: `gig_${Date.now()}`,
       title: newTitle.trim(),
       recruiter: recruiterName || 'Verified Founder',
-      avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=400&q=80',
+      avatar: '/recruiter-profile.jpg',
       city: newCity,
       budget: newBudget.startsWith('₹') ? newBudget : `₹${newBudget}`,
       category: newCategory,

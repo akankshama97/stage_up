@@ -111,7 +111,7 @@ export default function RoleSelectScreen({
                 <img
                   src={recruiterImg}
                   alt="Founder hiring creative talent"
-                  className="w-full h-full object-cover object-[50%_0%]"
+                  className="w-full h-full object-cover object-[50%_15%]"
                 />
                 <span className="absolute bottom-1.5 left-1.5 right-1.5 bg-text/80 text-surface text-[9px] font-medium py-0.5 px-1 rounded text-center">
                   Recruiter

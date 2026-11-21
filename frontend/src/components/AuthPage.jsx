@@ -68,7 +68,7 @@ export default function AuthPage({
     setShowForgotTip(false);
 
     if (demoRole === 'recruiter') {
-      if (mode === 'signup') setName('Aarav Mehta (Brand Lead)');
+      if (mode === 'signup') setName('Akanksha (Brand Lead)');
       setEmailOrPhone('recruiter@stageup.in');
       setPassword('stageup123');
       setSuccessMsg('Recruiter credentials filled! Ready to sign in.');
@@ -210,7 +210,7 @@ export default function AuthPage({
     const isRecruiter = role === 'recruiter';
     const fallbackUser = {
       _id: `user_demo_${Date.now()}`,
-      name: name.trim() || (isRecruiter ? 'Rohit Verma' : 'Priya Sharma'),
+      name: name.trim() || (isRecruiter ? 'Akanksha (Recruiter)' : 'Priya Sharma'),
       email: cleanEmail || (isRecruiter ? 'recruiter@stageup.in' : 'talent@stageup.in'),
       phone: cleanPhone || '+91 98112 43210',
       role,

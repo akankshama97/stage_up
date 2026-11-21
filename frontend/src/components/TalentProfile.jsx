@@ -18,13 +18,16 @@ import {
   Sliders,
   Mic,
   QrCode,
-  Award
+  Award,
+  LogOut
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import SkillPassport from './SkillPassport';
 
 export default function TalentProfile({
   talent,
+  currentUser,
+  onLogout,
   onBack,
   isShortlisted,
   onToggleShortlist,
@@ -103,6 +106,17 @@ export default function TalentProfile({
           >
             <Share2 className="w-4 h-4" />
           </button>
+
+          {onLogout && (
+            <button
+              onClick={onLogout}
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-btn bg-surface hover:bg-rose-50 text-accent border border-border transition-colors duration-150 text-xs font-semibold cursor-pointer"
+              title="Log out"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Log out</span>
+            </button>
+          )}
         </div>
       </div>
 

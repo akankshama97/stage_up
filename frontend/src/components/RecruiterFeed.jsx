@@ -380,9 +380,121 @@ export default function RecruiterFeed({
   const activeProject = currentTalent.projects?.[activeCaptionIdx % (currentTalent.projects?.length || 1)] || currentTalent.projects?.[0] || null;
 
   return (
-    <div className="relative min-h-screen bg-bg text-text flex flex-col items-center justify-center p-0 sm:py-6 overflow-hidden font-sans">
-      {/* Phone container mockup on desktop, full-screen on mobile */}
-      <div className="relative w-full max-w-[430px] h-[100dvh] bg-black flex flex-col justify-between overflow-hidden shadow-soft sm:rounded-card sm:h-[840px] sm:border sm:border-border">
+    <div className="relative min-h-screen bg-gradient-to-br from-[#FFFDF9] via-[#FFF7ED] to-[#F2FBF7] text-[#1A1A1A] flex flex-col items-center justify-between font-sans selection:bg-orange-100 selection:text-[#E8472B]">
+      
+      {/* Ambient Sunlit Background Glows on Desktop */}
+      <div className="hidden sm:block absolute -top-40 -left-40 w-96 h-96 bg-amber-300/20 rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="hidden sm:block absolute -bottom-40 -right-40 w-96 h-96 bg-orange-400/15 rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="hidden sm:block absolute top-1/3 -right-20 w-80 h-80 bg-sky-300/20 rounded-full blur-[140px] pointer-events-none -z-10" />
+
+      {/* Global Desktop Top Navbar */}
+      <nav className="hidden md:flex w-full sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-[#E7E0D3] px-6 lg:px-8 py-3 items-center justify-between shadow-xs">
+        {/* Left: SU Brand Logo + Home Navigation */}
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#E8472B] via-[#F97316] to-[#FB923C] text-white flex items-center justify-center font-heading font-black text-xs shadow-md shadow-orange-500/20 select-none">
+              SU
+            </div>
+            <span className="font-heading font-extrabold text-xl tracking-tight text-[#1A1A1A] flex items-center gap-1">
+              StageUp
+              <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+            </span>
+            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-orange-50 text-[#E8472B] border border-orange-200">
+              Talent Feed
+            </span>
+          </div>
+
+          {onGoHome && (
+            <button
+              onClick={onGoHome}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#E7E0D3] text-xs font-medium text-[#5F5A50] hover:text-[#1A1A1A] hover:bg-orange-50/50 transition cursor-pointer"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 text-[#E8472B]" />
+              <span>Back to Home</span>
+            </button>
+          )}
+        </div>
+
+        {/* Center: Search & Quick Actions */}
+        <div className="flex items-center gap-2">
+          {/* AI Match Button */}
+          <button
+            onClick={() => setIsMatchModalOpen(true)}
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-[#E8472B] to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white text-xs font-bold shadow-xs transition cursor-pointer"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-amber-200" />
+            <span>AI Match</span>
+          </button>
+
+          {/* Urgent Gigs */}
+          <button
+            onClick={onOpenUrgentGigs}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-semibold shadow-xs transition cursor-pointer"
+          >
+            <Flame className="w-3.5 h-3.5 fill-white" />
+            <span>Urgent Gigs</span>
+          </button>
+
+          {/* Escrow Orders Button */}
+          <button
+            onClick={onOpenOrders}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-semibold transition cursor-pointer"
+          >
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+            <span>Escrow Orders</span>
+            {ordersCount > 0 && (
+              <span className="w-4 h-4 rounded-full bg-emerald-600 text-white text-[9px] font-bold flex items-center justify-center">
+                {ordersCount}
+              </span>
+            )}
+          </button>
+
+          {/* Shortlist */}
+          <button
+            onClick={onOpenShortlistList}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-orange-50 text-[#5F5A50] border border-[#E7E0D3] text-xs font-medium transition cursor-pointer"
+          >
+            <Bookmark className={`w-3.5 h-3.5 ${shortlistedIds.size > 0 ? 'text-[#E8472B] fill-[#E8472B]' : 'text-gray-400'}`} />
+            <span>Saved ({shortlistedIds.size})</span>
+          </button>
+        </div>
+
+        {/* Right: User Status & Prominent Logout */}
+        <div className="flex items-center gap-3">
+          {currentUser && (
+            <div className="flex items-center gap-2 pl-2 pr-3 py-1 rounded-lg bg-orange-50/60 border border-orange-200/80 text-xs">
+              <img
+                src={currentUser.avatar || (currentUser.role === 'recruiter' ? '/recruiter-profile.jpg' : 'https://images.unsplash.com/photo-1617922001439-4a2e6562f328?auto=format&fit=crop&w=400&q=80')}
+                alt={currentUser.name}
+                className="w-6 h-6 rounded-full object-cover object-[50%_15%] border border-orange-200 shadow-2xs"
+              />
+              <span className="font-heading font-bold text-[#1A1A1A] max-w-[110px] truncate">
+                {currentUser.name.split(' ')[0]}
+              </span>
+              <span className="text-[10px] text-[#5F5A50] capitalize font-medium">
+                ({currentUser.role})
+              </span>
+            </div>
+          )}
+
+          {/* PROMINENT LOGOUT BUTTON */}
+          {onLogout && (
+            <button
+              onClick={onLogout}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-rose-50 text-[#5F5A50] hover:text-[#E8472B] border border-[#E7E0D3] hover:border-red-200 transition-colors duration-150 text-xs font-bold shadow-xs cursor-pointer"
+              title="Log out of StageUp"
+            >
+              <LogOut className="w-3.5 h-3.5 text-[#E8472B]" />
+              <span>Log out</span>
+            </button>
+          )}
+        </div>
+      </nav>
+
+      {/* Main Feed Content Area */}
+      <div className="w-full flex-1 flex items-center justify-center py-0 sm:py-4">
+        {/* Phone container mockup on desktop, full-screen on mobile */}
+        <div className="relative w-full max-w-[430px] h-[100dvh] bg-black flex flex-col justify-between overflow-hidden shadow-2xl sm:rounded-3xl sm:h-[840px] sm:border-[5px] sm:border-slate-800/90 sm:shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
 
         {/* SCREEN: SMART AI MATCH RESULTS RANKED LIST */}
         {showMatchResultsScreen ? (
@@ -410,17 +522,17 @@ export default function RecruiterFeed({
         ) : (
           <>
             {/* TOP BAR: Clean frosted surface matching tokens */}
-            <header className="absolute top-0 left-0 right-0 z-30 pt-3 pb-2.5 px-3.5 bg-surface/95 backdrop-blur-md border-b border-border text-text">
+            <header className="absolute top-0 left-0 right-0 z-30 pt-3 pb-2.5 px-3.5 bg-white/95 backdrop-blur-md border-b border-[#E7E0D3] text-[#1A1A1A]">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   {/* Home Navigation Button */}
                   {onGoHome && (
                     <button
                       onClick={onGoHome}
-                      className="flex items-center gap-1 px-2.5 py-1 rounded-btn bg-surface hover:bg-surface-muted text-text text-[11px] font-medium transition-colors duration-150 border border-border"
+                      className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white hover:bg-orange-50 text-[#1A1A1A] text-[11px] font-medium transition-colors border border-[#E7E0D3]"
                       title="Go back to Home page"
                     >
-                      <ArrowLeft className="w-3 h-3 text-text-muted" />
+                      <ArrowLeft className="w-3 h-3 text-[#E8472B]" />
                       <span>Home</span>
                     </button>
                   )}
@@ -428,63 +540,49 @@ export default function RecruiterFeed({
                   {/* StageUp Logo */}
                   <button
                     onClick={onGoHome}
-                    className="font-heading font-bold text-sm tracking-tight text-text flex items-center gap-1.5 hover:opacity-90 transition-opacity duration-150 text-left"
+                    className="font-heading font-bold text-sm tracking-tight text-[#1A1A1A] flex items-center gap-1.5 hover:opacity-90 transition-opacity duration-150 text-left"
                   >
-                    <div className="w-6 h-6 rounded-[6px] bg-text text-surface flex items-center justify-center font-bold text-[10px]">
+                    <div className="w-6 h-6 rounded-md bg-gradient-to-tr from-[#E8472B] to-[#F97316] text-white flex items-center justify-center font-bold text-[10px]">
                       SU
                     </div>
                     <span>StageUp</span>
                   </button>
-
-                  {/* Auth User Status / Login Button */}
-                  {currentUser ? (
-                    <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-[10px] shadow-xs">
-                      <span className={`w-1.5 h-1.5 rounded-full ${currentUser.role === 'recruiter' ? 'bg-coral' : 'bg-emerald-500'}`}></span>
-                      <span className="font-bold text-slate-900 max-w-[70px] truncate">
-                        {currentUser.name.split(' ')[0]}
-                      </span>
-                      <span className="text-[9px] text-slate-500 capitalize">
-                        ({currentUser.role === 'recruiter' ? 'Recruiter' : 'Creator'})
-                      </span>
-                      {onLogout && (
-                        <button
-                          onClick={onLogout}
-                          className="text-slate-400 hover:text-slate-700 ml-0.5"
-                          title="Log out"
-                        >
-                          <LogOut className="w-2.5 h-2.5" />
-                        </button>
-                      )}
-                    </div>
-                  ) : (onNavigateToLogin || onOpenAuth) ? (
-                    <div className="flex items-center gap-1">
-                      <button
-                        onClick={() => onNavigateToLogin ? onNavigateToLogin('recruiter') : onOpenAuth('recruiter')}
-                        className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-white hover:bg-slate-50 text-slate-800 text-[10px] font-bold border border-slate-200 transition shadow-xs"
-                        title="Log in to account"
-                      >
-                        <User className="w-2.5 h-2.5 text-coral" />
-                        <span>Log In</span>
-                      </button>
-                      <button
-                        onClick={() => onNavigateToSignup ? onNavigateToSignup('recruiter') : onOpenAuth('recruiter')}
-                        className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold transition shadow-xs"
-                        title="Create an account"
-                      >
-                        <span>Sign Up</span>
-                      </button>
-                    </div>
-                  ) : null}
                 </div>
 
+                {/* Mobile User & Logout & Quick Actions */}
                 <div className="flex items-center gap-1.5">
+                  {currentUser && (
+                    <div className="flex items-center gap-1.5 mr-0.5">
+                      <img
+                        src={currentUser.avatar || (currentUser.role === 'recruiter' ? '/recruiter-profile.jpg' : 'https://images.unsplash.com/photo-1617922001439-4a2e6562f328?auto=format&fit=crop&w=400&q=80')}
+                        alt={currentUser.name}
+                        className="w-5 h-5 rounded-full object-cover object-[50%_15%] border border-orange-200"
+                      />
+                      <span className="text-[11px] font-bold text-[#1A1A1A] max-w-[70px] truncate hidden sm:inline">
+                        {currentUser.name.split(' ')[0]}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* PROMINENT MOBILE LOGOUT BUTTON */}
+                  {onLogout && (
+                    <button
+                      onClick={onLogout}
+                      className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white text-[#E8472B] hover:bg-rose-50 border border-orange-200 text-[11px] font-bold shadow-xs transition cursor-pointer"
+                      title="Log out"
+                    >
+                      <LogOut className="w-3 h-3 text-[#E8472B]" />
+                      <span>Log out</span>
+                    </button>
+                  )}
+
                   {/* Search Toggle */}
                   <button
                     onClick={() => setIsSearchVisible(!isSearchVisible)}
-                    className={`p-1.5 rounded-full transition border ${
+                    className={`p-1.5 rounded-lg transition border ${
                       isSearchVisible || searchQuery
-                        ? 'bg-coral text-white border-coral shadow-xs'
-                        : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
+                        ? 'bg-[#E8472B] text-white border-[#E8472B] shadow-xs'
+                        : 'bg-white hover:bg-orange-50 text-[#5F5A50] border-[#E7E0D3]'
                     }`}
                     title="Search creators & skills"
                   >
@@ -494,65 +592,20 @@ export default function RecruiterFeed({
                   {/* Advanced Filter Drawer Button */}
                   <button
                     onClick={() => setIsFilterModalOpen(true)}
-                    className={`flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-medium border transition ${
+                    className={`flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-medium border transition ${
                       activeFilterCount > 0
-                        ? 'bg-coral text-white border-coral font-bold shadow-xs'
-                        : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
+                        ? 'bg-[#E8472B] text-white border-[#E8472B] font-bold shadow-xs'
+                        : 'bg-white hover:bg-orange-50 text-[#5F5A50] border-[#E7E0D3]'
                     }`}
                     title="Filter by category & budget"
                   >
                     <SlidersHorizontal className="w-3 h-3" />
                     <span>Filter</span>
                     {activeFilterCount > 0 && (
-                      <span className="w-4 h-4 rounded-full bg-white text-coral font-bold text-[9px] flex items-center justify-center">
+                      <span className="w-4 h-4 rounded-full bg-white text-[#E8472B] font-bold text-[9px] flex items-center justify-center">
                         {activeFilterCount}
                       </span>
                     )}
-                  </button>
-
-                  {/* Urgent 24h Gigs Casting Calls */}
-                  <button
-                    onClick={onOpenUrgentGigs}
-                    className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-500 to-coral hover:from-amber-600 hover:to-rose-600 text-white text-[11px] font-semibold transition shadow-xs animate-pulse"
-                    title="Urgent 24-Hour Gigs & Casting Calls"
-                  >
-                    <Flame className="w-3 h-3 fill-white" />
-                    <span>Urgent</span>
-                  </button>
-
-                  {/* Escrow Orders Button */}
-                  <button
-                    onClick={onOpenOrders}
-                    className="flex items-center gap-1 px-2 py-1 rounded-full bg-emerald-50 hover:bg-emerald-100 text-forest text-[11px] font-semibold border border-emerald-200 transition shadow-xs"
-                    title="View My Escrow Orders"
-                  >
-                    <ShieldCheck className="w-3 h-3 text-forest" />
-                    <span>Orders</span>
-                    {ordersCount > 0 && (
-                      <span className="w-4 h-4 rounded-full bg-forest text-white text-[9px] font-bold flex items-center justify-center">
-                        {ordersCount}
-                      </span>
-                    )}
-                  </button>
-
-                  {/* Shortlist Counter Badge */}
-                  <button
-                    onClick={onOpenShortlistList}
-                    className="flex items-center gap-1 px-2 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-medium border border-slate-200 transition"
-                    title="View Shortlisted Talents"
-                  >
-                    <Bookmark className={`w-3 h-3 ${shortlistedIds.size > 0 ? 'text-coral fill-coral' : 'text-slate-700'}`} />
-                    <span>{shortlistedIds.size}</span>
-                  </button>
-
-                  {/* Post Work CTA */}
-                  <button
-                    onClick={onOpenCreate}
-                    className="flex items-center gap-1 px-2 py-1 rounded-full bg-coral hover:bg-coral-hover text-white text-[11px] font-semibold shadow-xs transition"
-                    title="Post Your Work"
-                  >
-                    <Plus className="w-3 h-3" />
-                    <span>Post</span>
                   </button>
                 </div>
               </div>
@@ -1075,6 +1128,7 @@ export default function RecruiterFeed({
             </div>
           </>
         )}
+        </div>
       </div>
 
       {/* FILTER MODAL / DRAWER */}

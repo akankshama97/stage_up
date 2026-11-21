@@ -183,11 +183,7 @@ export default function SplashScreen({
               </Badge>
 
               <h1 className="font-heading font-bold text-[36px] sm:text-[56px] text-text leading-[1.1] tracking-[-0.02em] mb-4">
-                Hire creators by their{' '}
-                <span className="underline decoration-accent decoration-[3px] underline-offset-4">
-                  work
-                </span>
-                , not their resume.
+                Hire creators by their work, not their resume.
               </h1>
 
               <p className="text-text-muted text-base sm:text-lg leading-[1.6] max-w-xl mb-6">
