@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-  ArrowLeft,
   Lock,
   Mail,
   User,
@@ -346,15 +345,16 @@ export default function AuthPage({
         {/* ========================================================= */}
         <div className="lg:col-span-5 xl:col-span-5 flex flex-col justify-between items-center py-1 sm:py-2 relative">
           
-          {/* Top Bar Navigation */}
+          {/* Top Bar Navigation (Clean branding + Switch mode & Help) */}
           <div className="w-full max-w-[480px] flex items-center justify-between px-1 mb-3">
-            <button
-              onClick={onBack}
-              className="inline-flex items-center gap-1.5 text-xs font-medium text-stone-500 hover:text-stone-900 transition-colors cursor-pointer"
-            >
-              <ArrowLeft className="w-3.5 h-3.5 text-[#E8472B]" />
-              <span>Back to marketplace</span>
-            </button>
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-lg bg-[#E8472B] text-white flex items-center justify-center font-heading font-black text-xs shadow-xs select-none">
+                S
+              </div>
+              <span className="font-heading font-bold text-sm tracking-tight text-[#1A1A1A]">
+                StageUp
+              </span>
+            </div>
             
             <div className="flex items-center gap-3">
               <button
@@ -368,9 +368,9 @@ export default function AuthPage({
                 href="#help"
                 onClick={(e) => {
                   e.preventDefault();
-                  alert('Need help? Reach out at support@stageup.in or click Quick Demo below.');
+                  alert('Need help? Reach out at support@stageup.in or click Quick Demo below to test instantly.');
                 }}
-                className="text-xs font-medium text-stone-400 hover:text-stone-700 transition"
+                className="text-xs font-medium text-stone-500 hover:text-stone-900 transition"
               >
                 Help
               </a>
