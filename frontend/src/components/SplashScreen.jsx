@@ -43,11 +43,43 @@ export default function SplashScreen({
     : '₹500';
 
   const services = [
-    { name: 'Video Editing', price: 'from ₹500', icon: Video },
-    { name: 'Thumbnail Design', price: 'from ₹250', icon: Palette },
-    { name: 'Scriptwriting', price: 'from ₹400', icon: FileText },
-    { name: 'Voiceovers', price: 'from ₹600', icon: Mic },
-    { name: 'Product Shoots', price: 'from ₹1,500', icon: Camera }
+    {
+      name: 'Video Editing',
+      price: 'from ₹500',
+      creators: '140+ creators',
+      delivery: '12-24 hrs',
+      icon: Video,
+      badge: 'Popular'
+    },
+    {
+      name: 'Thumbnail Design',
+      price: 'from ₹250',
+      creators: '85+ creators',
+      delivery: '6 hrs rush',
+      icon: Palette,
+      badge: 'High CTR'
+    },
+    {
+      name: 'Scriptwriting',
+      price: 'from ₹400',
+      creators: '60+ creators',
+      delivery: '24 hrs',
+      icon: FileText
+    },
+    {
+      name: 'Voiceovers',
+      price: 'from ₹600',
+      creators: '45+ creators',
+      delivery: '12 hrs',
+      icon: Mic
+    },
+    {
+      name: 'Product Shoots',
+      price: 'from ₹1,500',
+      creators: '30+ creators',
+      delivery: '48 hrs',
+      icon: Camera
+    }
   ];
 
   const handleRoleWork = () => {
@@ -221,8 +253,8 @@ export default function SplashScreen({
             </div>
 
             {/* Right Column (45%): Real Product Preview */}
-            <div className="lg:col-span-5 w-full">
-              <Card className="p-4 sm:p-5">
+            <div className="lg:col-span-5 w-full mt-6 sm:mt-8 lg:mt-4">
+              <Card className="p-4 sm:p-5 shadow-sm">
                 <div className="flex items-center justify-between mb-3">
                   <div className="text-xs font-medium text-text-muted">
                     Featured creator proof
@@ -251,7 +283,7 @@ export default function SplashScreen({
                 </div>
 
                 {/* Card Meta & Details */}
-                <div className="mt-4 pt-3 border-t border-border flex items-center justify-between">
+                <div className="mt-4 pt-3 border-t border-border flex items-start justify-between gap-3">
                   <div>
                     <div className="flex items-center gap-1.5 flex-wrap">
                       <h3 className="font-heading font-bold text-base text-text">
@@ -277,7 +309,7 @@ export default function SplashScreen({
                     variant="link"
                     size="sm"
                     onClick={handlePreviewClick}
-                    className="flex items-center gap-1 font-medium text-xs text-accent"
+                    className="flex items-center gap-1 font-medium text-xs text-accent shrink-0 pt-0.5"
                   >
                     <span>View reel</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -293,10 +325,15 @@ export default function SplashScreen({
       {/* 3. SERVICES ROW */}
       <Section className="py-8 sm:py-12 border-t border-border">
         <Container>
-          <div className="mb-6">
-            <h2 className="font-heading font-bold text-xl text-text">
-              Popular skills
-            </h2>
+          <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+            <div>
+              <h2 className="font-heading font-bold text-xl sm:text-2xl text-text">
+                Popular skills
+              </h2>
+              <p className="text-xs sm:text-sm text-text-muted mt-0.5">
+                Top rated proof-of-work categories with upfront verified pricing.
+              </p>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
@@ -307,16 +344,34 @@ export default function SplashScreen({
                   key={index}
                   interactive
                   onClick={onStart}
-                  className="p-4 flex flex-col justify-between"
+                  className="p-4 sm:p-5 flex flex-col justify-between group hover:border-accent/40 transition-all duration-150"
                 >
-                  <Icon className="w-5 h-5 text-text stroke-[1.5] mb-3" />
                   <div>
-                    <div className="font-medium text-sm text-text">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="w-9 h-9 rounded-lg bg-surface-muted border border-border flex items-center justify-center group-hover:bg-accent/10 transition-colors">
+                        <Icon className="w-4 h-4 text-text group-hover:text-accent stroke-[1.8] transition-colors" />
+                      </div>
+                      {service.badge && (
+                        <span className="text-[9px] font-bold text-accent bg-accent/10 px-1.5 py-0.5 rounded-full border border-accent/20">
+                          {service.badge}
+                        </span>
+                      )}
+                    </div>
+                    <div className="font-heading font-bold text-sm text-text mb-1">
                       {service.name}
                     </div>
-                    <div className="text-xs text-text-muted mt-0.5">
-                      {service.price}
+                    <div className="text-[11px] sm:text-xs text-text-muted">
+                      {service.creators} &bull; {service.delivery}
                     </div>
+                  </div>
+
+                  <div className="mt-4 pt-2.5 border-t border-border flex items-center justify-between">
+                    <span className="font-heading font-bold text-xs sm:text-sm text-text">
+                      {service.price}
+                    </span>
+                    <span className="text-[10px] sm:text-[11px] text-accent font-medium group-hover:translate-x-0.5 transition-transform flex items-center gap-0.5">
+                      Explore &rarr;
+                    </span>
                   </div>
                 </Card>
               );
