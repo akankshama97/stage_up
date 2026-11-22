@@ -381,7 +381,7 @@ export default function RecruiterFeed({
   const activeProject = currentTalent.projects?.[activeCaptionIdx % (currentTalent.projects?.length || 1)] || currentTalent.projects?.[0] || null;
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-[#FFFDF9] via-[#FFF7ED] to-[#F2FBF7] text-[#1A1A1A] flex flex-col items-center justify-between font-sans selection:bg-orange-100 selection:text-[#E8472B]">
+    <div className="relative min-h-screen bg-[#FAF7F2] text-[#1A1A1A] flex flex-col items-center justify-between font-sans selection:bg-orange-100 selection:text-[#E8472B]">
       
       {/* Ambient Sunlit Background Glows on Desktop */}
       <div className="hidden sm:block absolute -top-40 -left-40 w-96 h-96 bg-amber-300/20 rounded-full blur-[140px] pointer-events-none -z-10" />

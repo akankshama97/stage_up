@@ -16,8 +16,18 @@ import {
   Building,
   Sparkles,
   Check,
-  Star
+  Star,
+  Users
 } from 'lucide-react';
+
+// 5 Indian Creator Avatars matching the verified talent roster
+const creatorAvatars = [
+  { name: 'Priya Sharma', src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80' },
+  { name: 'Arjun Verma', src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80' },
+  { name: 'Ananya Roy', src: 'https://images.unsplash.com/photo-1617922001439-4a2e6562f328?auto=format&fit=crop&w=150&q=80' },
+  { name: 'Rohan Mehta', src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80' },
+  { name: 'Sneha Rao', src: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80' }
+];
 
 export default function AuthPage({
   initialMode = 'login', // 'login' | 'signup'
@@ -226,7 +236,7 @@ export default function AuthPage({
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#FAF8F5] text-gray-900 font-sans antialiased selection:bg-red-100 selection:text-[#E53935] flex flex-col justify-between p-3 sm:p-5 lg:p-6">
+    <div className="min-h-screen w-full bg-[#FAF7F2] text-stone-900 font-sans antialiased selection:bg-orange-100 selection:text-[#E8472B] flex flex-col justify-between p-3 sm:p-5 lg:p-6">
       
       {/* Outer Shell: Connects both sides inside one harmonious container */}
       <div className="flex-1 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-stretch">
@@ -332,141 +342,133 @@ export default function AuthPage({
         </div>
 
         {/* ========================================================= */}
-        {/* RIGHT COLUMN (5 Cols / ~45%): COHESIVE CENTERED CARD      */}
+        {/* RIGHT COLUMN (5 Cols / ~45%): CARD AS IN USER REFERENCE  */}
         {/* ========================================================= */}
-        <div className="lg:col-span-5 xl:col-span-5 flex flex-col justify-between rounded-[28px] bg-white border border-gray-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-6 sm:p-8 lg:p-10 xl:p-12 relative">
+        <div className="lg:col-span-5 xl:col-span-5 flex flex-col justify-between items-center py-1 sm:py-2 relative">
           
-          {/* Top Bar: Back Link */}
-          <div className="flex items-center justify-between mb-4">
+          {/* Top Bar Navigation */}
+          <div className="w-full max-w-[480px] flex items-center justify-between px-1 mb-3">
             <button
               onClick={onBack}
-              className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-gray-900 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-stone-500 hover:text-stone-900 transition-colors cursor-pointer"
             >
-              <ArrowLeft className="w-3.5 h-3.5 text-[#E53935]" />
+              <ArrowLeft className="w-3.5 h-3.5 text-[#E8472B]" />
               <span>Back to marketplace</span>
             </button>
             
-            <button
-              onClick={() => handleToggleMode(mode === 'login' ? 'signup' : 'login')}
-              className="text-xs font-semibold text-[#E53935] hover:underline cursor-pointer"
-            >
-              {mode === 'login' ? 'Create an account' : 'Already registered?'}
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => handleToggleMode(mode === 'login' ? 'signup' : 'login')}
+                className="text-xs font-semibold text-[#E8472B] hover:underline cursor-pointer"
+              >
+                {mode === 'login' ? 'Sign up' : 'Log in'}
+              </button>
+              <span className="text-stone-300">|</span>
+              <a
+                href="#help"
+                onClick={(e) => {
+                  e.preventDefault();
+                  alert('Need help? Reach out at support@stageup.in or click Quick Demo below.');
+                }}
+                className="text-xs font-medium text-stone-400 hover:text-stone-700 transition"
+              >
+                Help
+              </a>
+            </div>
           </div>
 
-          {/* Form Container */}
-          <div className="w-full my-auto py-2">
+          {/* Centered White Card (Exact layout from user reference image) */}
+          <div className="w-full max-w-[480px] bg-white rounded-[28px] border border-[#E7E0D3] shadow-[0_10px_35px_rgba(0,0,0,0.05)] p-6 sm:p-8 text-center transition-all">
             
-            {/* Logo Badge (Matching Left Column) */}
-            <div className="flex items-center gap-2.5 mb-5">
-              <div className="w-9 h-9 rounded-xl bg-[#E53935] text-white flex items-center justify-center font-heading font-black text-lg shadow-md shadow-red-500/25 select-none">
-                S
+            {/* 1. Pill Tag */}
+            <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#E8472B] text-white text-[11px] sm:text-xs font-semibold tracking-wide shadow-xs mb-3">
+              India's Proof-of-Work Creator Network
+            </div>
+
+            {/* 2. Heading */}
+            <h2 className="font-heading font-extrabold text-2xl sm:text-[28px] text-[#1A1A1A] tracking-tight leading-tight">
+              {mode === 'login' ? 'Welcome back to StageUp' : 'Join StageUp Network'}
+            </h2>
+
+            {/* 3. Subtitle */}
+            <p className="text-xs sm:text-sm text-[#5F5A50] mt-1.5">
+              Hire verified Indian creators or get hired.
+            </p>
+
+            {/* 4. Row of 5 Creator Avatars */}
+            <div className="flex items-center justify-center gap-2.5 my-4 sm:my-5">
+              {creatorAvatars.map((c, idx) => (
+                <div key={idx} className="relative group">
+                  <img
+                    src={c.src}
+                    alt={c.name}
+                    title={c.name}
+                    className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border-2 border-white shadow-sm ring-1 ring-black/5 hover:scale-105 transition-transform"
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Role switch pills if in signup mode */}
+            {mode === 'signup' && (
+              <div className="mb-4">
+                <label className="block text-[11px] font-heading font-bold uppercase tracking-wider text-[#5F5A50] mb-1.5 text-left">
+                  I WANT TO
+                </label>
+                <div className="grid grid-cols-2 gap-2 text-left">
+                  <button
+                    type="button"
+                    onClick={() => setRole('recruiter')}
+                    className={`py-2 px-3 rounded-xl border text-xs font-heading font-bold flex items-center justify-center gap-1.5 transition duration-150 cursor-pointer ${
+                      role === 'recruiter'
+                        ? 'border-[#E8472B] text-[#E8472B] bg-orange-50/70 shadow-xs ring-1 ring-[#E8472B]'
+                        : 'border-[#E7E0D3] bg-white text-[#5F5A50] hover:border-stone-400'
+                    }`}
+                  >
+                    <Briefcase className="w-3.5 h-3.5" />
+                    <span>Hire Creators</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setRole('talent')}
+                    className={`py-2 px-3 rounded-xl border text-xs font-heading font-bold flex items-center justify-center gap-1.5 transition duration-150 cursor-pointer ${
+                      role === 'talent'
+                        ? 'border-[#E8472B] text-[#E8472B] bg-orange-50/70 shadow-xs ring-1 ring-[#E8472B]'
+                        : 'border-[#E7E0D3] bg-white text-[#5F5A50] hover:border-stone-400'
+                    }`}
+                  >
+                    <Video className="w-3.5 h-3.5" />
+                    <span>Work as Creator</span>
+                  </button>
+                </div>
               </div>
-              <span className="font-heading font-extrabold text-2xl tracking-tight text-gray-900">
-                StageUp
-              </span>
-            </div>
-
-            {/* Heading & Subtext */}
-            <div className="mb-5">
-              <h2 className="font-heading font-extrabold text-2xl text-gray-900 tracking-tight leading-tight">
-                {mode === 'login' ? 'Welcome back' : 'Create an account'}
-              </h2>
-              <p className="text-xs sm:text-sm text-gray-500 mt-1 leading-relaxed">
-                {mode === 'login'
-                  ? 'Sign in to access your talent feed, reels and orders'
-                  : 'Join top creators and brands across India with zero agency markups'}
-              </p>
-            </div>
-
-            {/* Tabs: Log in | Sign up */}
-            <div className="flex p-1 bg-gray-100 rounded-xl mb-4 border border-gray-200">
-              <button
-                type="button"
-                onClick={() => handleToggleMode('login')}
-                className={`flex-1 py-1.5 text-xs sm:text-sm font-heading font-bold rounded-lg transition duration-150 cursor-pointer ${
-                  mode === 'login'
-                    ? 'bg-white text-gray-900 shadow-sm'
-                    : 'text-gray-500 hover:text-gray-900'
-                }`}
-              >
-                Log in
-              </button>
-              <button
-                type="button"
-                onClick={() => handleToggleMode('signup')}
-                className={`flex-1 py-1.5 text-xs sm:text-sm font-heading font-bold rounded-lg transition duration-150 cursor-pointer ${
-                  mode === 'signup'
-                    ? 'bg-white text-gray-900 shadow-sm'
-                    : 'text-gray-500 hover:text-gray-900'
-                }`}
-              >
-                Sign up
-              </button>
-            </div>
-
-            {/* Label: I WANT TO with 2 buttons */}
-            <div className="mb-4">
-              <label className="block text-[11px] font-heading font-bold uppercase tracking-wider text-gray-500 mb-1.5">
-                I WANT TO
-              </label>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => setRole('recruiter')}
-                  className={`py-2 px-3 rounded-xl border text-xs sm:text-[13px] font-heading font-bold flex items-center justify-center gap-1.5 transition duration-150 cursor-pointer ${
-                    role === 'recruiter'
-                      ? 'border-[#E53935] text-[#E53935] bg-red-50/70 shadow-xs ring-1 ring-[#E53935]'
-                      : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300 hover:bg-gray-50'
-                  }`}
-                >
-                  <Briefcase className={`w-3.5 h-3.5 ${role === 'recruiter' ? 'text-[#E53935]' : 'text-gray-400'}`} />
-                  <span>Hire Creators</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setRole('talent')}
-                  className={`py-2 px-3 rounded-xl border text-xs sm:text-[13px] font-heading font-bold flex items-center justify-center gap-1.5 transition duration-150 cursor-pointer ${
-                    role === 'talent'
-                      ? 'border-[#E53935] text-[#E53935] bg-red-50/70 shadow-xs ring-1 ring-[#E53935]'
-                      : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300 hover:bg-gray-50'
-                  }`}
-                >
-                  <Video className={`w-3.5 h-3.5 ${role === 'talent' ? 'text-[#E53935]' : 'text-gray-400'}`} />
-                  <span>Work as Creator</span>
-                </button>
-              </div>
-            </div>
+            )}
 
             {/* Feedback Alerts */}
             {errorMsg && (
-              <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 flex items-start gap-2 text-xs text-red-700">
-                <AlertCircle className="w-4 h-4 text-[#E53935] shrink-0 mt-0.5" />
+              <div className="mb-3.5 p-2.5 rounded-xl bg-red-50 border border-red-200 flex items-start gap-2 text-xs text-red-700 text-left">
+                <AlertCircle className="w-4 h-4 text-[#E8472B] shrink-0 mt-0.5" />
                 <span className="font-medium">{errorMsg}</span>
               </div>
             )}
 
             {successMsg && (
-              <div className="mb-4 p-3 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center gap-2 text-xs text-emerald-800 font-medium">
+              <div className="mb-3.5 p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center gap-2 text-xs text-emerald-800 font-medium text-left">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span>{successMsg}</span>
               </div>
             )}
 
             {/* Form */}
-            <form onSubmit={handleSubmit} autoComplete="off" className="space-y-3.5">
+            <form onSubmit={handleSubmit} autoComplete="off" className="space-y-3">
               
               {/* Full Name (Sign up only) */}
               {mode === 'signup' && (
-                <div>
-                  <label className="block text-xs font-heading font-bold text-gray-800 mb-1">
+                <div className="text-left">
+                  <label className="block text-xs font-heading font-semibold text-[#1A1A1A] mb-1">
                     {role === 'recruiter' ? 'Brand / Recruiter Name' : 'Creator Full Name'}
                   </label>
                   <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                      {role === 'recruiter' ? <Building className="w-4 h-4" /> : <User className="w-4 h-4" />}
-                    </div>
                     <input
                       type="text"
                       name="stageup_full_name"
@@ -474,22 +476,20 @@ export default function AuthPage({
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder={role === 'recruiter' ? 'e.g. Zenith Media' : 'e.g. Priya Sharma'}
-                      className="w-full pl-9 pr-3 py-2 text-sm rounded-xl bg-gray-50/50 border border-gray-200 focus:bg-white focus:border-[#E53935] focus:ring-2 focus:ring-red-500/15 text-gray-900 placeholder:text-gray-400 outline-none transition"
+                      className="w-full px-3.5 py-2.5 text-sm rounded-xl bg-white border border-[#E7E0D3] focus:border-[#E8472B] focus:ring-2 focus:ring-[#E8472B]/10 text-[#1A1A1A] placeholder:text-stone-400 outline-none transition"
                       required={mode === 'signup'}
                     />
                   </div>
                 </div>
               )}
 
-              {/* Input: Email or Mobile Number */}
-              <div>
-                <label className="block text-xs font-heading font-bold text-gray-800 mb-1">
-                  Email or Mobile Number
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                    {emailOrPhone.includes('@') ? <Mail className="w-4 h-4" /> : <Phone className="w-4 h-4" />}
-                  </div>
+              {/* Side-by-side Inputs (Email & Password as in Reference Image) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-left">
+                {/* Email Input */}
+                <div>
+                  <label className="block text-xs font-heading font-semibold text-[#1A1A1A] mb-1">
+                    Email
+                  </label>
                   <input
                     type="text"
                     name="stageup_identifier"
@@ -499,129 +499,193 @@ export default function AuthPage({
                       setEmailOrPhone(e.target.value);
                       setErrorMsg('');
                     }}
-                    placeholder="Enter email or mobile number"
-                    className="w-full pl-9 pr-3 py-2 text-sm rounded-xl bg-gray-50/50 border border-gray-200 focus:bg-white focus:border-[#E53935] focus:ring-2 focus:ring-red-500/15 text-gray-900 placeholder:text-gray-400 outline-none transition"
+                    placeholder="you@example.com"
+                    className="w-full px-3.5 py-2.5 text-sm rounded-xl bg-white border border-[#E7E0D3] focus:border-[#E8472B] focus:ring-2 focus:ring-[#E8472B]/10 text-[#1A1A1A] placeholder:text-stone-400 outline-none transition"
                     required
                   />
                 </div>
-              </div>
 
-              {/* Input: Password with Forgot password? */}
-              <div>
-                <div className="flex items-center justify-between mb-1">
-                  <label className="block text-xs font-heading font-bold text-gray-800">
+                {/* Password Input */}
+                <div>
+                  <label className="block text-xs font-heading font-semibold text-[#1A1A1A] mb-1">
                     Password
                   </label>
-                  {mode === 'login' && (
+                  <div className="relative">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      name="stageup_user_password"
+                      autoComplete="new-password"
+                      value={password}
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                        setErrorMsg('');
+                      }}
+                      placeholder="••••••••"
+                      className="w-full pl-3.5 pr-9 py-2.5 text-sm rounded-xl bg-white border border-[#E7E0D3] focus:border-[#E8472B] focus:ring-2 focus:ring-[#E8472B]/10 text-[#1A1A1A] placeholder:text-stone-400 outline-none transition font-mono"
+                      required
+                    />
                     <button
                       type="button"
-                      onClick={() => setShowForgotTip(!showForgotTip)}
-                      className="text-xs text-gray-500 hover:text-[#E53935] transition-colors cursor-pointer"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-stone-400 hover:text-stone-700 cursor-pointer"
                     >
-                      Forgot password?
-                    </button>
-                  )}
-                </div>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                    <Lock className="w-4 h-4" />
-                  </div>
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    name="stageup_user_password"
-                    autoComplete="new-password"
-                    value={password}
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                      setErrorMsg('');
-                    }}
-                    placeholder="Enter password (min 6 characters)"
-                    className="w-full pl-9 pr-10 py-2 text-sm rounded-xl bg-gray-50/50 border border-gray-200 focus:bg-white focus:border-[#E53935] focus:ring-2 focus:ring-red-500/15 text-gray-900 placeholder:text-gray-400 outline-none transition"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-700 cursor-pointer"
-                  >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  </button>
-                </div>
-
-                {showForgotTip && (
-                  <div className="mt-2 p-2 rounded-lg bg-red-50 border border-red-200 text-xs text-[#E53935] flex items-center justify-between">
-                    <span>Use demo password: <strong className="font-mono">stageup123</strong></span>
-                    <button
-                      type="button"
-                      onClick={() => handleQuickDemo(role)}
-                      className="font-bold underline"
-                    >
-                      Fill Demo
+                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
                   </div>
-                )}
+                </div>
               </div>
 
-              {/* Checkbox: Remember me on this device */}
-              <div className="flex items-center justify-between text-xs text-gray-600 pt-0.5">
+              {/* Remember me & Forgot password? */}
+              <div className="flex items-center justify-between text-xs text-[#5F5A50] pt-1">
                 <label className="flex items-center gap-2 cursor-pointer select-none">
                   <input
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="w-4 h-4 rounded border-gray-300 accent-[#E53935] cursor-pointer"
+                    className="w-4 h-4 rounded border-[#E7E0D3] accent-[#E8472B] cursor-pointer"
                   />
-                  <span>Remember me on this device</span>
+                  <span>Remember me</span>
                 </label>
+                
+                {mode === 'login' && (
+                  <button
+                    type="button"
+                    onClick={() => setShowForgotTip(!showForgotTip)}
+                    className="text-[#E8472B] hover:underline font-medium cursor-pointer"
+                  >
+                    Forgot password?
+                  </button>
+                )}
               </div>
 
-              {/* Solid Red Button: Log in */}
+              {/* Forgot password tip box */}
+              {showForgotTip && (
+                <div className="p-2.5 rounded-xl bg-orange-50 border border-orange-200 text-xs text-[#E8472B] flex items-center justify-between text-left">
+                  <span>Demo password: <strong className="font-mono">stageup123</strong></span>
+                  <button
+                    type="button"
+                    onClick={() => handleQuickDemo(role)}
+                    className="font-bold underline cursor-pointer"
+                  >
+                    Auto Fill
+                  </button>
+                </div>
+              )}
+
+              {/* Solid Orange/Red Button: Log in */}
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-2.5 px-4 rounded-xl font-heading font-bold text-sm bg-[#E53935] hover:bg-[#D32F2F] text-white shadow-md shadow-red-500/25 transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 mt-2 active:scale-[0.99]"
+                className="w-full py-3 px-4 rounded-xl font-heading font-bold text-sm bg-[#E8472B] hover:bg-[#C93A21] text-white shadow-md shadow-orange-500/20 transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 mt-3 active:scale-[0.99]"
               >
                 {isLoading ? (
                   <span>Please wait...</span>
                 ) : (
-                  <>
-                    <span>{mode === 'login' ? 'Log in' : 'Create account'}</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </>
+                  <span>{mode === 'login' ? 'Log in' : 'Create Account'}</span>
                 )}
               </button>
             </form>
 
-            {/* Bottom: Quick Demo: Recruiter - Creator */}
-            <div className="mt-5 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
-              <span className="font-medium">Quick Demo:</span>
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleQuickDemo('recruiter')}
-                  className="font-semibold text-gray-700 hover:text-[#E53935] transition-colors cursor-pointer hover:underline"
-                >
-                  Recruiter
-                </button>
-                <span className="text-gray-300">-</span>
-                <button
-                  type="button"
-                  onClick={() => handleQuickDemo('talent')}
-                  className="font-semibold text-gray-700 hover:text-[#E53935] transition-colors cursor-pointer hover:underline"
-                >
-                  Creator
-                </button>
+            {/* Divider: Or continue with Google */}
+            <div className="relative my-4 text-center">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-[#E7E0D3]"></div>
+              </div>
+              <span className="relative px-3 bg-white text-xs text-[#5F5A50] font-medium">
+                Or continue with Google
+              </span>
+            </div>
+
+            {/* Continue with Google Button */}
+            <button
+              type="button"
+              onClick={() => handleQuickDemo(role)}
+              className="w-full py-2.5 px-4 rounded-xl border border-[#E7E0D3] bg-white hover:bg-stone-50/80 text-xs font-semibold text-[#1A1A1A] transition flex items-center justify-center gap-2.5 shadow-2xs cursor-pointer"
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+              <span>Continue with Google</span>
+            </button>
+
+            {/* Bottom 3-Column Stats inside card */}
+            <div className="border-t border-[#E7E0D3] pt-4 mt-5 grid grid-cols-3 divide-x divide-[#E7E0D3] text-center">
+              <div>
+                <div className="flex items-center justify-center gap-1.5 font-heading font-extrabold text-sm text-[#1A1A1A]">
+                  <Users className="w-3.5 h-3.5 text-[#5F5A50]" />
+                  <span>12,400+</span>
+                </div>
+                <div className="text-[11px] text-[#5F5A50] mt-0.5">Creators</div>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-center gap-1.5 font-heading font-extrabold text-sm text-[#1A1A1A]">
+                  <Briefcase className="w-3.5 h-3.5 text-[#5F5A50]" />
+                  <span>850+</span>
+                </div>
+                <div className="text-[11px] text-[#5F5A50] mt-0.5">Brands</div>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-center gap-1.5 font-heading font-extrabold text-sm text-[#1A1A1A]">
+                  <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+                  <span>4.9</span>
+                </div>
+                <div className="text-[11px] text-[#5F5A50] mt-0.5">Average rating</div>
               </div>
             </div>
 
           </div>
 
-          {/* Footer: 100% Escrow Protected - Zero Agency Fees */}
-          <div className="w-full pt-3 border-t border-gray-100 text-center space-y-1">
-            <p className="text-xs text-gray-500 font-medium">
-              100% Escrow Protected &bull; Zero Agency Fees
-            </p>
-            <p className="text-[11px] font-semibold text-gray-800 flex items-center justify-center gap-1">
+          {/* Under Card: Brand Logos (SWIGGY, zomato, NYKAA, DREAM11, Razorpay) */}
+          <div className="w-full max-w-[480px] mt-4 flex items-center justify-between px-3 text-[#5F5A50] opacity-80">
+            {/* Swiggy */}
+            <div className="flex items-center gap-1 font-heading font-black tracking-tighter text-xs">
+              <span className="w-4 h-4 rounded-full bg-[#FC8019] text-white flex items-center justify-center text-[9px] font-bold">S</span>
+              <span className="tracking-wider uppercase text-[11px] font-bold">SWIGGY</span>
+            </div>
+            {/* Zomato */}
+            <div className="font-heading font-black italic text-xs tracking-tight text-rose-600">
+              zomato
+            </div>
+            {/* Nykaa */}
+            <div className="font-heading font-bold text-xs tracking-wider text-pink-600">
+              NYKAA
+            </div>
+            {/* Dream11 */}
+            <div className="font-heading font-extrabold text-[11px] tracking-tight text-red-600 flex items-center gap-0.5">
+              <span>DREAM11</span>
+            </div>
+            {/* Razorpay */}
+            <div className="font-heading font-extrabold text-xs tracking-tight text-blue-600 flex items-center gap-0.5">
+              <span>Razorpay</span>
+            </div>
+          </div>
+
+          {/* Demo Pills & Akanksha Credit */}
+          <div className="w-full max-w-[480px] mt-3 pt-2 text-center space-y-1">
+            <div className="flex items-center justify-center gap-2 text-xs text-[#5F5A50]">
+              <span className="font-medium">Quick Demo:</span>
+              <button
+                type="button"
+                onClick={() => handleQuickDemo('recruiter')}
+                className="font-semibold text-[#1A1A1A] hover:text-[#E8472B] hover:underline cursor-pointer"
+              >
+                Recruiter
+              </button>
+              <span className="text-stone-300">-</span>
+              <button
+                type="button"
+                onClick={() => handleQuickDemo('talent')}
+                className="font-semibold text-[#1A1A1A] hover:text-[#E8472B] hover:underline cursor-pointer"
+              >
+                Creator
+              </button>
+            </div>
+            <p className="text-[11px] font-semibold text-[#1A1A1A] flex items-center justify-center gap-1 pt-1">
               Made by Akanksha Maurya <span className="text-red-500 animate-pulse">❤️</span>
             </p>
           </div>
