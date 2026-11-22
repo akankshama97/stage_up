@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ArrowLeft,
   Lock,
@@ -38,10 +38,21 @@ export default function AuthPage({
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
-  const [showForgotTip, setShowForgotTip] = useState(false);
+
+  // Always start with completely empty fields on mount or mode switch
+  useEffect(() => {
+    setName('');
+    setEmailOrPhone('');
+    setPassword('');
+    setErrorMsg('');
+    setSuccessMsg('');
+  }, [mode]);
 
   const handleToggleMode = (newMode) => {
     setMode(newMode);
+    setName('');
+    setEmailOrPhone('');
+    setPassword('');
     setErrorMsg('');
     setSuccessMsg('');
     if (newMode === 'login' && onNavigateToLogin) {
@@ -49,27 +60,6 @@ export default function AuthPage({
     } else if (newMode === 'signup' && onNavigateToSignup) {
       onNavigateToSignup();
     }
-  };
-
-  // 1-Click Instant Demo Autofill
-  const handleQuickDemo = (demoRole) => {
-    setRole(demoRole);
-    setErrorMsg('');
-    setShowForgotTip(false);
-
-    if (demoRole === 'recruiter') {
-      if (mode === 'signup') setName('Akanksha (Brand Lead)');
-      setEmailOrPhone('recruiter@stageup.in');
-      setPassword('stageup123');
-      setSuccessMsg('Recruiter demo credentials filled!');
-    } else {
-      if (mode === 'signup') setName('Priya Sharma (Creator)');
-      setEmailOrPhone('talent@stageup.in');
-      setPassword('stageup123');
-      setSuccessMsg('Creator demo credentials filled!');
-    }
-
-    setTimeout(() => setSuccessMsg(''), 2500);
   };
 
   const handleSubmit = async (e) => {
@@ -341,7 +331,7 @@ export default function AuthPage({
           )}
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} autoComplete="off" className="space-y-4">
             
             {/* Full Name (Sign up only) */}
             {mode === 'signup' && (
@@ -355,6 +345,8 @@ export default function AuthPage({
                   </div>
                   <input
                     type="text"
+                    name="full_name"
+                    autoComplete="off"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder={role === 'recruiter' ? 'e.g. Zenith Media' : 'e.g. Priya Sharma'}
@@ -376,12 +368,14 @@ export default function AuthPage({
                 </div>
                 <input
                   type="text"
+                  name="user_identifier"
+                  autoComplete="off"
                   value={emailOrPhone}
                   onChange={(e) => {
                     setEmailOrPhone(e.target.value);
                     setErrorMsg('');
                   }}
-                  placeholder="name@example.com or mobile"
+                  placeholder="Enter email or mobile number"
                   className="w-full pl-9 pr-3 py-2 text-sm rounded-btn bg-surface border border-border focus:border-accent focus:outline-none text-text placeholder:text-text-muted transition-colors"
                   required
                 />
@@ -390,32 +384,23 @@ export default function AuthPage({
 
             {/* Password */}
             <div>
-              <div className="flex items-center justify-between mb-1">
-                <label className="block text-xs font-medium text-text">
-                  Password
-                </label>
-                {mode === 'login' && (
-                  <button
-                    type="button"
-                    onClick={() => setShowForgotTip(!showForgotTip)}
-                    className="text-[11px] text-text-muted hover:text-accent transition-colors cursor-pointer"
-                  >
-                    Forgot password?
-                  </button>
-                )}
-              </div>
+              <label className="block text-xs font-medium text-text mb-1">
+                Password
+              </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-muted">
                   <Lock className="w-4 h-4" />
                 </div>
                 <input
                   type={showPassword ? 'text' : 'password'}
+                  name="user_password"
+                  autoComplete="new-password"
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
                     setErrorMsg('');
                   }}
-                  placeholder="At least 6 characters"
+                  placeholder="Enter password (min 6 characters)"
                   className="w-full pl-9 pr-10 py-2 text-sm rounded-btn bg-surface border border-border focus:border-accent focus:outline-none text-text placeholder:text-text-muted transition-colors"
                   required
                 />
@@ -427,12 +412,6 @@ export default function AuthPage({
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
-
-              {showForgotTip && (
-                <p className="text-[11px] text-accent mt-1 bg-accent/5 p-2 rounded-btn border border-accent/20">
-                  Tip: For instant demo testing, click one of the quick autofill links below or use password <code className="font-mono font-bold">stageup123</code>.
-                </p>
-              )}
             </div>
 
             {/* Remember Me */}
@@ -465,30 +444,8 @@ export default function AuthPage({
             </button>
           </form>
 
-          {/* Quick Demo Autofill (Clean, minimal 1-line helper) */}
-          <div className="mt-6 pt-4 border-t border-border flex items-center justify-between text-[11px] text-text-muted">
-            <span>Quick Demo:</span>
-            <div className="flex items-center gap-2 font-medium">
-              <button
-                type="button"
-                onClick={() => handleQuickDemo('recruiter')}
-                className="hover:text-accent transition-colors underline cursor-pointer"
-              >
-                Recruiter
-              </button>
-              <span>•</span>
-              <button
-                type="button"
-                onClick={() => handleQuickDemo('talent')}
-                className="hover:text-accent transition-colors underline cursor-pointer"
-              >
-                Creator
-              </button>
-            </div>
-          </div>
-
           {/* Trust strip */}
-          <div className="mt-4 flex items-center justify-center gap-1.5 text-[11px] text-text-muted">
+          <div className="mt-6 pt-4 border-t border-border flex items-center justify-center gap-1.5 text-[11px] text-text-muted">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
             <span>100% Escrow Protected &bull; Zero Agency Fees</span>
           </div>
