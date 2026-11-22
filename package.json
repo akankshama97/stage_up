@@ -11,6 +11,6 @@
     "seed": "node backend/server.js"
   },
   "keywords": ["talent", "reels", "indian-creators", "mern", "vite", "tailwind"],
-  "author": "StageUp Team",
+  "author": "Akanksha Maurya",
   "license": "ISC"
 }
