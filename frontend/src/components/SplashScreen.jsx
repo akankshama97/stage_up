@@ -10,7 +10,10 @@ import {
   Briefcase,
   Search,
   Check,
-  LogOut
+  LogOut,
+  ShieldCheck,
+  MessageCircle,
+  Sparkles
 } from 'lucide-react';
 import { Button, Card, Badge, Container, Section } from './common';
 
@@ -436,56 +439,92 @@ export default function SplashScreen({
       </Section>
 
       {/* 5. HOW IT WORKS */}
-      <Section id="how-it-works" className="py-12 sm:py-20 border-t border-border">
+      <Section id="how-it-works" className="py-14 sm:py-20 border-t border-border">
         <Container>
-          <div className="mb-10 text-left">
-            <h2 className="font-heading font-bold text-2xl sm:text-3xl text-text mb-2">
-              How it works
+          <div className="mb-10 text-center max-w-2xl mx-auto">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold text-accent bg-accent/10 border border-accent/20 mb-3">
+              <Sparkles className="w-3.5 h-3.5" /> Simple 3-Step Workflow
+            </span>
+            <h2 className="font-heading font-bold text-2xl sm:text-4xl text-text mb-3">
+              How StageUp works
             </h2>
-            <p className="text-text-muted text-sm sm:text-base">
-              A transparent, proof-first hiring flow in three simple steps.
+            <p className="text-text-muted text-sm sm:text-base leading-relaxed">
+              Hire vetted Indian creators by their actual timeline exports — transparent, fast, and 100% escrow protected.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 relative">
             {/* Step 1 */}
-            <div className="space-y-3">
-              <div className="w-7 h-7 rounded-full border border-border bg-surface text-text flex items-center justify-center font-heading font-bold text-xs select-none">
-                1
+            <Card className="p-6 sm:p-7 flex flex-col justify-between relative group hover:border-accent/40 transition-all duration-200">
+              <div>
+                <div className="flex items-center justify-between mb-5">
+                  <div className="w-10 h-10 rounded-xl bg-surface-muted border border-border flex items-center justify-center group-hover:bg-accent/10 transition-colors">
+                    <Play className="w-4 h-4 text-accent fill-accent ml-0.5" />
+                  </div>
+                  <span className="font-mono text-xs font-bold text-text-muted px-2.5 py-1 rounded-md bg-surface-muted border border-border">
+                    01
+                  </span>
+                </div>
+                <h3 className="font-heading font-bold text-lg text-text mb-2">
+                  Browse proof reels
+                </h3>
+                <p className="text-sm text-text-muted leading-relaxed mb-6">
+                  Watch 30-second raw timeline exports, DaVinci color grades, and before-and-after work samples.
+                </p>
               </div>
-              <h3 className="font-heading font-bold text-base text-text">
-                Browse proof reels
-              </h3>
-              <p className="text-sm text-text-muted leading-relaxed">
-                Watch 30-second raw timeline exports and before-and-after work samples.
-              </p>
-            </div>
+              <div className="pt-4 border-t border-border flex items-center justify-between text-xs">
+                <span className="font-medium text-text">No CVs or resumes</span>
+                <span className="font-semibold text-accent">30s video proof</span>
+              </div>
+            </Card>
 
             {/* Step 2 */}
-            <div className="space-y-3">
-              <div className="w-7 h-7 rounded-full border border-border bg-surface text-text flex items-center justify-center font-heading font-bold text-xs select-none">
-                2
+            <Card className="p-6 sm:p-7 flex flex-col justify-between relative group hover:border-accent/40 transition-all duration-200">
+              <div>
+                <div className="flex items-center justify-between mb-5">
+                  <div className="w-10 h-10 rounded-xl bg-surface-muted border border-border flex items-center justify-center group-hover:bg-accent/10 transition-colors">
+                    <ShieldCheck className="w-5 h-5 text-accent stroke-[1.8]" />
+                  </div>
+                  <span className="font-mono text-xs font-bold text-text-muted px-2.5 py-1 rounded-md bg-surface-muted border border-border">
+                    02
+                  </span>
+                </div>
+                <h3 className="font-heading font-bold text-lg text-text mb-2">
+                  Check upfront pricing
+                </h3>
+                <p className="text-sm text-text-muted leading-relaxed mb-6">
+                  See exact per-project rates and turnaround times upfront. No surprise agency markups or hidden fees.
+                </p>
               </div>
-              <h3 className="font-heading font-bold text-base text-text">
-                Check upfront pricing
-              </h3>
-              <p className="text-sm text-text-muted leading-relaxed">
-                See exact per-project rates and turnaround times before you start chatting.
-              </p>
-            </div>
+              <div className="pt-4 border-t border-border flex items-center justify-between text-xs">
+                <span className="font-medium text-text">Rates from ₹250</span>
+                <span className="font-semibold text-accent">0% Agency Cut</span>
+              </div>
+            </Card>
 
             {/* Step 3 */}
-            <div className="space-y-3">
-              <div className="w-7 h-7 rounded-full border border-border bg-surface text-text flex items-center justify-center font-heading font-bold text-xs select-none">
-                3
+            <Card className="p-6 sm:p-7 flex flex-col justify-between relative group hover:border-accent/40 transition-all duration-200">
+              <div>
+                <div className="flex items-center justify-between mb-5">
+                  <div className="w-10 h-10 rounded-xl bg-surface-muted border border-border flex items-center justify-center group-hover:bg-accent/10 transition-colors">
+                    <MessageCircle className="w-5 h-5 text-accent stroke-[1.8]" />
+                  </div>
+                  <span className="font-mono text-xs font-bold text-text-muted px-2.5 py-1 rounded-md bg-surface-muted border border-border">
+                    03
+                  </span>
+                </div>
+                <h3 className="font-heading font-bold text-lg text-text mb-2">
+                  Chat directly on WhatsApp
+                </h3>
+                <p className="text-sm text-text-muted leading-relaxed mb-6">
+                  Message creators straight away, share your project footage, and pay safely with Escrow protection.
+                </p>
               </div>
-              <h3 className="font-heading font-bold text-base text-text">
-                Chat directly on WhatsApp
-              </h3>
-              <p className="text-sm text-text-muted leading-relaxed">
-                Message creators straight away with escrow protection on every order.
-              </p>
-            </div>
+              <div className="pt-4 border-t border-border flex items-center justify-between text-xs">
+                <span className="font-medium text-text">Direct 1-on-1 chat</span>
+                <span className="font-semibold text-accent">100% Escrow Safe</span>
+              </div>
+            </Card>
           </div>
         </Container>
       </Section>
