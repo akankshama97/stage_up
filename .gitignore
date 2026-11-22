@@ -93,9 +93,20 @@ lerna-debug.log*
 coverage/
 .nyc_output/
 
-# --- Misc ---
+# --- Local Databases & Storage ---
+*.sqlite
+*.sqlite3
+*.db
+dump.rdb
+
+# --- Temporary & Misc ---
 .cache/
 .parcel-cache/
 .vercel
 .turbo
 *.tsbuildinfo
+tmp/
+temp/
+.temp/
+*.bak
+*.orig
