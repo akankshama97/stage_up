@@ -91,7 +91,7 @@ STAGEUP/
 │   ├── data/                 # Seed talent and project data
 │   ├── models/               # Mongoose schemas (Talent, Order, Gig, User)
 │   ├── server.js             # Express API server with in-memory fallback
-│   ├── .env.example          # Environment variables template
+│   ├── .env.example         
 │   └── package.json
 ├── frontend/
 │   ├── public/
@@ -130,7 +130,7 @@ STAGEUP/
 
 ### Prerequisites
 - Node.js (v18.0 or higher)
-- npm or yarn
+- npm install
 
 ### 1. Clone the repository
 ```bash
@@ -144,7 +144,6 @@ cd backend
 npm install
 npm start
 ```
-*Backend runs on `http://localhost:5000` with automated in-memory seed data.*
 
 ### 3. Start the Frontend
 In a separate terminal window:
@@ -152,20 +151,6 @@ In a separate terminal window:
 cd frontend
 npm install
 npm run dev
-```
-*Frontend runs on `http://localhost:5173`.*
-
----
-
-## 🔑 Demo Credentials
-
-You can test the entire platform instantly using the built-in **Quick Demo** buttons on the Login page:
-
-| Role | Email / Identifier | Password | Access Capabilities |
-| :--- | :--- | :--- | :--- |
-| **Recruiter** | `recruiter@stageup.in` | `stageup123` | Browse reels, AI Match filter, book Escrow orders, view proofs |
-| **Creator** | `talent@stageup.in` | `stageup123` | Take Live Skill Test, view Skill Passport, manage orders |
-
 ---
 
 ## 📡 REST API Reference
